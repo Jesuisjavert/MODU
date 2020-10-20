@@ -16,3 +16,8 @@ class Client(models.Model):
     name = models.CharField(max_length=20)
     age = models.IntegerField()
     gender = models.CharField(max_length=10)
+
+class Gym(models.Model):
+    lat = models.FloatField()
+    lon = models.FloatField()
+    name = models.CharField(max_length=50)
