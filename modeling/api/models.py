@@ -15,3 +15,9 @@ class TrainerComment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="trainercomment")
     rate = models.IntegerField()
     content = models.CharField(max_length=800)
+
+class ProgramComment(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="programcomment")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programcomment")
+    rate = models.IntegerField()
+    content = models.CharField(max_length=800)
