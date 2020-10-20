@@ -9,6 +9,7 @@ class Program(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="program")
     price = models.IntegerField()
     visit_count = models.IntegerField(default=0)
+    tags = models.ManyToManyField(Tag)
 
 class TrainerComment(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="trainercomment")

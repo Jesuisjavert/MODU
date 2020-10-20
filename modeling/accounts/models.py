@@ -24,7 +24,7 @@ class Gym(models.Model):
 
 class Trainer(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='trainer')
-    gym = models.ForeignKey(Gym, default=None, on_delete=models.SET_DEFAULT, related_name='gym', null=True, blank=True)
+    gym = models.ForeignKey(Gym, default=None, on_delete=models.SET_DEFAULT, related_name='trainer', null=True, blank=True)
     name = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
     content = models.CharField(max_length=800)
