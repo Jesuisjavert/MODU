@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 # Create your models here.
 
 class User(AbstractUser):
@@ -9,3 +10,9 @@ class User(AbstractUser):
 class UserProfile(models.Model):
     # 이미지경로 나중에 추가 필요함
     profile_img = models.ImageField(blank=True,null=True)
+
+class Client(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client')
+    name = models.CharField(max_length=20)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=10)
