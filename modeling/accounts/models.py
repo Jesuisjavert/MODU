@@ -22,9 +22,9 @@ class Gym(models.Model):
     lon = models.FloatField()
     name = models.CharField(max_length=50)
 
-class Trainer(models.Modle):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='trainer')
-    gym = models.ForeignKey(Gym, default=None, on_delete=models.SET_NULL, related_name='gym')
+class Trainer(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='trainer', null=True, blank=True)
+    gym = models.ForeignKey(Gym, default=None, on_delete=models.SET_DEFAULT, related_name='gym')
     name = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
     content = models.CharField(max_length=800)
