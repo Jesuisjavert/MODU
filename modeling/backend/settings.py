@@ -25,7 +25,7 @@ SECRET_KEY = 'smmipgcaf*9fiu=-%^38415l^tp1s6-#fn3kkbji+*yn1&4y*1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,45 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # django rest_framework 
+    'rest_framework',
+    'rest_framework.authtoken',
+    # dj_rest_auth
+    'dj_rest_auth',
+    # django-allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth.registration',
+    # social account login
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+    # 사용하는 앱
+    'accounts',
+    'api',
 ]
+# django-allauth에서 사이트를 인식해주는 거
+SITE_ID = 1
+# django-simple-jwt
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    )
+}
+
+REST_USE_JWT = True
+
+# KAKAO PROVIDERS 정보
+SOCIALACCOUNT_PROVIDERS = {
+    'kakao' : {
+        "APP" :{
+            'client_id' : 'a84937ea1735705441cffc81dfd4ea41',
+            'secret' : 493547,
+        }
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,9 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -118,3 +156,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+AUTH_USER_MODEL = 'accounts.User'
