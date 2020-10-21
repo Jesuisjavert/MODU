@@ -2,3 +2,95 @@
 
 
 
+## Vue + Ionic
+
+### vue 설치
+
+```bash
+$ vue-cli install
+npm i -g @vue/cli-init
+
+$ project create
+vue init webpack my-project
+
+$ project start
+cd my-project
+npm run dev
+
+# 현재 진행중 방법
+$ project create
+vue create zip-info-pwa
+cd zip-info-pwa
+
+$ vue-router install
+vue add router
+```
+
+
+
+### ionic4 설치
+
+```bash
+$ ionic4 install
+npm i @ionic/vue
+
+$ if error
+npm i @ionic/vue@0.0.4
+```
+
+
+
+#### main.js
+
+> main.js에 라이브러리를 import 해서 사용
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import Ionic from '@ionic/vue'
+import '@ionic/core/css/ionic.bundle.css'
+
+Vue.use(Ionic)
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+
+
+
+
+## Only Ionic 
+
+### 프로젝트 생성
+
+```bash
+$ ionic install
+npm i -g @ionic/cli
+
+$ project create
+ionic start { myApp } tabs
+
+cd myApp
+ionic serve
+```
+
+
+
+
+
+
+
+
+
+#### 참고링크
+
+- ionic + vue
+  - https://ui.toast.com/weekly-pick/ko_20181206/
+- ionic 공식문서
+  - https://ionicframework.com/docs/intro/cli
+- 
