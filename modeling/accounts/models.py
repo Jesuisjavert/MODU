@@ -3,9 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 # Create your models here.
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+    
 class User(AbstractUser):
     is_first = models.IntegerField(default=0)
-
 
 class UserProfile(models.Model):
     # 이미지경로 나중에 추가 필요함
