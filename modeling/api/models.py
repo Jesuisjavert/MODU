@@ -19,3 +19,7 @@ class ProgramComment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programcomment")
     rate = models.IntegerField()
     content = models.CharField(max_length=800)
+
+class ProgramPayment(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programpayment")
+    program = models.ForeginKey(Program, on_delete=models.CASCADE, related_name="programpayment")
