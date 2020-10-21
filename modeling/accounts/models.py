@@ -5,7 +5,7 @@ from django.conf import settings
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
-    
+
 class User(AbstractUser):
     is_first = models.IntegerField(default=0)
 
@@ -32,3 +32,4 @@ class Trainer(models.Model):
     content = models.CharField(max_length=800)
     gender = models.CharField(max_length=10)
     age = models.IntegerField()
+    tags = models.ManyToManyField(Tag)
