@@ -27,3 +27,8 @@ class ProgramPayment(models.Model):
 class ProgramDetail(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programdetail")
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programdetail")
+
+class ProgramDayDetail(models.Model):
+    Program_detail = models.ForeignKey(ProgramDetail, on_delete=models.CASCADE, related_name="programdaydetail")
+    menu = models.CharField(max_length=800)
+    chulseok = models.CharField(max_length=100)
