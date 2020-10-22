@@ -19,6 +19,12 @@ class ProgramComment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programcomment")
     rate = models.IntegerField()
     content = models.CharField(max_length=800)
+    create_at = models.DateTimeField(auto_now_add=True,verbose_name='프로그램 등록일')
+    start_date = models.DateField(verbose_name='프로그램 시작일')
+    end_date = models.DateField(verbose_name='프로그램 종료일')
+    class_registration_start_day = models.DateTimeField(verbose_name='프로그램 수강신청 시작날짜')
+    class_registration_end_day = models.DateTimeField(verbose_name='프로그램 수강신청 종료날짜')
+    max_student = models.IntegerField()
 
 class ProgramPayment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programpayment")
