@@ -19,6 +19,17 @@ ionic serve
 
 
 
+## QuickStart(Vue + Ionic)
+
+### 프로젝트 생성
+
+```bash
+$ ionic global install
+npm i -g @ionic/cli@latest
+
+cd myApp
+```
+
 
 
 

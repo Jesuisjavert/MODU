@@ -45,6 +45,33 @@
 
 - nodejs 라이브러리 검색
 
+- 장점
+  - 패키지 확인이 간편하게 가능
+  - cdn보다 더 쉽게 설치가 가능
+    - 해당 공식페이지에 들어가서 찾아볼 필요가 없음
+
+- 명령어
+
+```bash
+$ start(create package.json)
+npm init
+npm init -y(기본값으로 바로 생성)
+
+$ library install
+npm install { jquery }
+
+$ library uninstall
+npm uninstall { gulp }
+
+$ global install
+npm install --global { gulp }
+
+$ 라이브러리 위치 확인
+{ gulp }
+
+$ 
+```
+
 
 
 
