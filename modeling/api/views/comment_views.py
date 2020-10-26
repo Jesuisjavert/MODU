@@ -7,3 +7,9 @@ from ..serializers import TrainerSerializer
 class TrainerView(generics.ListAPIView):
     queryset = Trainer.objects.all()
     serializer_class = TrainerSerializer
+
+class TrainerDetailView(APIView):
+    def get(self, request, pk):
+        trainer = Trainer.objects.get(pk=pk)
+        serializer = TrainerSerializer(trainer)
+        return Response(serializer.data)
