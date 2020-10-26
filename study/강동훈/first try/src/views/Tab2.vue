@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 2</ion-title>
+        <ion-title>당신의 스케쥴</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import Card from '@/components/Card.vue';
 
 export default  {
   name: 'Tab2',
-  components: { Card, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { Card, IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonPage}
 }
 </script>
