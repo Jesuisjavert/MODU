@@ -18,7 +18,7 @@ class Client(models.Model):
     name = models.CharField(max_length=20)
     age = models.IntegerField()
     gender = models.CharField(max_length=10)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, null=True)
 
 class Gym(models.Model):
     lat = models.FloatField()
@@ -33,4 +33,4 @@ class Trainer(models.Model):
     content = models.CharField(max_length=800)
     gender = models.CharField(max_length=10)
     age = models.IntegerField()
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, null=True)
