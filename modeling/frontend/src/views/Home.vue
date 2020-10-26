@@ -26,12 +26,12 @@
                     </g>
                 </g>
             </svg></button>
-            <button @click="test">테스트</button>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import {mapMutations, mapState} from 'vuex'
     export default {
         data(){
             return {
@@ -39,16 +39,6 @@ import axios from 'axios'
             }
         },
         methods: {
-            test(){
-                console.log(window.Kakao.Auth.getAccessToken())
-                window.Kakao.API.request({
-                    url:'/v2/user/me',
-                    success : res =>{
-                        console.log(res,'여기는 어떻게 보내는지 알아보기 위함입니다.')
-                    }
-                })
-
-            },
             kakaoLogin() {
                 window.Kakao.Auth.login({
                     scope : 'profile, account_email',
@@ -75,7 +65,8 @@ import axios from 'axios'
                         form.append('access_token', accessToken)
                         axios.post('http://127.0.0.1:8000/api/rest-auth/kakao/login/',form)
                         .then((res)=>{
-                          console.log(res)
+                          this.SET_TOKEN(res.data.access_token)
+                          this.isFirstLogin()
                         })
                         .catch((err)=>{
                           console.log(err)
@@ -86,7 +77,24 @@ import axios from 'axios'
                         console.log(error);
                     }
                 })
-            }
+            },
+            async isFirstLogin(){
+                const Token = 'Bearer '+this.authToken
+                axios.get('http://127.0.0.1:8000/api/rest-auth/user/',{
+          headers: {
+            Authorization: Token,
+          },
+        })
+        .then((res)=>{
+            console.log(res)
+        })
+
+            },
+            ...mapMutations(['SET_TOKEN'])
+        },
+        computed : {
+            ...mapState(['authToken'])
         }
+
     }
 </script>
