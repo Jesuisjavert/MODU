@@ -11,3 +11,8 @@ class GymSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gym
         fields = '__all__'
+
+class TrainerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trainer
+        fields = '__all__'
