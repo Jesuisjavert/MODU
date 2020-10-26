@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel, IonButton } from '@ionic/vue';
 
 export default {
-  components: { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel }
+  components: { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonIcon, IonItem, IonLabel, IonCardHeader, IonButton }
 };
 </script>
