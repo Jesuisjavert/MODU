@@ -16,3 +16,8 @@ class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
         fields = '__all__'
+
+class TrainerCommentSerialiezr(serializers.ModelSerializer):
+    class Meta:
+        model = TrainerComment
+        fields = '__all__'
