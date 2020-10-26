@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Trainer)
 admin.site.register(Client)
+admin.site.register(Tag)
