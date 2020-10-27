@@ -5,27 +5,28 @@
 
         <ion-slide>
           <div class="slide">
-            <img src="@/assets/slide-1.png"/>
+            <img src="@/assets/logo3.png"/>
             <h2>Welcome</h2>
-            <p>The <b>ionic conference page</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+            <p>모두의 헬스에 오신 것을 환영합니다</p>
           </div>
         </ion-slide>
 
         <ion-slide>
-          <img src="@/assets/slide-2.png"/>
-          <h2>What is Ionic?</h2>
-          <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.</p>
+          <img src="@/assets/035-gym.png"/>
+          <h2>모두의 헬스에선?</h2>
+          <p><b> 내게 꼭 맞는 Personal Trainer</b> 를 만나 볼까요?</p>
         </ion-slide>
 
         <ion-slide>
-          <img src="@/assets/slide-3.png"/>
-          <h2>What is Ionic Appflow?</h2>
-          <p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of page development agility to mobile dev teams.</p>
+          <img src="@/assets/013-calendar.png"/>
+          <h2>Trainer와의 1:1 연결</h2>
+          <p><b>모두의 헬스 어플로</b> 운동루틴과 식단관리 도움을 받을 수 있습니다.</p>
         </ion-slide>
 
         <ion-slide>
-          <img src="@/assets/slide-4.png"/>
-          <h2>Ready to Play?</h2>
+          <img src="@/assets/049-muscle.png"/>
+          <h2>오늘 더 건강히</h2>
+          <p> 모두의 헬스, 당신의 건강한 삶을 위해</p>
             <a href="/tabs/tab1"> Trainer</a>
             <a href="/tabs/tab5"> Trainee</a>
         </ion-slide>
