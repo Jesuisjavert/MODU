@@ -81,13 +81,13 @@ import {mapMutations, mapState} from 'vuex'
             async isFirstLogin(){
                 const Token = 'Bearer '+this.authToken
                 axios.get('http://127.0.0.1:8000/api/rest-auth/user/',{
-          headers: {
-            Authorization: Token,
-          },
-        })
-        .then((res)=>{
-            console.log(res)
-        })
+                    headers: {
+                        Authorization: Token,
+                    },
+                    })
+                    .then((res)=>{
+                        console.log(res)
+                    })
 
             },
             ...mapMutations(['SET_TOKEN'])
