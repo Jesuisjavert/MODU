@@ -12,7 +12,7 @@ class UserSerializers(serializers.ModelSerializer):
 class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
-        fields = '__all__'
+        exclude = ('user',)
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:

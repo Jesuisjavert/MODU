@@ -33,4 +33,4 @@ class Trainer(models.Model):
     content = models.CharField(max_length=800)
     gender = models.CharField(max_length=10)
     age = models.IntegerField()
-    tags = models.ManyToManyField(Tag, null=True)
+    tags = models.ManyToManyField(Tag, null=True, blank=True)
