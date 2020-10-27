@@ -14,18 +14,16 @@
       
       <Card />
 
-      <ion-icon name="airplane-outline" size="large"></ion-icon>
-      피슝
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonIcon, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import Card from '@/components/Card.vue';
 
 export default  {
   name: 'Tab2',
-  components: { Card, IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonPage}
+  components: { Card, IonHeader, IonToolbar, IonTitle, IonContent, IonPage}
 }
 </script>
