@@ -25,5 +25,12 @@ class TrainerDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TrainerCommentView(generics.ListCreateAPIView):
-    queryset = TrainerComment
+    queryset = TrainerComment.objects.all()
     serializer_class = TrainerCommentSerialiezr
+
+    def post(self, request, pk, format=None):
+        serializer = TrainerCommentSerialiezr(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(trainer=pk, client=request.user.id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
