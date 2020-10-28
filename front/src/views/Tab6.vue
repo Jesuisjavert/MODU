@@ -12,28 +12,17 @@
         </ion-toolbar>
       </ion-header>
       
-  <FullCalendar :options="calendarOptions" />
-  
-   </ion-content>
+      <ExploreContainer name="Tab 6 page" />
+    </ion-content>
   </ion-page>
 </template>
 
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import FullCalendar from '@fullcalendar/vue'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import ExploreContainer from '@/components/ExploreContainer.vue';
 
 export default  {
   name: 'Tab6',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, FullCalendar},
-  data() {
-    return {
-      calendarOptions: {
-        plugins: [ dayGridPlugin, interactionPlugin ],
-        initialView: 'dayGridMonth'
-      }
-    }
-  }
+  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
 }
 </script>
