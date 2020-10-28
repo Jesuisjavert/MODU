@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from accounts.models import Gym
+from accounts.serializers import ClientSerializer
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +19,7 @@ class TrainerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TrainerCommentSerialiezr(serializers.ModelSerializer):
+    client = ClientSerializer(read_only=True)
     class Meta:
         model = TrainerComment
-        fields = '__all__'
+        fields = ('rate', 'content','client')
