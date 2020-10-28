@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Trainer from '../views/Trainer.vue'
 import Mypage from '../views/Mypage.vue'
 import SubmitProfile from '../views/submitProfile.vue'
+import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -11,6 +12,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path : '/login',
+    name : 'Login',
+    component : Login
   },
   {
     path: '/trainer',
