@@ -12,9 +12,9 @@ class UserSerializers(serializers.ModelSerializer):
 class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
-        exclude = ('user',)
+        exclude = ('user','tags')
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = '__all__'
+        exclude = ('user','tags')

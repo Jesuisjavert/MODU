@@ -18,11 +18,12 @@ class KakaoLogin(SocialLoginView):
     adapter_class = KakaoOAuth2Adapter
 
 class UserInfo(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     # is_first 0:초기 1:트레이너 2:클라이언트
     def get_object(self):
         try:
+            print(self.request.user)
             return User.objects.get(username=self.request.user)
         except User.DoesNotExist:
             raise Http404
@@ -46,21 +47,29 @@ class UserInfo(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        print(request.user)
         if request.user.is_first!=0:
             return Response({"message": "이미 회원가입을 하였습니다."}, status=status.HTTP_400_BAD_REQUEST)
-
         if request.data['is_first']=='1':
+            print('여기인가요?')
             serializer = TrainerSerializer(data=request.data)
             if serializer.is_valid():
+                print('여기까지?')
                 serializer.save(user=request.user)
                 self.put_user(1)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
+            print('여기인가?')
             serializer = ClientSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(user=request.user)
                 self.put_user(2)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def test(request):
+    print(request.user)
+    return Response({'data':True})
