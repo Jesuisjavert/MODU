@@ -7,13 +7,19 @@
 
 <script>
 import axios from 'axios'
+import constants from '@/api/constants'
 export default {
+  data(){
+    return {
+      constants,
+    }
+  },
   methods: {
     test() {
       const form = {
 
       }
-      axios.post('http://127.0.0.1:8000/api/trainer/1/comment/',form)
+      axios.post(`${this.constants.API_URL}trainer/1/comment/`,form)
         .then((res)=>{
           console.log(res.data)
         })

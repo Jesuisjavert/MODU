@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Trainer from '../views/Trainer.vue'
 import Mypage from '../views/Mypage.vue'
-
+import SubmitProfile from '../views/submitProfile.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,6 +16,11 @@ const routes = [
     path: '/trainer',
     name: 'Trainer',
     component: Trainer
+  },
+  {
+    path : '/submitProfile',
+    name : 'SubmitProfile',
+    component : SubmitProfile
   },
   {
     path: '/mypage',

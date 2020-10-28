@@ -31,11 +31,13 @@
 
 <script>
 import axios from 'axios'
+import constants from '@/api/constants'
 import {mapMutations, mapState} from 'vuex'
     export default {
         data(){
             return {
-                data : ''
+                data : '',
+                constants,
             }
         },
         methods: {
@@ -63,7 +65,7 @@ import {mapMutations, mapState} from 'vuex'
                         let accessToken = authObj.access_token
                         let form = new FormData()
                         form.append('access_token', accessToken)
-                        axios.post('http://127.0.0.1:8000/api/rest-auth/kakao/login/',form)
+                        axios.post(`${this.constants.API_URL}rest-auth/kakao/login/`,form)
                         .then((res)=>{
                           this.SET_TOKEN(res.data.access_token)
                           this.isFirstLogin()
@@ -80,13 +82,13 @@ import {mapMutations, mapState} from 'vuex'
             },
             async isFirstLogin(){
                 const Token = 'Bearer '+this.authToken
-                axios.get('http://127.0.0.1:8000/api/rest-auth/user/',{
+                axios.get(`${this.constants.API_URL}rest-auth/user/`,{
                     headers: {
                         Authorization: Token,
                     },
                     })
-                    .then((res)=>{
-                        console.log(res)
+                    .then(()=>{
+                        this.$router.push({name:'SubmitProfile'})
                     })
 
             },
