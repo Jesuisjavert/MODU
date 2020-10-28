@@ -82,21 +82,26 @@ export default {
                 })
             },
             async isFirstLogin(){
-                const Token = 'Bearer '+this.authToken
+                const Token = 'Bearer '+this.userToken
                 axios.get(`${this.constants.API_URL}rest-auth/user/`,{
                     headers: {
                         Authorization: Token,
                     },
                     })
-                    .then(()=>{
+                    .then((res)=>{
+                        if (res.data.is_first === 0 ){
+
                         this.$router.push({name:'SubmitProfile'})
+                        } else{
+                            this.$router.go(-1)
+                        }
                     })
 
             },
             ...mapMutations(['SET_TOKEN'])
         },
         computed : {
-            ...mapState(['authToken'])
+            ...mapState(['userToken'])
         }
 
     }

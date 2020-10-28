@@ -5,14 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userToken : sessionStorage.getItem('auth-Token')
+    userToken : sessionStorage.getItem('auth-token')
   },
   getters : {
     isLogined : (state) => !!state.userToken
   },
   mutations: {
     SET_TOKEN(state, token) {
-      state.authToken = token;
+      state.userToken = token;
       sessionStorage.setItem("auth-token", token);
     }
   },
