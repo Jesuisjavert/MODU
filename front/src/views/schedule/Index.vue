@@ -7,15 +7,16 @@
   import LoadSections from '@/mixins/load-sections'
 
   export default {
-    name: 'Home',
+    name: 'Schedule',
 
-    metaInfo: { title: 'Home' },
+    metaInfo: { title: 'Schedule' },
 
     extends: View,
 
     mixins: [
       LoadSections([
-        'calendar',
+        'Schedule',
+        
       ]),
     ],
 

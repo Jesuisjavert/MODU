@@ -41,6 +41,11 @@ export default new Router({
           name: 'Oauth',
           component: () => import('@/views/oauth/Index.vue'),
         },
+        {
+          path: '/schedule',
+          name: 'Schedule',
+          component: () => import('@/views/schedule/Index.vue'),
+        },
       ],
     },
   ],
