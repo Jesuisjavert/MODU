@@ -29,3 +29,9 @@ class ProgramSerialiezer(serializers.ModelSerializer):
     class Meta:
         model = Program
         exclude = ('tags',)
+
+class ProgramCommentSerializer(serializers.ModelSerializer):
+    client = ClientSerializer(read_only=True)
+    class Meta:
+        model = ProgramComment
+        fields = '__all__'
