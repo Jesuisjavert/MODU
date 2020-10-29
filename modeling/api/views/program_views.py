@@ -14,9 +14,8 @@ class ProgramView(generics.ListCreateAPIView):
         serializer = ProgramSerialiezer(data=request.data)
         if request.user.is_first!=1:
             return Response({"message": "트레이너가 아닙니다"},status=status.HTTP_400_BAD_REQUEST)
-
         if serializer.is_valid(raise_exception=True):
-            serializer.save(trainer_id=request.user.id)
+            serializer.save(trainer_id=request.user.trainer.first().id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from ..serializers import TrainerSerializer, TrainerCommentSerializer, ProgramCommentSerializer
-from ..models import TrainerComment, ProgramComment
+from ..models import TrainerComment, ProgramComment, Program
 from django.http import Http404
 
 class TrainerView(generics.ListAPIView):
@@ -34,7 +34,7 @@ class TrainerCommentView(APIView):
     def post(self, request, pk, format=None):
         serializer = TrainerCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(trainer_id=pk, client_id=request.user.id)
+            serializer.save(trainer_id=pk, client_id=request.user.client.first().id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -59,3 +59,18 @@ class TrainerCommentDetailView(APIView):
                 serializer.save(trainer_id=comment.trainer.id, client_id=request.user.id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({"message": "수정 실패"}, status=status.HTTP_400_BAD_REQUEST)
+
+class ProgramCommentView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Program.objects.get(pk=pk)
+        except Program.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        comment = self.get_object(pk).programcomment.all()
+        serializer = ProgramCommentSerializer(comment, many=True)
+        return Response(serializer.data)
+
+    
