@@ -10,4 +10,5 @@ urlpatterns = [
     path('trainer/<int:pk>/comment/', views.TrainerCommentView.as_view(), name="trainercomment"),
     path('trainer/comment/<int:pk>/', views.TrainerCommentDetailView.as_view(), name="trainercommentdetail"),
     path('program/', views.ProgramView.as_view(), name="program"),
+    path('program/<int:pk>/', views.ProgramDetailView.as_view(), name="programdetail"),
 ]
