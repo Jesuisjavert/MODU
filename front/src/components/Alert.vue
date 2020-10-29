@@ -14,6 +14,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   components: { IonButton },
   methods: {
+    //   이 밑은 넣어줘야할 양식입니다. 쓰고 싶은 방식대로 복붙하면 될듯
     async presentAlert() {
       const alert = await alertController
         .create({
