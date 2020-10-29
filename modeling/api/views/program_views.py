@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from ..models import Program
 from ..serializers import ProgramSerialiezer
+from django.http import Http404
 
 class ProgramView(generics.ListCreateAPIView):
     queryset = Program.objects.all()
@@ -20,7 +21,21 @@ class ProgramView(generics.ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProgramDetailView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Program.objects.get(pk=pk)
+        except Program.DoesNotExist:
+            raise Http404
+
     def get(self, request, pk):
-        program = Program.objects.get(pk=pk)
+        program = self.get_object(pk)
         serializer = ProgramSerialiezer(program)
         return Response(serializer.data)
+
+    def delete(self, request, pk):
+        program = self.get_object(pk)
+        if program.trainer.id == request.user.id:
+            program.delete()
+            return Response({"messgae": "삭제 완료"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
