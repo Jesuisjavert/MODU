@@ -18,3 +18,9 @@ class ProgramView(generics.ListCreateAPIView):
             serializer.save(trainer_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProgramDetailView(APIView):
+    def get(self, request, pk):
+        program = Program.objects.get(pk=pk)
+        serializer = ProgramSerialiezer(program)
+        return Response(serializer.data)
