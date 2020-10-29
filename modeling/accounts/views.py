@@ -18,7 +18,7 @@ class KakaoLogin(SocialLoginView):
     adapter_class = KakaoOAuth2Adapter
 
 class UserInfo(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     # is_first 0:초기 1:트레이너 2:클라이언트
     def get_object(self):

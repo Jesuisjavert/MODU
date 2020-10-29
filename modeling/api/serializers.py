@@ -25,6 +25,7 @@ class TrainerCommentSerializer(serializers.ModelSerializer):
         fields = ('id','rate', 'content','client')
 
 class ProgramSerialiezer(serializers.ModelSerializer):
+    trainer = TrainerSerializer(read_only=True)
     class Meta:
         model = Program
-        fields = '__all__'
+        exclude = ('tags',)
