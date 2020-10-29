@@ -18,8 +18,13 @@ class TrainerSerializer(serializers.ModelSerializer):
         model = Trainer
         fields = '__all__'
 
-class TrainerCommentSerialiezr(serializers.ModelSerializer):
+class TrainerCommentSerializer(serializers.ModelSerializer):
     client = ClientSerializer(read_only=True)
     class Meta:
         model = TrainerComment
         fields = ('id','rate', 'content','client')
+
+class ProgramSerialiezer(serializers.ModelSerializer):
+    class Meta:
+        model = Program
+        fields = '__all__'
