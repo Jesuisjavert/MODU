@@ -51,16 +51,13 @@ class UserInfo(APIView):
         if request.user.is_first!=0:
             return Response({"message": "이미 회원가입을 하였습니다."}, status=status.HTTP_400_BAD_REQUEST)
         if request.data['is_first']=='1':
-            print('여기인가요?')
             serializer = TrainerSerializer(data=request.data)
-            if serializer.is_valid():
-                print('여기까지?')
+            if serializer.is_valid(raise_exception=True):
                 serializer.save(user=request.user)
                 self.put_user(1)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            print('여기인가?')
             serializer = ClientSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(user=request.user)
