@@ -1,18 +1,11 @@
 <template>
-  <ion-app>
-    <ion-router-outlet />
-  </ion-app>
+  <v-fade-transition mode="out-in">
+    <router-view />
+  </v-fade-transition>
 </template>
 
-<script lang="ts">
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    IonApp,
-    IonRouterOutlet
+<script>
+  export default {
+    name: '모두의 헬스',
   }
-});
 </script>
