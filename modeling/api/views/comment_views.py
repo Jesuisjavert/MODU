@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..serializers import TrainerSerializer, TrainerCommentSerialiezr
+from ..serializers import TrainerSerializer, TrainerCommentSerializer
 from ..models import TrainerComment
 
 class TrainerView(generics.ListAPIView):
@@ -26,10 +26,10 @@ class TrainerDetailView(APIView):
 
 class TrainerCommentView(generics.ListCreateAPIView):
     queryset = TrainerComment.objects.all()
-    serializer_class = TrainerCommentSerialiezr
+    serializer_class = TrainerCommentSerializer
 
     def post(self, request, pk, format=None):
-        serializer = TrainerCommentSerialiezr(data=request.data)
+        serializer = TrainerCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(trainer_id=pk, client_id=request.user.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -38,7 +38,7 @@ class TrainerCommentView(generics.ListCreateAPIView):
 class TrainerCommentDetailView(APIView):
     def get(self, request, pk):
         comment = TrainerComment.objects.get(pk=pk)
-        serializer = TrainerCommentSerialiezr(comment)
+        serializer = TrainerCommentSerializer(comment)
         return Response(serializer.data)
 
     def delete(self, request, pk):
@@ -51,7 +51,7 @@ class TrainerCommentDetailView(APIView):
     def put(self, request, pk):
         comment = TrainerComment.objects.get(pk=pk)
         if comment.client.user == request.user:
-            serializer = TrainerCommentSerialiezr(comment, data=request.data)
+            serializer = TrainerCommentSerializer(comment, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(trainer_id=comment.trainer.id, client_id=request.user.id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
