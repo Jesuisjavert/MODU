@@ -36,6 +36,10 @@ class TrainerCommentView(generics.ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TrainerCommentDetailView(APIView):
+    def get(self, request, pk):
+        comment = TrainerComment.objects.get(pk=pk)
+        serializer = TrainerCommentSerialiezr(comment)
+        return Response(serializer.data)
 
     def delete(self, request, pk):
         comment = TrainerComment.objects.get(pk=pk)
@@ -44,3 +48,11 @@ class TrainerCommentDetailView(APIView):
             return Response({"message": "삭제 성공"}, status=status.HTTP_201_CREATED)
         return Response({"message": "삭제 실패"}, status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, pk):
+        comment = TrainerComment.objects.get(pk=pk)
+        if comment.client.user == request.user:
+            serializer = TrainerCommentSerialiezr(comment, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(trainer_id=comment.trainer.id, client_id=request.user.id)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({"message": "수정 실패"}, status=status.HTTP_400_BAD_REQUEST)

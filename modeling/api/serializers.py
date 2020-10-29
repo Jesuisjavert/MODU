@@ -22,4 +22,4 @@ class TrainerCommentSerialiezr(serializers.ModelSerializer):
     client = ClientSerializer(read_only=True)
     class Meta:
         model = TrainerComment
-        fields = ('rate', 'content','client')
+        fields = ('id','rate', 'content','client')
