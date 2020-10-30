@@ -163,3 +163,5 @@ test/
 # End of https://www.toptal.com/developers/gitignore/api/django,vue
 
 node_modules/
+
+.config_secret
