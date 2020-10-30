@@ -73,4 +73,11 @@ class ProgramCommentView(APIView):
         serializer = ProgramCommentSerializer(comment, many=True)
         return Response(serializer.data)
 
+    def post(self, request, pk):
+        program = Program.objects.get(pk=pk)
+        serializer = ProgramCommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(program_id=pk, client_id=request.user.client.first().id, trainer_id=program.trainer.id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

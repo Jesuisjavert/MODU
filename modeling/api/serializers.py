@@ -32,6 +32,7 @@ class ProgramSerialiezer(serializers.ModelSerializer):
 
 class ProgramCommentSerializer(serializers.ModelSerializer):
     client = ClientSerializer(read_only=True)
+
     class Meta:
         model = ProgramComment
-        fields = '__all__'
+        exclude = ('program','trainer')
