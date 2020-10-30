@@ -34,14 +34,14 @@ class ProgramDetailView(APIView):
 
     def delete(self, request, pk):
         program = self.get_object(pk)
-        if program.trainer.id == request.user.id:
+        if program.trainer.user.id == request.user.id:
             program.delete()
             return Response({"messgae": "삭제 완료"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def put(self, request, pk):
         program = self.get_object(pk)
-        if program.trainer.id == request.user.id:
+        if program.trainer.user.id == request.user.id:
             serializer = ProgramSerialiezer(program, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save(trainer_id=request.user.id)
