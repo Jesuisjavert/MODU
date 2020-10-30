@@ -20,7 +20,6 @@ class ProgramView(generics.ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProgramDetailView(APIView):
-
     def get_object(self, pk):
         try:
             return Program.objects.get(pk=pk)

@@ -46,7 +46,7 @@ class TrainerCommentDetailView(APIView):
 
     def delete(self, request, pk):
         comment = TrainerComment.objects.get(pk=pk)
-        if comment.client.first().id == request.user.id:
+        if comment.client.user.id == request.user.id:
             comment.delete()
             return Response({"message": "삭제 성공"}, status=status.HTTP_201_CREATED)
         return Response({"message": "삭제 실패"}, status=status.HTTP_400_BAD_REQUEST)
@@ -98,3 +98,12 @@ class ProgramCommentDetailView(APIView):
             programcomment.delete()
             return Response({"message": "삭제 성공"}, status=status.HTTP_201_CREATED)
         return Response({"message": "삭제 실패"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk):
+        programcomment = self.get_object(pk)
+        if programcomment.client.user.id == request.user.id:
+            serializer = ProgramCommentSerializer(programcomment, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(program_id=pk, client_id=request.user.client.first().id, trainer_id=programcomment.trainer.id)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({"message": "수정 실패"}, status=status.HTTP_400_BAD_REQUEST)
