@@ -66,7 +66,19 @@ class UserInfo(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
 
+class Profile(APIView):
+    def post(self,request):
+        loginuser = User.objects.get(id=request.user.id)
+        if loginuser.userprofile.all().exists():
+            loginuser.userprofile.all().delete()
+        serializers = UserProfileSerializer(data=request.data)
+        if serializers.is_valid(raise_exception=True):
+            serializers.save(user=request.user)
+            return Response(serializers.data)
+        return Response(serializer.data)
+
 @api_view(['GET'])
 def test(request):
     print(request.user)
     return Response({'data':True})
+
