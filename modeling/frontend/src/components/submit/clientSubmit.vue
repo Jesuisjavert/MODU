@@ -11,7 +11,6 @@
           <option value="녀">녀</option>
       </select>
       <button @click="submitClient()">제출</button>
-      <button @click="test()">유효횟수 확인용도입니다.</button>
   </div>
 </template>
 
@@ -47,20 +46,6 @@ export default {
                 console.log(err.response)
             })
         },
-        test(){
-            const Token = 'Bearer '+this.userToken
-            axios.get(`${constants.API_URL}rest-auth/test/`,{
-                    headers: {
-                        Authorization: Token,
-                    },
-                    })
-                    .then((res)=>{
-                        console.log(res,'성공')
-                    })
-                    .catch((err)=>{
-                        console.log(err.response)
-                    })
-        }
     },
     computed : {
         ...mapState(['userToken'])

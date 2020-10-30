@@ -85,9 +85,3 @@ class Profile(APIView):
             serializers.save(user=request.user)
             return Response(serializers.data)
         return Response(serializer.data)
-
-@api_view(['GET'])
-def test(request):
-    print(request.user)
-    return Response({'data':True})
-
