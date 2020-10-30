@@ -67,6 +67,15 @@ class UserInfo(APIView):
         return Response(serializer.data)
 
 class Profile(APIView):
+    def get(self,request):
+        user = User.objects.get(id=request.user.id)
+        if user.userprofile.all().exists():
+            userprofile = user.userprofile.all().first()
+            serializers = UserProfileSerializer(userprofile)
+            return Response(serializers.data)
+        else:
+            return Response({'data':False})
+
     def post(self,request):
         loginuser = User.objects.get(id=request.user.id)
         if loginuser.userprofile.all().exists():
