@@ -73,6 +73,8 @@
           </v-menu>
         </v-toolbar>
       </v-sheet>
+
+      <!-- 달력 부분 -->
       <v-sheet height="600">
         <v-calendar
           ref="calendar"
@@ -127,6 +129,42 @@
             </v-card-actions>
           </v-card>
         </v-menu>
+      </v-sheet>
+    </v-col>
+  </v-row>
+</template>
+
+<template>
+  <v-row class="fill-height">
+    <v-col>
+      <v-sheet height="600">
+        <v-calendar
+          ref="calendar"
+          v-model="value"
+          color="primary"
+          type="4day"
+          :events="events"
+          :event-color="getEventColor"
+          :event-ripple="false"
+          @change="getEvents"
+          @mousedown:event="startDrag"
+          @mousedown:time="startTime"
+          @mousemove:time="mouseMove"
+          @mouseup:time="endDrag"
+          @mouseleave.native="cancelDrag"
+        >
+          <template v-slot:event="{ event, timed, eventSummary }">
+            <div
+              class="v-event-draggable"
+              v-html="eventSummary()"
+            ></div>
+            <div
+              v-if="timed"
+              class="v-event-drag-bottom"
+              @mousedown.stop="extendBottom(event)"
+            ></div>
+          </template>
+        </v-calendar>
       </v-sheet>
     </v-col>
   </v-row>
@@ -194,9 +232,9 @@
         const min = new Date(`${start.date}T00:00:00`)
         const max = new Date(`${end.date}T23:59:59`)
         const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
+        const eventCount = this.rnd(days, days + 20) // 이벤트 갯수
 
-        for (let i = 0; i < eventCount; i++) {
+        for (let i = 0; i < eventCount; i++) { // 이벤트 for문 돌아감
           const allDay = this.rnd(0, 3) === 0
           const firstTimestamp = this.rnd(min.getTime(), max.getTime())
           const first = new Date(firstTimestamp - (firstTimestamp % 900000))
@@ -214,8 +252,8 @@
 
         this.events = events
       },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
+      rnd (a, b) { // 이벤트 입력
+        return Math.floor((b - a + 1))
       },
     },
   }
