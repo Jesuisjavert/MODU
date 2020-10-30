@@ -80,4 +80,15 @@ class ProgramCommentView(APIView):
             serializer.save(program_id=pk, client_id=request.user.client.first().id, trainer_id=program.trainer.id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProgramCommentDetailView(APIView):
+    def get_object(self, pk):
+        try:
+            return ProgramComment.objects.get(pk=pk)
+        except ProgramComment.DoesNotExist:
+            raise Http404
     
+    def get(self, request, pk):
+        programcomment = self.get_object(pk)
+        serializer = ProgramCommentSerializer(programcomment)
+        return Response(serializer.data)

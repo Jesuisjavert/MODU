@@ -12,4 +12,5 @@ urlpatterns = [
     path('program/', views.ProgramView.as_view(), name="program"),
     path('program/<int:pk>/', views.ProgramDetailView.as_view(), name="programdetail"),
     path('program/<int:pk>/comment/', views.ProgramCommentView.as_view(), name="programcomment"),
+    path('program/comment/<int:pk>/', views.ProgramCommentDetailView.as_view(), name="programcommentdetail"),
 ]
