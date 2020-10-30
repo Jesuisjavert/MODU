@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+import uuid
 # Create your models here.
 
 class Tag(models.Model):
@@ -9,9 +10,15 @@ class Tag(models.Model):
 class User(AbstractUser):
     is_first = models.IntegerField(default=0)
 
+def user_image_path(instance,filename):
+    uuidstr = str(uuid.uuid1())
+    total = uuidstr+filename
+    return 'api/profile/{0}'.format(total)
+
 class UserProfile(models.Model):
-    # 이미지경로 나중에 추가 필요함
-    profile_img = models.ImageField(blank=True,null=True)
+    profile_img = models.ImageField(upload_to=user_image_path, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='userprofile')
+
 
 class Client(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client')

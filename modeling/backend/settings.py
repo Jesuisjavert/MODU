@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # dj_rest_auth
     'dj_rest_auth',
 
+    'storages',
     # django-allauth
     'django.contrib.sites',
     'allauth',
