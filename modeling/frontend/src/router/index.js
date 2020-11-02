@@ -6,6 +6,8 @@ import Mypage from '../views/Mypage.vue'
 import SubmitProfile from '../views/submitProfile.vue'
 import Login from '../views/Login.vue'
 import store from '../store/index.js'
+import KakaoPayApprove from '../views/KakaoPayApprove.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -34,6 +36,11 @@ const routes = [
     name: 'Mypage',
     component: Mypage
   },
+  {
+    path: '/kakaopay/approve',
+    name: 'KakaoPayApprove',
+    component: KakaoPayApprove
+  }
 ]
 
 const router = new VueRouter({
