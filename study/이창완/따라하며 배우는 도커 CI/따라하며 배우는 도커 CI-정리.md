@@ -26,3 +26,4 @@
   - `docker run hello-world`
   - ![image-20201027212125189](따라하며 배우는 도커 CI-정리.assets/image-20201027212125189.png)
 
+![image-20201102222749605](따라하며 배우는 도커 CI-정리.assets/image-20201102222749605.png)
