@@ -10,7 +10,7 @@
       <v-row>
         <div class="d-flex align-center">
           <v-img
-            :src="require('@/assets/logo2.png')"
+            :src="require('@/assets/modu.png')"
             contain
             class="shrink mr-2"
             height="90"

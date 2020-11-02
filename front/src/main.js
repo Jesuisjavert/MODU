@@ -5,9 +5,18 @@ import store from './store'
 import './plugins/base'
 import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+
 
 Vue.use(VueCookies)
 Vue.config.productionTip = false
+
+ 
+// import style
+ 
+// Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+
+
 
 new Vue({
   router,
