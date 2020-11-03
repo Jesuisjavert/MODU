@@ -45,7 +45,7 @@ class ProgramDay(models.Model):
 
 class ProgramDayTime(models.Model):
     ProgramDay = models.ForeignKey(ProgramDay, on_delete=models.CASCADE, related_name="programdaytime")
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programday")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programdaytime")
     start_hour = models.DateTimeField()
     end_hour = models.DatdeTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -62,3 +62,12 @@ class ProgramHoliday(models.Model):
     # program 휴일 (일자, 휴일내용)
     day = models.DateField()
     content = models.CharField(max_length=100)
+
+class ProgramRecord(models.Model):
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programrecord")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programrecord")
+    max_online_count = models.IntegerField()
+    max_offline_count = models.IntegerField()
+    now_online_count = models.IntegerField()
+    now_offline_count = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
