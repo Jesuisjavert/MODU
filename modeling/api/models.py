@@ -4,6 +4,8 @@ from accounts.models import Trainer, Client, Tag
 
 class Program(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="program")
+    title = models.CharField(max_length=100)
+    content = models.CharField(max_length=800)
     visit_count = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag)
     # create_at = models.DateTimeField(auto_now_add=True,verbose_name='프로그램 등록일')
@@ -33,7 +35,6 @@ class ProgramComment(models.Model):
     rate = models.IntegerField()
     content = models.CharField(max_length=800)
 
-
 class ProgramPayment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programpayment")
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programpayment")
@@ -53,4 +54,9 @@ class Schedule(models.Model):
     day = models.CharField(max_length=20)
     start_hour = models.DateTimeField()
     end_hour = models.DatdeTimeField()
-    hour = models.IntegerField()
+
+class ProgramHoliday(models.Model):
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programholiday")
+    # program 휴일 (일자, 휴일내용)
+    day = models.DateField()
+    content = models.CharField(max_length=100)
