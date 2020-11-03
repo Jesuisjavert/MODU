@@ -12,8 +12,8 @@ class KakaoPay(APIView):
         }
         params = {
             'cid': "TC0ONETIME",
-            'partner_order_id': '1001',
-            'partner_user_id': 'dongsik',
+            'partner_order_id': 'partner_order_id',
+            'partner_user_id': 'partner_user_id',
             'item_name': '초코파이',
             'quantity': 1,
             'total_amount': 2200,
@@ -39,10 +39,10 @@ class KakaoPayApprove(APIView):
         }
         params = {
             'cid': "TC0ONETIME",
-            'tid': "T1234567890123456789",
-            'partner_order_id': '1001',
-            'partner_user_id': 'dongsik',
-            'pg_token': ''
+            'tid': "T2824892672097674277",
+            'partner_order_id': 'partner_order_id',
+            'partner_user_id': 'partner_user_id',
+            'pg_token': '070d996c2b76c8fc45cc'
         }
         response = requests.post(url+"/v1/payment/approve", params=params, headers=headers)
         response = json.loads(response.text)

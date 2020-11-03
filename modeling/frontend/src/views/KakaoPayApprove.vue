@@ -14,17 +14,20 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
     name : 'KakaoPayApprove',
     data: () => ({
     }),
+    mounted(){
+        console.log(this.$route.query.pg_token)
+    },
     methods:{
       approve(){
             let baseUrl = "http://127.0.0.1:8000/"
             let form = new FormData()
-            let pg_token = 
+            // let pg_token = this.$router.params
             form.append('amount', this.value)
             axios.post(baseUrl+"api/kakaopay/", form)
             .then((res)=>{

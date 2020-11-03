@@ -14,4 +14,5 @@ urlpatterns = [
     path('program/<int:pk>/comment/', views.ProgramCommentView.as_view(), name="programcomment"),
     path('program/comment/<int:pk>/', views.ProgramCommentDetailView.as_view(), name="programcommentdetail"),
     path('kakaopay/', views.KakaoPay.as_view(), name="kakaopay"),
+    path('kakaopay/approve/', views.KakaoPayApprove.as_view(), name="kakaopayapprove"),
 ]
