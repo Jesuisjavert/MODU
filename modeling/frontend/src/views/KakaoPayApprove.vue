@@ -14,14 +14,12 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     name : 'KakaoPayApprove',
     data: () => ({
     }),
     mounted(){
-        this.approve()
     },
     methods:{
       

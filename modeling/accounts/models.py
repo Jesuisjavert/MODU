@@ -41,3 +41,13 @@ class Trainer(models.Model):
     gender = models.CharField(max_length=10)
     age = models.IntegerField()
     tags = models.ManyToManyField(Tag)
+
+class TrainerSchedule(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="trainerschedule")
+    day = models.CharField(max_length=20, verbose_name="00요일")
+    start_hour = models.DateTimeField()
+    end_hour = models.DateTimeField()
+
+class TrainerHoliday(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="trainerholiday")
+    day = models.DateField(verbose_name="날짜")

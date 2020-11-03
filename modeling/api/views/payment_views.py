@@ -4,6 +4,7 @@ import requests
 import json
 
 class KakaoPay(APIView):
+    # 카카오 페이 결제 준비 단계
     def post(self, request):
         url = "https://kapi.kakao.com"
         headers = {
@@ -31,7 +32,8 @@ class KakaoPay(APIView):
         return Response(response)
 
 class KakaoPayApprove(APIView):
-     def post(self, request):
+    # 카카오 페이 결제 승인
+    def post(self, request):
         url = "https://kapi.kakao.com"
         headers = {
             'Authorization': "KakaoAK " + "19ec65168ecd5968e1f8e5eca0a3ea3c",

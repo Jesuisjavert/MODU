@@ -15,6 +15,7 @@ from django.http import Http404
 # Create your views here.
 
 class KakaoLogin(SocialLoginView):
+    #카카오 로그인
     adapter_class = KakaoOAuth2Adapter
 
 class UserInfo(APIView):
@@ -32,7 +33,8 @@ class UserInfo(APIView):
         user = self.get_object()
         user.is_first = is_first
         user.save()
-
+        
+    # 유저 정보 표기
     def get(self, request):
         user = self.get_object()
         if user.is_first==1:
@@ -46,6 +48,7 @@ class UserInfo(APIView):
             serializer = UserSerializers(user)
         return Response(serializer.data)
 
+    # 유저 회원가입
     def post(self, request, format=None):
         print(request.user)
         if request.user.is_first!=0:
@@ -67,6 +70,7 @@ class UserInfo(APIView):
         return Response(serializer.data)
 
 class Profile(APIView):
+    # 유저 profile 받아오기
     def get(self,request):
         user = User.objects.get(id=request.user.id)
         if user.userprofile.all().exists():
@@ -76,6 +80,7 @@ class Profile(APIView):
         else:
             return Response({'data':False})
 
+    # 유저 profile 업로드
     def post(self,request):
         loginuser = User.objects.get(id=request.user.id)
         if loginuser.userprofile.all().exists():

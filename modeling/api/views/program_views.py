@@ -7,9 +7,11 @@ from ..serializers import ProgramSerialiezer
 from django.http import Http404
 
 class ProgramView(generics.ListCreateAPIView):
+    # 프로그램 GET 정보가져오기
     queryset = Program.objects.all()
     serializer_class = ProgramSerialiezer
 
+    # 프로그램 생성
     def post(self, request):
         serializer = ProgramSerialiezer(data=request.data)
         if request.user.is_first!=1:
@@ -26,11 +28,13 @@ class ProgramDetailView(APIView):
         except Program.DoesNotExist:
             raise Http404
 
+    # 프로그램 디테일
     def get(self, request, pk):
         program = self.get_object(pk)
         serializer = ProgramSerialiezer(program)
         return Response(serializer.data)
 
+    # 프로그램 삭제
     def delete(self, request, pk):
         program = self.get_object(pk)
         if program.trainer.user.id == request.user.id:
@@ -38,6 +42,7 @@ class ProgramDetailView(APIView):
             return Response({"messgae": "삭제 완료"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    # 프로그램 수정
     def put(self, request, pk):
         program = self.get_object(pk)
         if program.trainer.user.id == request.user.id:
