@@ -47,7 +47,7 @@ class ProgramDayTime(models.Model):
     ProgramDay = models.ForeignKey(ProgramDay, on_delete=models.CASCADE, related_name="programdaytime")
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programdaytime")
     start_hour = models.DateTimeField()
-    end_hour = models.DatdeTimeField()
+    end_hour = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -55,7 +55,7 @@ class Schedule(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="schedule")
     day = models.CharField(max_length=20)
     start_hour = models.DateTimeField()
-    end_hour = models.DatdeTimeField()
+    end_hour = models.DateTimeField()
 
 class ProgramHoliday(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programholiday")
