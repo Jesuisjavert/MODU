@@ -39,15 +39,9 @@ class ProgramPayment(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programpayment")
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programpayment")
 
-class ProgramDetail(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programdetail")
-    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programdetail")
-    # is_payment = models.IntegerField(default=0)
-
-class ProgramDayDetail(models.Model):
-    Program_detail = models.ForeignKey(ProgramDetail, on_delete=models.CASCADE, related_name="programdaydetail")
-    menu = models.CharField(max_length=800)
-    chulseok = models.CharField(max_length=100)
+class ProgramDay(models.Model):
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programday")
+    day = models.DateField()
 
 class Schedule(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="schedule")
