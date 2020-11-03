@@ -13,7 +13,7 @@
 
 <script>
 import ClientManage from '@/components/base/ClientManage.vue'
-import Calendar from '@/components/base/Calendar.vue'
+import Calendar from '@/components/base/Calendar2.vue'
 
 export default {
     components: {
