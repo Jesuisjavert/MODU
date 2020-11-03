@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     # social account login
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
-
+    # drf_yasg # required for serving swagger ui's css/js files
+    'drf_yasg',
     # 사용하는 앱
     'accounts',
     'api',
@@ -215,3 +216,5 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1024000000 # value in bytes 1GB here
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1024000000
+
+USE_SESSION_AUTH = False
