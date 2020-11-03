@@ -43,6 +43,14 @@ class ProgramDay(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programday")
     day = models.DateField()
 
+class ProgramDayTime(models.Model):
+    ProgramDay = models.ForeignKey(ProgramDay, on_delete=models.CASCADE, related_name="programdaytime")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programday")
+    start_hour = models.DateTimeField()
+    end_hour = models.DatdeTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class Schedule(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="schedule")
     day = models.CharField(max_length=20)
