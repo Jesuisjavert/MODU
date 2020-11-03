@@ -4,15 +4,21 @@ from accounts.models import Trainer, Client, Tag
 
 class Program(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="program")
-    price = models.IntegerField()
     visit_count = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag)
-    create_at = models.DateTimeField(auto_now_add=True,verbose_name='프로그램 등록일')
-    start_date = models.DateField(verbose_name='프로그램 시작일')
-    end_date = models.DateField(verbose_name='프로그램 종료일')
-    class_registration_start_day = models.DateTimeField(verbose_name='프로그램 수강신청 시작날짜')
-    class_registration_end_day = models.DateTimeField(verbose_name='프로그램 수강신청 종료날짜')
-    max_student = models.IntegerField()
+    # create_at = models.DateTimeField(auto_now_add=True,verbose_name='프로그램 등록일')
+    # start_date = models.DateField(verbose_name='프로그램 시작일')
+    # end_date = models.DateField(verbose_name='프로그램 종료일')
+    # class_registration_start_day = models.DateTimeField(verbose_name='프로그램 수강신청 시작날짜')
+    # class_registration_end_day = models.DateTimeField(verbose_name='프로그램 수강신청 종료날짜')
+    # max_student = models.IntegerField()
+
+class ProgramPrice(models.Model):
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programprice")
+    title = models.CharField(max_length=50)
+    online_count = models.IntegerField()
+    offline_count = models.IntegerField()
+    price = models.IntegerField()
 
 class TrainerComment(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="trainercomment")
@@ -46,5 +52,5 @@ class Schedule(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="schedule")
     day = models.CharField(max_length=20)
     start_hour = models.DateTimeField()
-    end_hour = models.DateTimeField()
+    end_hour = models.DatdeTimeField()
     hour = models.IntegerField()
