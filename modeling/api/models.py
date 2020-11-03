@@ -71,3 +71,8 @@ class ProgramRecord(models.Model):
     now_online_count = models.IntegerField()
     now_offline_count = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+class ProgramRecordDetail(models.Model):
+    programRecord = models.ForeignKey(ProgramRecord, on_delete=models.CASCADE, related_name="programrecorddetail")
+    type = models.CharField(max_length=10)
+    content = models.CharField(max_length=800)
