@@ -50,7 +50,6 @@ class UserInfo(APIView):
 
     # 유저 회원가입
     def post(self, request, format=None):
-        print(request.user)
         if request.user.is_first!=0:
             return Response({"message": "이미 회원가입을 하였습니다."}, status=status.HTTP_400_BAD_REQUEST)
         if request.data['is_first']=='1':
