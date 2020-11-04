@@ -5,9 +5,12 @@ import store from './store'
 import './plugins/base'
 import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
+import WebRTC from 'vue-webrtc'
 
 Vue.use(VueCookies)
 Vue.config.productionTip = false
+
+Vue.use(WebRTC)
 
 new Vue({
   router,

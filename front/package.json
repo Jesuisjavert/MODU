@@ -11,10 +11,12 @@
     "@toast-ui/vue-editor": "^2.3.1",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "plugin": "^0.3.3",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.3",
     "vue-meta": "^2.3.3",
     "vue-router": "^3.1.6",
+    "vue-webrtc": "^1.2.2",
     "vuetify": "^2.2.25",
     "vuex": "^3.3.0",
     "vuex-pathify": "^1.4.1"

@@ -41,6 +41,11 @@ export default new Router({
           name: 'Oauth',
           component: () => import('@/views/oauth/Index.vue'),
         },
+        {
+          path: '/WebRTC',
+          name: 'WebRTC',
+          component: () => import('@/components/base/WebCam.vue'),
+        },
       ],
     },
   ],
