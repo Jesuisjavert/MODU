@@ -1,13 +1,6 @@
 <template>
   <v-container>
-    <v-row class="justify-space-around">
-        <v-col cols="2">
-            <ClientManage/>
-        </v-col>
-        <v-col cols="9">
-            <Calendar/>
-        </v-col>
-    </v-row>
+    <Calendar/>
   </v-container>
 </template>
 

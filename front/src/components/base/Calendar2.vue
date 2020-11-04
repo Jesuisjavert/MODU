@@ -1,25 +1,45 @@
 <template>
-  <div>
-    <div id="menu">
-
-    </div>
-    <calendar style="height: 620px;"
-        :calendars="calendarList"
-        :schedules="scheduleList"
-        :view="view"
-        :taskView="taskView"
-        :scheduleView="scheduleView"
-        :theme="theme"
-        :week="week"
-        :month="month"
-        :timezones="timezones"
-        :disableDblClick="disableDblClick"
-        :isReadOnly="isReadOnly"
-        :template="template"
-        :useCreationPopup="useCreationPopup"
-        :useDetailPopup="useDetailPopup"
-    />
-  </div>
+  <v-container>
+    <v-row class="justify-space-around">
+      <v-col class="col-2 text-center client">
+        <h2>회원 목록</h2>
+        <div v-for="calendarName in calendarList" :key="calendarList.id">
+          {{calendarName.name}}
+        </div>
+      </v-col>
+      <v-col class="col-9">
+        <div id="menu">
+          <span id="menu-navi">
+            <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today" @click="moveToTday()">Today</button>
+            <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+              <i class="fas fa-angle-left" data-action="move-prev" @click="moveToNextOrPrevRange(-1)"></i>
+            </button>
+            <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+              <i class="fas fa-angle-right" data-action="move-next" @click="moveToNextOrPrevRange(1)"></i>
+            </button>
+          </span>
+          <span id="renderRange" class="render-range"></span>
+        </div>
+        <calendar style="height: 620px;"
+          ref="tuiCalendar"
+          :calendars="calendarList"
+          :schedules="scheduleList"
+          :view="view"
+          :taskView="taskView"
+          :scheduleView="scheduleView"
+          :theme="theme"
+          :week="week"
+          :month="month"
+          :timezones="timezones"
+          :disableDblClick="disableDblClick"
+          :isReadOnly="isReadOnly"
+          :template="template"
+          :useCreationPopup="useCreationPopup"
+          :useDetailPopup="useDetailPopup"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -40,11 +60,11 @@ export default {
           calendarList: [
               {
                   id: '0',
-                  name: 'home'
+                  name: '퍼스널 트레이닝'
               },
               {
                   id: '1',
-                  name: 'office'
+                  name: '스피닝'
               }
           ],
           scheduleList: [
@@ -111,11 +131,22 @@ export default {
       }
   },
   methods : {
-    
+    moveToNextOrPrevRange(val) {
+      if (val === -1) {
+      this.$refs.tuiCalendar.invoke('prev');
+      } else if (val === 1) {
+      this.$refs.tuiCalendar.invoke('next');
+      }
+    },
+    moveToTday() {
+      this.$refs.tuiCalendar.invoke('today');
+    },
   }
 }
 </script>
 
 <style>
-
+.client{
+  border: solid 2px rgba(122, 122, 122, 0.2)
+}
 </style>
