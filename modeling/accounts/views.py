@@ -24,7 +24,6 @@ class UserInfo(APIView):
     # is_first 0:초기 1:트레이너 2:클라이언트
     def get_object(self):
         try:
-            print(self.request.user)
             return User.objects.get(username=self.request.user)
         except User.DoesNotExist:
             raise Http404

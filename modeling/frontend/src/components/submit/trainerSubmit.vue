@@ -20,7 +20,7 @@
 
 <script>
 import axios from 'axios'
-import {mapState} from 'vuex'
+import {mapState,mapMutations} from 'vuex'
 import constants from '@/api/constants'
 export default {
     name : 'trainerSubmit',
@@ -45,13 +45,15 @@ export default {
                         Authorization: Token,
                     },
                     })
-            .then((res)=>{
-                console.log(res.data)
+            .then(()=>{
+                this.SET_TYPETOKEN('trainer')
+                
             })
             .catch((err)=>{
                 console.log(err.response)
             })
-      }
+      },
+      ...mapMutations(['SET_TYPETOKEN'])
     },
     computed : {
         ...mapState(['userToken'])

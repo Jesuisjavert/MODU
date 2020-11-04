@@ -79,14 +79,14 @@ export default {
                     url:'/v2/user/me',
                     success : res => {
                         const kakao_account = res.kakao_account;
-                        console.log(kakao_account)
-                        const userInfo = {
-                            nickname : kakao_account.profile.nickname,
-                            email : kakao_account.email,
-                            password : '',
-                            account_type : 2,
-                        }
-                        console.log(userInfo)
+                        kakao_account
+                        // const userInfo = {
+                        //     nickname : kakao_account.profile.nickname,
+                        //     email : kakao_account.email,
+                        //     password : '',
+                        //     account_type : 2,
+                        // }
+                        // console.log(userInfo)
                         let accessToken = authObj.access_token
                         let form = new FormData()
                         form.append('access_token', accessToken)
