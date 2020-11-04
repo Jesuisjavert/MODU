@@ -1,5 +1,20 @@
 <template>
   <div>
+      <h1> 일반 회원가입 </h1>
+      <label for="submitusername">이름</label>
+      <input type="text" name="submitusername"  v-model="submitData.username">
+      <label for="password1">패스워드</label>
+      <input type="password" name="password1"  v-model="submitData.password1">
+      <label for="password2">패스워드 검증</label>
+      <input type="password" name="password2" v-model="submitData.password2">
+      <button @click="submit()">회원가입</button>
+      <h1> 일반 로그인 </h1>
+      <label for="username">아이디</label>
+      <input type="text" v-model="loginData.username" name="username">
+      <label for="password" > 패스워드</label>
+      <input type="password" v-model="loginData.password" name="password">
+      <button @click="login()">로그인 </button>
+      <br>
           <h1>kakao login</h1>
     <button @click="kakaoLogin">            <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +54,15 @@ export default {
             return {
                 data : '',
                 constants,
+                loginData : {
+                    username : '',
+                    password : '',
+                },
+                submitData : {
+                    username : '',
+                    password1 : '',
+                    password2 : '',
+                }
             }
         },
         methods: {
@@ -97,6 +121,19 @@ export default {
                         }
                     })
 
+            },
+            login(){
+                axios.post(`${this.constants.API_URL}rest-auth/login/`,this.loginData)
+                .then((res)=>{
+                    this.SET_TOKEN(res.data.access_token)
+                          this.isFirstLogin()
+                })
+            },
+            submit(){
+                axios.post(`${this.constants.API_URL}rest-auth/signup/`,this.submitData)
+                .then((res)=>{
+                    console.log(res)
+                })
             },
             ...mapMutations(['SET_TOKEN'])
         },

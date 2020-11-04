@@ -40,6 +40,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/rest-auth/', include('accounts.urls')),
     path('api/', include("api.urls")),
+    path('api/rest-auth/', include('dj_rest_auth.urls')),
+    path('api/rest-auth/signup/',include('dj_rest_auth.registration.urls')),
     path('api/v1/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/v1/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
