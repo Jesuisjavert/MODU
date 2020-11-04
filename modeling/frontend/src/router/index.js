@@ -53,15 +53,11 @@ router.beforeEach((to,from,next)=>{
     'Home',
     'Login'
   ]
-  console.log(to.name)
   const authRequired = !publicpage.includes(to.name)
   const isLogined = store.getters.isLogined
-  console.log(!isLogined&&authRequired,'------')
-  console.log(isLogined)
   if(!isLogined && authRequired){
     next({name:'Login'})
   } else{
-    console.log('여기아니냐?')
     next()
   }
 
