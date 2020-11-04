@@ -10,14 +10,16 @@ class UserSerializers(serializers.ModelSerializer):
         fields = ['id','username','is_first']
 
 class TrainerSerializer(serializers.ModelSerializer):
+    user = UserSerializers(read_only=True)
     class Meta:
         model = Trainer
-        exclude = ('user','tags')
+        exclude = ('tags',)
 
 class ClientSerializer(serializers.ModelSerializer):
+    user = UserSerializers(read_only=True)
     class Meta:
         model = Client
-        exclude = ('user','tags')
+        exclude = ('tags',)
 
 class UserProfileSerializer(serializers.ModelSerializer):
     profile_img = serializers.ImageField()
