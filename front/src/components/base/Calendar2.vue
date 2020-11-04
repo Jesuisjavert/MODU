@@ -3,19 +3,80 @@
     <v-row class="justify-space-around">
       <v-col class="col-2 text-center client">
         <h2>회원 목록</h2>
-        <div v-for="calendarName in calendarList" :key="calendarList.id">
+        <div v-for="calendarName in calendarList" :key="calendarName.id">
           {{calendarName.name}}
         </div>
       </v-col>
       <v-col class="col-9">
         <div id="menu">
+          <div class="lnb-new-schedule">
+            <button
+              id="btn-new-schedule"
+              type="button"
+              class="btn btn-default"
+              data-toggle="modal"
+            >
+              New schedule
+            </button>
+          </div>
+          <span class="dropdown">
+            <button
+              id="dropdownMenu-calendarType"
+              class="btn btn-default btn-sm dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="true"
+            >
+              <i
+                id="calendarTypeIcon"
+                class="calendar-icon ic_view_month"
+                style="margin-right: 4px;"
+              ></i>
+              <span id="calendarTypeName">Dropdown</span>&nbsp;
+              <i class="calendar-icon tui-full-calendar-dropdown-arrow"></i>
+            </button>
+            <ul
+              class="dropdown-menu"
+              role="menu"
+              aria-labelledby="dropdownMenu-calendarType"
+            >
+               <li role="presentation">
+                <a
+                  class="dropdown-menu-title"
+                  role="menuitem"
+                  data-action="toggle-monthly"
+                >
+                  <i class="calendar-icon ic_view_month"></i>Month
+                </a>
+              </li>
+              <li role="presentation">
+                <a
+                  class="dropdown-menu-title"
+                  role="menuitem"
+                  data-action="toggle-weekly"
+                >
+                  <i class="calendar-icon ic_view_week"></i>Weekly
+                </a>
+              </li>
+              <li role="presentation">
+                <a
+                  class="dropdown-menu-title"
+                  role="menuitem"
+                  data-action="toggle-daily"
+                >
+                  <i class="calendar-icon ic_view_day"></i>Daily
+                </a>
+              </li>
+            </ul>
+          </span>
           <span id="menu-navi">
             <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today" @click="moveToTday()">Today</button>
-            <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
-              <i class="fas fa-angle-left" data-action="move-prev" @click="moveToNextOrPrevRange(-1)"></i>
+            <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev"  @click="moveToNextOrPrevRange(-1)">
+              <i class="fas fa-angle-left" data-action="move-prev"></i>
             </button>
-            <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
-              <i class="fas fa-angle-right" data-action="move-next" @click="moveToNextOrPrevRange(1)"></i>
+            <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next" @click="moveToNextOrPrevRange(1)">
+              <i class="fas fa-angle-right" data-action="move-next"></i>
             </button>
           </span>
           <span id="renderRange" class="render-range"></span>
