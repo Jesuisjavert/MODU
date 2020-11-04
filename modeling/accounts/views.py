@@ -88,4 +88,4 @@ class Profile(APIView):
         if serializers.is_valid(raise_exception=True):
             serializers.save(user=request.user)
             return Response(serializers.data)
-        return Response(serializer.data)
+        return Response(serializers.data)
