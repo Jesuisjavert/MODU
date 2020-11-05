@@ -4,7 +4,8 @@
       :min-height="minHeight"
       :src="require('@/assets/modu35.jpg')"
       class="white--text"
-      height="500"
+      gradient="to right, rgba(90, 90, 90, .8), rgba(5, 11, 31, .8)"
+      max-height="750"
     >
       <v-container class="fill-height px-4 py-12">
         <v-responsive

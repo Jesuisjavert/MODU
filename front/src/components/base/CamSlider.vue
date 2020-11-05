@@ -16,7 +16,6 @@
   <VueSlickCarousel 
     ref="c2"
     :asNavFor='focus1'
-    :slidesToShow="2"
     :focusOnSelect="true"
   >
     <div><h1>1</h1></div>
