@@ -18,6 +18,9 @@
     name: 'BaseHeading',
 
     inject: {
+      theme: {
+        default: () => ({ isDark: false }),
+      },
       heading: {
         default: () => ({ align: 'left' }),
       },
@@ -78,6 +81,7 @@
           `font-weight-${this.weight}`,
           `mb-${this.space}`,
           `text-${this.align}`,
+          this.theme.isDark && 'white--text',
         ]
 
         return classes

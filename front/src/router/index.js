@@ -18,8 +18,8 @@ export default new Router({
         },
         {
           path: '/about',
-          name: 'About me',
-          component: () => import('@/views/about/Index.vue'),
+          name: 'About us',
+          component: () => import('@/views/aboutus/Index.vue'),
         },
         {
           path: '/contact',

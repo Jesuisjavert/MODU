@@ -23,7 +23,6 @@
     data() {
         return {
           settings: {
-            "dots": true,
             "infinite": true,
             "slidesToScroll": 1,
             "autoplay": true,

@@ -16,6 +16,7 @@
     mixins: [
       LoadSections([
         'home',
+        'info',
       ]),
     ],
 

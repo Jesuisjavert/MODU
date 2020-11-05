@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="about"
+    id="about us"
     class="pa-0"
     fluid
     tag="section"
@@ -53,7 +53,7 @@
 
 <script>
   export default {
-    name: 'About',
+    name: 'About us',
     components: {
       CamSlider: () => import('@/components/base/CamSlider'),
     }

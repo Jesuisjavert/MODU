@@ -1,76 +1,89 @@
 <template>
-  <v-app-bar
-    id="core-app-bar"
-    app
-    color="secondary"
-    elevate-on-scroll
-    height="96"
-  >
-    <v-container>
-      <v-row>
-        <div class="d-flex align-center">
-          <v-img
-            :src="require('@/assets/modu.png')"
-            contain
-            class="shrink mr-2"
-            height="90"
-            width="200"
-            to="home"
-            @click="gohome"
-            style="cursor: pointer"
-          />
-        </div>
+  <div>
+    <v-app-bar
+      id="home-app-bar"
+      app
+      color="white"
+      elevation="1"
+      height="80"
+    >
+      <base-img
+        :src="require('@/assets/modu.png')"
+        contain
+        max-width="60"
+        width="100%"
+        @click="gohome"
+        style="cursor: pointer"
+      />
 
-        <v-spacer />
+      <v-spacer />
 
-        <v-toolbar-items
-          v-if="$vuetify.breakpoint.smAndUp"
-          class="shrink"
+      <div>
+        <v-tabs
+          class="hidden-sm-and-down"
+          optional
         >
-          <v-btn
-            v-for="(link, i) in links"
+          <v-tab
+            v-for="(name, i) in items"
             :key="i"
-            :to="{
-              name: link
-            }"
-            active-class="primary--text"
-            class="subtitle-1 ml-1"
-            exact
-            min-width="128"
+            :to="{ name }"
+            :exact="name === 'Home'"
+            :ripple="false"
+            active-class="text--primary"
+            class="font-weight-bold"
+            min-width="96"
             text
-            color
           >
-            <span>{{ link }}</span>
-          </v-btn>
-        </v-toolbar-items>
+            {{ name }}
+          </v-tab>
+        </v-tabs>
+      </div>
 
-        <v-app-bar-nav-icon
-          v-else
-          @click="setDrawer(true)"
-        />
-      </v-row>
-    </v-container>
-  </v-app-bar>
+      <v-app-bar-nav-icon
+        class="hidden-md-and-up"
+        @click="drawer = !drawer"
+      />
+    </v-app-bar>
+
+    <home-drawer
+      v-model="drawer"
+      :items="items"
+    />
+  </div>
 </template>
 
 <script>
-  // Utilities
-  import { mapMutations, mapState } from 'vuex'
-
   export default {
-    name: 'CoreAppBar',
+    name: 'HomeAppBar',
 
-    computed: {
-      ...mapState(['links']),
+    components: {
+      Drawer: () => import('./Drawer'),
     },
 
+    data: () => ({
+      drawer: null,
+      items: [
+        'Home',
+        'About us',
+        'Contact',
+        'Membership',
+      ],
+    }),
     methods: {
-      ...mapMutations({
-        setDrawer: 'SET_DRAWER',
-      }),
       gohome() {
         this.$router.push('/')
-      },
-    },
+      }
+    }
   }
 </script>
+
+<style lang="sass">
+  #home-app-bar
+    .v-tabs-slider
+      max-width: 24px
+      margin: 0 auto
+
+    .v-tab
+      &::before
+        display: none
+</style>
