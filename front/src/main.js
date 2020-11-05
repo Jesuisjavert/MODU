@@ -5,7 +5,9 @@ import store from './store'
 import './plugins/base'
 import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
+import VueMoment from 'vue-moment'
 
+Vue.use(VueMoment);
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 

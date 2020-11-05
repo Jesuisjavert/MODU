@@ -3,8 +3,24 @@
     <v-row class="justify-space-around">
       <v-col class="col-2 text-center client">
         <h2>회원 목록</h2>
-        <div v-for="calendarName in calendarList" :key="calendarName.id">
-          {{calendarName.name}}
+        <div id="lnb">
+          <div class="lnb-new-schedule">
+            <button id="btn-new-schedule" type="button" class="btn btn-default btn-block lnb-new-schedule-btn" data-toggle="modal">
+                New schedule</button>
+          </div>
+          <div id="lnb-calendars" class="lnb-calendars">
+            <div>
+              <div class="lnb-calendars-item">
+                <label>
+                  <input class="tui-full-calendar-checkbox-square" type="checkbox" value="all" checked>
+                  <span></span>
+                  <strong>View all</strong>
+                </label>
+              </div>
+            </div>
+            <div id="calendarItemList" class="lnb-calendars-d1">
+            </div>
+          </div>
         </div>
       </v-col>
       <v-col class="col-9">
@@ -22,14 +38,29 @@
           <div>
             {{ getTime }}
           </div>
-          <div class="dropdown btn">
-            <select name="option" v-model="view">
-              <option value="month" selected>Month</option>
-              <option value="week">Week</option>
-              <option value="day">Day</option>
-            </select>
-          </div>
-
+          <span class="dropdown">
+            <button id="dropdownMenu-calendarType" class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                <span id="calendarTypeName" style="width:120px;">{{view}}</span>&nbsp;
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu-calendarType">
+              <li role="presentation">
+                <a class="dropdown-menu-title" role="menuitem" data-action="toggle-monthly">
+                  <i class="fas fa-th month-icon"></i>Month
+                </a>
+              </li>
+              <li role="presentation">
+                <a class="dropdown-menu-title" role="menuitem" data-action="toggle-weekly">
+                  <i class="fas fa-bars weekly-icon"></i>Weekly
+                </a>
+              </li>
+              <li role="presentation">
+                <a class="dropdown-menu-title" role="menuitem" data-action="toggle-daily">
+                  <i class="fas fa-bars daily-icon"></i>Daily
+                </a>
+              </li>
+            </ul>
+          </span>
           <span id="menu-navi">
             <button type="button" class="btn btn-today" data-action="move-today" @click="moveToTday()">Today</button>
             <button type="button" class="btn btn-move" data-action="move-prev"  @click="moveToNextOrPrevRange(-1)">
@@ -67,6 +98,7 @@
 import 'tui-calendar/dist/tui-calendar.css'
 import { Calendar } from '@toast-ui/vue-calendar'
 
+
 // If you use the default popups, use this.
 import 'tui-date-picker/dist/tui-date-picker.css';
 import 'tui-time-picker/dist/tui-time-picker.css';
@@ -75,6 +107,14 @@ export default {
   name: 'myCalendar',
   components: {
       'calendar': Calendar
+  },
+  mounted() {
+    this.setRenderRangeText(),
+    this.setEventListener(),
+    this.setCalendarList()
+  },
+  computed: {
+
   },
   data() {
       return {
@@ -126,7 +166,7 @@ export default {
           },
           month: {
               visibleWeeksCount: 5,
-              startDayOfWeek: 1
+              startDayOfWeek: 0,
           },
           timezones: [{
               timezoneOffset: 540,
@@ -153,6 +193,7 @@ export default {
       }
   },
   methods: {
+    // 달력 이동
     moveToNextOrPrevRange(val) {
       if (val === -1) {
       this.$refs.tuiCalendar.invoke('prev');
@@ -160,28 +201,183 @@ export default {
       this.$refs.tuiCalendar.invoke('next');
       }
     },
+
+    // 오늘 날짜로 이동
     moveToTday() {
       this.$refs.tuiCalendar.invoke('today');
     },
-    setRenderRangeText(cal) {
+    setCalendarList() {
+    var calendarItemList = document.getElementById('calendarItemList');
+    var html = [];
+    this.calendarList.forEach(function(calendar) {
+        html.push('<div class="lnb-calendars-item"><label>' +
+            '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' + calendar.id + '" checked>' +
+            '<span style="border-color: ' + calendar.borderColor + '; background-color: ' + calendar.borderColor + ';"></span>' +
+            '<span>' + calendar.name + '</span>' +
+            '</label></div>'
+        );
+    });
+    calendarItemList.innerHTML = html.join('\n');
+    },
+    // 
+    setRenderRangeText() {
       var renderRange = document.getElementById('renderRange');
-      var options = cal.getOptions();
-      var viewName = cal.getViewName();
+      var options = this.$refs.tuiCalendar.invoke('getOptions');
+      var viewName = this.$refs.tuiCalendar.invoke('getViewName');
       var html = [];
       if (viewName === 'day') {
-          html.push(moment(cal.getDate().getTime()).format('YYYY.MM.DD'));
+          html.push(this.currentCalendarDate('YYYY.MM.DD'));
       } else if (viewName === 'month' &&
           (!options.month.visibleWeeksCount || options.month.visibleWeeksCount > 4)) {
-          html.push(moment(cal.getDate().getTime()).format('YYYY.MM'));
+          html.push(this.currentCalendarDate('YYYY.MM'));
       } else {
-          html.push(moment(cal.getDateRangeStart().getTime()).format('YYYY.MM.DD'));
+          html.push(this.$moment(this.$refs.tuiCalendar.invoke('getDateRangeStart').getTime()).format('YYYY.MM.DD'));
           html.push(' ~ ');
-          html.push(moment(cal.getDateRangeEnd().getTime()).format(' MM.DD'));
+          html.push(this.$moment(this.$refs.tuiCalendar.invoke('getDateRangeEnd').getTime()).format(' MM.DD'));
       }
       renderRange.innerHTML = html.join('');
     },
-  },
 
+    // dropdown menu 변경
+    onClickMenu(e) {
+      var target = $(e.target).closest('a[role="menuitem"]')[0];
+      var action = this.getDataAction(target);
+      var options = this.$refs.tuiCalendar.invoke('getOptions');
+      var viewName = '';
+
+      console.log(target);
+      console.log(action);
+      switch (action) {
+          case 'toggle-daily':
+              viewName = 'day';
+              break;
+          case 'toggle-weekly':
+              viewName = 'week';
+              break;
+          case 'toggle-monthly':
+              options.month.visibleWeeksCount = 5;
+              viewName = 'month';
+              break;
+          default:
+              break;
+      }
+      this.$refs.tuiCalendar.invoke('setOptions', (options, true));
+      this.$refs.tuiCalendar.invoke('changeView', (viewName, true));
+
+      this.setDropdownCalendarType();
+      this.setRenderRangeText();
+      this.setSchedules();
+    },
+    setSchedules() {
+        this.$refs.tuiCalendar.invoke('clear');
+        generateSchedule(this.$refs.tuiCalendar.invoke('getViewName'), this.$refs.tuiCalendar.invoke('getDateRangeStart'), this.$refs.tuiCalendar.invoke('getDateRangeEnd'));
+        this.$refs.tuiCalendar.invoke('createSchedules', (ScheduleList));
+
+        this.refreshScheduleVisibility();
+    },
+    getDataAction(target) {
+        return target.dataset ? target.dataset.action : target.getAttribute('data-action');
+    },
+    currentCalendarDate(format) {
+      var currentDate = this.$moment([this.$refs.tuiCalendar.invoke('getDate').getFullYear(), this.$refs.tuiCalendar.invoke('getDate').getMonth(), this.$refs.tuiCalendar.invoke('getDate').getDate()]);
+
+      return currentDate.format(format);
+    },
+    setRenderRangeText() {
+        var renderRange = document.getElementById('renderRange');
+        var options = this.$refs.tuiCalendar.invoke('getOptions');
+        var viewName = this.$refs.tuiCalendar.invoke('getViewName');
+
+        var html = [];
+        if (viewName === 'day') {
+            html.push(this.currentCalendarDate('YYYY.MM.DD'));
+        } else if (viewName === 'month' &&
+            (!options.month.visibleWeeksCount || options.month.visibleWeeksCount > 4)) {
+            html.push(this.currentCalendarDate('YYYY.MM'));
+        } else {
+            html.push(this.$moment(this.$refs.tuiCalendar.invoke('getDateRangeStart').getTime()).format('YYYY.MM.DD'));
+            html.push(' ~ ');
+            html.push(this.$moment(this.$refs.tuiCalendar.invoke('getDateRangeEnd').getTime()).format(' MM.DD'));
+        }
+        renderRange.innerHTML = html.join('');
+    },
+    setDropdownCalendarType() {
+        var calendarTypeName = document.getElementById('calendarTypeName');
+        var options = this.$refs.tuiCalendar.invoke('getOptions');
+        var type = this.$refs.tuiCalendar.invoke('getViewName');
+
+        if (type === 'day') {
+            type = 'Daily';
+        } else if (type === 'week') {
+            type = 'Weekly';
+        } else {
+            type = 'Monthly';
+        }
+
+        calendarTypeName.innerHTML = type;
+    },
+    onChangeCalendars(e) {
+      var calendarId = e.target.value;
+      var checked = e.target.checked;
+      var viewAll = document.querySelector('.lnb-calendars-item input');
+      var calendarElements = Array.prototype.slice.call(document.querySelectorAll('#calendarList input'));
+      var allCheckedCalendars = true;
+
+      if (calendarId === 'all') {
+          allCheckedCalendars = checked;
+
+          calendarElements.forEach(function(input) {
+              var span = input.parentNode;
+              input.checked = checked;
+              span.style.backgroundColor = checked ? span.style.borderColor : 'transparent';
+          });
+
+          this.CalendarList.forEach(function(calendar) {
+              calendar.checked = checked;
+          });
+      } else {
+          findCalendar(calendarId).checked = checked;
+
+          allCheckedCalendars = calendarElements.every(function(input) {
+              return input.checked;
+          });
+
+          if (allCheckedCalendars) {
+              viewAll.checked = true;
+          } else {
+              viewAll.checked = false;
+          }
+      }
+
+      this.refreshScheduleVisibility();
+    },
+    refreshScheduleVisibility() {
+      var calendarElements = Array.prototype.slice.call(document.querySelectorAll('#calendarList input'));
+
+      this.CalendarList.forEach(function(calendar) {
+          this.$refs.tuiCalendar.invoke('toggleSchedules',(calendar.id, !calendar.checked, false));
+      });
+
+      this.$refs.tuiCalendar.invoke('render',(true));
+
+      calendarElements.forEach(function(input) {
+          var span = input.nextElementSibling;
+          span.style.backgroundColor = input.checked ? span.style.borderColor : 'transparent';
+      });
+    },
+    setEventListener() {
+      // $('#menu-navi').on('click', onClickNavi);
+      $('.dropdown-menu a[role="menuitem"]').on('click', this.onClickMenu);
+      $('#lnb-calendars').on('change', this.onChangeCalendars);
+
+      // $('#btn-save-schedule').on('click', onNewSchedule);
+      // $('#btn-new-schedule').on('click', createNewSchedule);
+
+      // $('#dropdownMenu-calendars-list').on('click', onChangeNewScheduleCalendar);
+
+      // window.addEventListener('resize', resizeThrottled);
+    }
+  },
 }
 </script>
 
@@ -196,15 +392,8 @@ export default {
   align-items: center;
 }
 
-.dropdown {
-  padding: 5px 4px;
-  border: 1px solid #aaaaaa;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.dropdown select {
-  padding: 0px 10px;
+ul {
+  padding: 4px 0px;
 }
 
 .btn {
@@ -219,9 +408,21 @@ export default {
   outline: none;
 }
 
+.fas {
+  margin-right: 8px;
+}
+
+.weekly-icon {
+  transform: rotate(90deg);
+}
+
 .btn-move {
   width: 39px;
   font-size: 18px;
   border-radius: 50%;
+}
+
+.btn-move i {
+  margin: auto;
 }
 </style>
