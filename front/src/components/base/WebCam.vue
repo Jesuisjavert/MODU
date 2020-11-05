@@ -1,12 +1,26 @@
 <template>
     <div class="container">
+        <div>
+            <h1>RoomID</h1>
+            <v-text-field
+                v-model="roomId"
+                label="RoomID"
+                placeholder="public-room"
+                required
+                outlined
+                dense
+            ></v-text-field>
+        </div>
         <div class="row">
           <div class="col-md-12 my-3">
             <button type="button" class="btn btn-primary" @click="join">Join</button>
             <button type="button" class="btn btn-primary" @click="leave">Leave</button>
-            <button type="button" class="btn btn-primary" @click="capture">Capture Photo</button>
+            <button type="button" class="btn btn-primary" @click="leave" v-if="this.inviteButtonFlag">Invite</button>
+            
+            <!-- <button type="button" class="btn btn-primary" @click="capture">Capture Photo</button> -->
             <button type="button" class="btn btn-primary" @click="shareScreen">Share Screen</button>
             <!-- <button type="button" class="btn btn-primary" @click="getCanvas">Get Canvas</button> -->
+            <!-- <button type="button" class="btn btn-primary" @click="stopVideo">Stop Video</button> -->
           </div>
         </div>
         <div class="video-list" >
@@ -14,19 +28,22 @@
                 v-bind:video="item"
                 v-bind:key="item.id"
                 class="video-item">
-                <video controls autoplay playsinline ref="videos" :height="cameraHeight" :muted="item.muted" :id="item.id"></video>
+                <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+                <video controls autoplay playsinline ref="videos" v-else :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
             </div>
         </div>
+        <WebCreateBtn>시작하기</WebCreateBtn>
     </div>
 </template>
 
 <script>
   import RTCMultiConnection from 'rtcmulticonnection';
+  import { uuid } from 'vue-uuid';
   require('adapterjs');
   export default {
     name: 'vue-webrtc',
     components: {
-      RTCMultiConnection
+      WebCreateBtn: () => import('@/components/base/WebCreateBtn'),
     },
     data() {
       return {
@@ -34,20 +51,23 @@
         localVideo: null,
         videoList: [],
         canvas: null,
+        roomId: 'public-room',
+        uuid: '',
+        inviteButtonFlag: false,
       };
     },
     props: {
-      roomId: {
-        type: String,
-        default: 'public-room'
-      },
+    //   roomId: {
+    //     type: String,
+    //     default: 'public-room'
+    //   },
       socketURL: {
         type: String,
         default: 'https://rtcmulticonnection.herokuapp.com:443/'
       },
       cameraHeight: {
         type: [Number, String],
-        default: 160
+        default: 500
       },
       autoplay: {
         type: Boolean,
@@ -149,17 +169,37 @@
         that.videoList = newList;
         that.$emit('left-room', stream.streamid);
       };
+      console.log(this.videoList)
     },
     methods: {
+      stopVideo() {
+          this.enableVideo = false
+      },
+      printer(item) {
+        console.log(item)
+      },
       join() {
+        // 난수생성
+         const newUuid = this.$uuid.v4()
+         this.uuid = newUuid
+         console.log(this.uuid)
+
+         // 초대버튼 활성
+         this.inviteButtonFlag = true
+
          var that = this;
          this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
+             console.log(roomid)
+             console.log(isRoomExist,'----')
           if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
             that.$emit('opened-room', roomid);
           }
         });
       },
       leave() {
+        // 초대버튼 비활성화
+        this.inviteButtonFlag = false
+
         this.rtcmConnection.attachStreams.forEach(function (localStream) {
           localStream.stop();
         });

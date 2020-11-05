@@ -6,11 +6,13 @@ import './plugins/base'
 import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
 import WebRTC from 'vue-webrtc'
+import UUID from 'vue-uuid'
 
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 
 Vue.use(WebRTC)
+Vue.use(UUID)
 
 new Vue({
   router,
