@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Trainer from '../views/Trainer.vue'
+import Trainer from '../views/Trainer/Trainer.vue'
+import TrainerDetail from '../views/Trainer/TrainerDetail.vue'
 import Program from '../views/Program/Program.vue'
 import ProgramCreate from '../views/Program/ProgramCreate.vue'
 import Mypage from '../views/Mypage.vue'
@@ -28,6 +29,11 @@ const routes = [
     path: '/trainer',
     name: 'Trainer',
     component: Trainer
+  },
+  {
+    path: '/trainer/:pk',
+    name: 'TrainerDetail',
+    component: TrainerDetail
   },
   {
     path : '/program',
