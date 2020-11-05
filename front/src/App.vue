@@ -6,6 +6,6 @@
 
 <script>
   export default {
-    name: '모두의 헬스',
+    name: 'HealthforEveryone',
   }
 </script>
