@@ -51,3 +51,14 @@ class ProgramDetailView(APIView):
                 serializer.save(trainer_id=request.user.id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({"message": "수정 실패"}, status=status.HTTP_400_BAD_REQUEST)
+
+class TrainerProgramView(APIView):
+    def get(self, request):
+        try:
+            trainer = request.user.trainer.first()
+            programs = trainer.program.all()
+            serializer = ProgramSerialiezer(programs, many=True)
+            return Response(serializer.data)
+        except:
+            return Response({"message": "트레이너가 아닙니다"},status=status.HTTP_400_BAD_REQUEST)
+        
