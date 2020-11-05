@@ -24,6 +24,15 @@
 					<p>{{client}}</p>
 				</div>
 			</div>
+
+			<hr>
+
+			<div>
+				<h3>프로그램 댓글</h3>
+				<div v-for="comment in comments" :key="comment.id">
+					<p>{{comment}}</p>
+				</div>
+			</div>
   </div>
 </template>
 
@@ -42,13 +51,15 @@ export default {
 					"title": null,
 					"content": null,
 				},
-				clients: null
+				clients: null,
+				comments: null,
       }
     },
 
     created() {
 			this.get_program()
 			this.get_client()
+			this.get_comment()
     },
 
     methods: {
@@ -62,12 +73,21 @@ export default {
             console.log(err)
           })
 			},
-			
 			get_client() {
 				const pk = this.$route.params.pk
         axios.get(`${this.constants.API_URL}program/` + pk + '/user/')
           .then((res)=>{
             this.clients = res.data
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+			},
+			get_comment() {
+				const pk = this.$route.params.pk
+        axios.get(`${this.constants.API_URL}program/` + pk + '/comment/')
+          .then((res)=>{
+            this.comments = res.data
           })
           .catch((err)=>{
             console.log(err)
