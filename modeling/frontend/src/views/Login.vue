@@ -113,10 +113,17 @@ export default {
                     },
                     })
                     .then((res)=>{
+                        console.log(res)
                         if (res.data.is_first === 0 ){
 
                         this.$router.push({name:'SubmitProfile'})
                         } else{
+                            console.log(res.data)
+                            if (res.data.user.is_first == 1 ){
+                                this.SET_TYPETOKEN('trainer')
+                            } else{
+                                this.SET_TYPETOKEN('client')
+                            }
                             this.$router.go(-1)
                         }
                     })
@@ -132,10 +139,11 @@ export default {
             submit(){
                 axios.post(`${this.constants.API_URL}rest-auth/signup/`,this.submitData)
                 .then((res)=>{
-                    console.log(res)
+                    this.SET_TOKEN(res.data.access_token)
+                    this.isFirstLogin()
                 })
             },
-            ...mapMutations(['SET_TOKEN'])
+            ...mapMutations(['SET_TOKEN','SET_TYPETOKEN'])
         },
         computed : {
             ...mapState(['userToken'])
