@@ -28,6 +28,17 @@
 			<hr>
 
 			<div>
+				<h3>댓글 작성</h3>
+				<label for="rate"></label>
+				<input v-model="submitData.rate" type="number" max='5' min='0' name="rate">
+				<label for="content"></label>
+				<textarea name="content" cols="30" rows="10" v-model="submitData.content"></textarea>
+				<button @click="comment_submit">제출</button>
+			</div>
+
+			<hr>
+
+			<div>
 				<h3>프로그램 댓글</h3>
 				<div v-for="comment in comments" :key="comment.id">
 					<p>{{comment}}</p>
@@ -38,6 +49,7 @@
 
 <script>
 import axios from 'axios'
+import {mapState} from 'vuex'
 import constants from '@/api/constants'
 
 export default {
@@ -53,6 +65,10 @@ export default {
 				},
 				clients: null,
 				comments: null,
+				submitData: {
+					content: null,
+					rate: null
+				}
       }
     },
 
@@ -92,10 +108,26 @@ export default {
           .catch((err)=>{
             console.log(err)
           })
+			},
+			comment_submit() {
+				const pk = this.$route.params.pk
+        const Token = 'Bearer '+this.userToken
+				axios.post(`${this.constants.API_URL}program/` + pk + '/comment/', this.submitData, {
+					headers: {
+                Authorization: Token,
+            },
+				})
+				.then((res)=>{
+					console.log(res)
+				})
+				.catch((err)=>{
+					console.log(err)
+				})
 			}
     },
     
     computed : {
+        ...mapState(['userToken'])
     }
 
 }

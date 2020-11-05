@@ -16,10 +16,7 @@ export default {
   },
   methods: {
     test() {
-      const form = {
-
-      }
-      axios.post(`${this.constants.API_URL}trainer/1/comment/`,form)
+      axios.get(`${this.constants.API_URL}trainer/1/comment/`)
         .then((res)=>{
           console.log(res.data)
         })
