@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(TrainerComment)
 admin.site.register(Program)
 admin.site.register(ProgramComment)
+admin.site.register(ProgramPrice)

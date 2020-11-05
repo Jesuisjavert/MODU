@@ -3,6 +3,7 @@
       <div>내 프로그램 관리 페이지</div>
       <div v-for="program in programs" :key="program.id" @click="detail(program.id)">
         <h3>{{program.title}}</h3>
+        <img :src = program.image_url height="100px">
         <p>{{program.content}}</p>
         <br>
       </div>

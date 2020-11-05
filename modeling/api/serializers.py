@@ -24,9 +24,15 @@ class TrainerCommentSerializer(serializers.ModelSerializer):
         model = TrainerComment
         fields = ('id','rate', 'content','client')
 
+class ProgramPriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramPrice
+        fields = '__all__'
+
 class ProgramSerialiezer(serializers.ModelSerializer):
     trainer = TrainerSerializer(read_only=True)
     image_url =  serializers.SerializerMethodField(read_only=True)
+    programprice = ProgramPriceSerializer(read_only=True, many=True)
     def get_image_url(self,program):
         image = str(program.thumb_img)
         return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+image
