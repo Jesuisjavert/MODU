@@ -39,7 +39,6 @@ export default {
             },
           })
           .then((res)=>{
-            console.log(res.data)
             this.programs = res.data
           })
           .catch((err)=>{
@@ -47,7 +46,6 @@ export default {
           })
       },
       detail(pk) {
-        console.log(pk)
         this.$router.push('program/'+pk)
       }
     },

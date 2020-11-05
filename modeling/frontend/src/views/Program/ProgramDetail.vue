@@ -1,6 +1,29 @@
 <template>
   <div>
       <div>프로그램 디테일</div>
+			<img :src=program.image_url height="300px">
+
+			<hr>
+
+			<h3>{{program.title}}</h3>
+
+			<hr>
+
+			<div>
+				<h3>가격</h3>
+				<div v-for="price in program.programprice" :key="price.id">
+					<p>{{price}}</p>
+				</div>
+			</div>
+
+			<hr>
+
+			<div>
+				<h3>신청한 유저들</h3>
+				<div v-for="client in clients" :key="client.id">
+					<p>{{client}}</p>
+				</div>
+			</div>
   </div>
 </template>
 
@@ -14,12 +37,18 @@ export default {
     data(){
       return {
         constants,
-        programs: null,
+        program: {
+					"image": null,
+					"title": null,
+					"content": null,
+				},
+				clients: null
       }
     },
 
     created() {
-      this.get_program()
+			this.get_program()
+			this.get_client()
     },
 
     methods: {
@@ -27,13 +56,23 @@ export default {
 				const pk = this.$route.params.pk
         axios.get(`${this.constants.API_URL}program/`+pk)
           .then((res)=>{
-						console.log(res.data)
             this.program = res.data
           })
           .catch((err)=>{
             console.log(err)
           })
-      },
+			},
+			
+			get_client() {
+				const pk = this.$route.params.pk
+        axios.get(`${this.constants.API_URL}program/` + pk + '/user/')
+          .then((res)=>{
+            this.clients = res.data
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+			}
     },
     
     computed : {
