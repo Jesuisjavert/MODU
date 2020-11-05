@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from ..models import Program
-from ..serializers import ProgramSerialiezer
+from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr
 from django.http import Http404
 
 class ProgramView(generics.ListCreateAPIView):
@@ -61,4 +61,10 @@ class TrainerProgramView(APIView):
             return Response(serializer.data)
         except:
             return Response({"message": "트레이너가 아닙니다"},status=status.HTTP_400_BAD_REQUEST)
-        
+
+class ProgramUserView(APIView):
+    def get(self, request, pk):
+        program = Program.objects.get(pk=pk)
+        clients = program.programpayment.all()
+        serializer = ProgramUserSerialiezr(clients, many=True)
+        return Response(serializer.data)
