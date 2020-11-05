@@ -159,10 +159,17 @@ export default {
         console.log(this.videoList)
         
         // 난수생성
-        const newUuid = this.$uuid.v4()
-        this.roomId = newUuid
+        if ($cookies.isKey('roomID')) {
+            this.roomId = $cookies.get('roomID')
+        } else {
+            const newUuid = this.$uuid.v4()
+            this.roomId = newUuid
+            $cookies.set('roomID', newUuid )
+        }
         console.log(this.roomId)
-
+        // if ($cookies.isKey('roomID') === false) {
+        //     $cookies.set('roomID', newUuid)
+        // }
         // join code
         var that = this;
         this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
@@ -178,12 +185,18 @@ export default {
             console.log('----')
         },
         leave() {
-
+            $cookies.remove('roomID')
         },
         shareScreen() {
 
         }
     },
+    destroyed(){
+        // console.log('사라졌어요')
+        this.rtcmConnection.attachStreams.forEach(function (localStream) {
+        localStream.stop();
+        });
+    }
 }
 </script>
 
