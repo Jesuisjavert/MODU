@@ -9,6 +9,7 @@ import SubmitProfile from '../views/submitProfile.vue'
 import Login from '../views/Login.vue'
 import store from '../store/index.js'
 import KakaoPayApprove from '../views/KakaoPayApprove.vue'
+import ProgramDetail from '../views/Program/ProgramDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
     path : '/program',
     name : 'Program',
     component : Program
+  },
+  {
+    path : '/program/:pk',
+    name : 'ProgramDetail',
+    component : ProgramDetail
   },
   {
     path : '/program/create',
