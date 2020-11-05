@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Trainer, Client, Tag
+import uuid
 # Create your models here.
 
 def program_image_path(instance,filename):
@@ -15,7 +16,7 @@ class Program(models.Model):
     content = models.CharField(max_length=800)
     visit_count = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tag)
-    thumb_img = models.ImageField(upload_to=program_image_path, blank=True, null=True)
+    thumb_img = models.ImageField(upload_to=program_image_path)
 
 class ProgramPrice(models.Model):
     # 프로그램 가격 테이블

@@ -26,13 +26,16 @@ class TrainerCommentSerializer(serializers.ModelSerializer):
 
 class ProgramSerialiezer(serializers.ModelSerializer):
     trainer = TrainerSerializer(read_only=True)
+    image_url =  serializers.SerializerMethodField(read_only=True)
+    def get_image_url(self,program):
+        image = str(program.thumb_img)
+        return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+image
     class Meta:
         model = Program
         exclude = ('tags',)
 
 class ProgramCommentSerializer(serializers.ModelSerializer):
     client = ClientSerializer(read_only=True)
-
     class Meta:
         model = ProgramComment
         exclude = ('program','trainer')
