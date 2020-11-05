@@ -45,12 +45,18 @@
         </v-responsive>
       </v-col>
     </v-row>
+
+  <cam-slider />
+
   </v-container>
 </template>
 
 <script>
   export default {
     name: 'About',
+    components: {
+      CamSlider: () => import('@/components/base/CamSlider'),
+    }
   }
 </script>
 

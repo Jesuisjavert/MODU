@@ -16,7 +16,7 @@
     name: 'Home',
 
     components: {
-      HomeSlider: () => import('@/components/base/HomeSlider')
+      HomeSlider: () => import('@/components/base/HomeSlider'),
     },
   }
 </script>
