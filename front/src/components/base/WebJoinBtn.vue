@@ -7,6 +7,9 @@
 </template>
 
 <script>
+import RTCMultiConnection from 'rtcmulticonnection';
+require('adapterjs');
+
 export default {
     name: "WebJoinBtn",
     methods: {
@@ -14,6 +17,14 @@ export default {
             
         },
     },
+    data () {
+        return {
+            joinRoomId: '',
+        }
+    },
+    mounted() {
+        
+    }
 }
 </script>
 
