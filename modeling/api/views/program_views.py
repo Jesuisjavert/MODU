@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..models import Program
+from ..models import Program,ProgramPrice
 from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr
 from django.http import Http404
 
@@ -17,7 +17,26 @@ class ProgramView(generics.ListCreateAPIView):
         if request.user.is_first!=1:
             return Response({"message": "트레이너가 아닙니다"},status=status.HTTP_400_BAD_REQUEST)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(trainer_id=request.user.trainer.first().id)
+            saved_program = serializer.save(trainer_id=request.user.trainer.first().id)
+            k = dict(request.data)
+            programdetail = []
+            for keydata in k.keys():
+                if 'program_detail' in keydata:
+                    key_index = int(keydata.replace('program_detail[','').split(']')[0])
+                    key_data = keydata.replace('program_detail[','').split(']')[1].replace('[','')
+                    print(key_data)
+                    if len(programdetail) < key_index+1:
+                        programdetail.append({
+                            key_data : k[keydata][0]
+                        })
+                    else:
+                        programdetail[key_index][key_data] = k[keydata][0]
+            for eachdata in programdetail:
+                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=0)
+                    
+                    
+        
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
