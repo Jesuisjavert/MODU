@@ -19,6 +19,13 @@
               </div>
             </div>
             <div id="calendarItemList" class="lnb-calendars-d1">
+              <div class="lnb-calendars-item" v-for="calendarListItem in calendarList" :key="calendarListItem.id">
+                <label>
+                  <input type="checkbox" class="tui-full-calendar-checkbox-round" value=calendarListItem.id checked>
+                  <span style="border-color: calendar.borderColor; background-color: calendar.borderColor;"></span>
+                  <span> {{calendarListItem.name}} </span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -57,6 +64,35 @@
               <li role="presentation">
                 <a class="dropdown-menu-title" role="menuitem" data-action="toggle-daily">
                   <i class="fas fa-bars daily-icon"></i>Daily
+                </a>
+              </li>
+              <li role="presentation">
+                <a class="dropdown-menu-title" role="menuitem" data-action="toggle-weeks2">
+                  <i class="calendar-icon ic_view_week"></i>2 weeks
+                </a>
+              </li>
+              <li role="presentation">
+                <a class="dropdown-menu-title" role="menuitem" data-action="toggle-weeks3">
+                  <i class="calendar-icon ic_view_week"></i>3 weeks
+                </a>
+              </li>
+              <li role="presentation" class="dropdown-divider"></li>
+              <li role="presentation">
+                <a role="menuitem" data-action="toggle-workweek">
+                  <input type="checkbox" class="tui-full-calendar-checkbox-square" value="toggle-workweek" checked>
+                  <span class="checkbox-title"></span>Show weekends
+                </a>
+              </li>
+              <li role="presentation">
+                <a role="menuitem" data-action="toggle-start-day-1">
+                  <input type="checkbox" class="tui-full-calendar-checkbox-square" value="toggle-start-day-1">
+                  <span class="checkbox-title"></span>Start Week on Monday
+                </a>
+              </li>
+              <li role="presentation">
+                <a role="menuitem" data-action="toggle-narrow-weekend">
+                  <input type="checkbox" class="tui-full-calendar-checkbox-square" value="toggle-narrow-weekend">
+                  <span class="checkbox-title"></span>Narrower than weekdays
                 </a>
               </li>
             </ul>
@@ -110,8 +146,7 @@ export default {
   },
   mounted() {
     this.setRenderRangeText(),
-    this.setEventListener(),
-    this.setCalendarList()
+    this.setEventListener()
   },
   computed: {
 
@@ -120,44 +155,44 @@ export default {
       return {
           calendarList: [
               {
-                  id: '0',
-                  name: '퍼스널 트레이닝'
+                id: '0',
+                name: '퍼스널 트레이닝'
               },
               {
-                  id: '1',
-                  name: '스피닝'
+                id: '1',
+                name: '스피닝'
               }
           ],
           scheduleList: [
               {
-                  id: '1',
-                  calendarId: '1',
-                  title: 'my schedule',
-                  category: 'time',
-                  dueDateClass: '',
-                  start: '2020-11-03T22:30:00+09:00',
-                  end: '2020-11-04T22:30:00+09:00'
+                id: '1',
+                calendarId: '1',
+                title: 'my schedule',
+                category: 'time',
+                dueDateClass: '',
+                start: '2020-11-03T22:30:00+09:00',
+                end: '2020-11-04T22:30:00+09:00'
               },
               {
-                  id: '2',
-                  calendarId: '1',
-                  title: 'second schedule',
-                  category: 'time',
-                  dueDateClass: '',
-                  start: '2020-11-18T17:30:00+09:00',
-                  end: '2020-11-19T17:31:00+09:00'
+                id: '2',
+                calendarId: '1',
+                title: 'second schedule',
+                category: 'time',
+                dueDateClass: '',
+                start: '2020-11-18T17:30:00+09:00',
+                end: '2020-11-19T17:31:00+09:00'
               }
           ],
           view: 'month',
           taskView: false,
           scheduleView: ['time'],
           theme: {
-              'month.dayname.height': '30px',
-              'month.dayname.borderLeft': '1px solid #ff0000',
-              'month.dayname.textAlign': 'center',
-              'week.today.color': '#333',
-              'week.daygridLeft.width': '100px',
-              'week.timegridLeft.width': '100px'
+            'month.dayname.height': '30px',
+            'month.dayname.borderLeft': '1px solid #ff0000',
+            'month.dayname.textAlign': 'center',
+            'week.today.color': '#333',
+            'week.daygridLeft.width': '100px',
+            'week.timegridLeft.width': '100px'
           },
           week: {
               narrowWeekend: true,
@@ -248,30 +283,62 @@ export default {
       console.log(target);
       console.log(action);
       switch (action) {
-          case 'toggle-daily':
-              viewName = 'day';
-              break;
-          case 'toggle-weekly':
-              viewName = 'week';
-              break;
-          case 'toggle-monthly':
-              options.month.visibleWeeksCount = 5;
-              viewName = 'month';
-              break;
-          default:
-              break;
-      }
-      this.$refs.tuiCalendar.invoke('setOptions', (options, true));
-      this.$refs.tuiCalendar.invoke('changeView', (viewName, true));
+        case 'toggle-daily':
+          viewName = 'day';
+          break;
+        case 'toggle-weekly':
+          viewName = 'week';
+          break;
+        case 'toggle-monthly':
+          options.month.visibleWeeksCount = 0;
+          viewName = 'month';
+          break;
+        case 'toggle-weeks2':
+          options.month.visibleWeeksCount = 2;
+          viewName = 'month';
+          break;
+        case 'toggle-weeks3':
+          options.month.visibleWeeksCount = 3;
+          viewName = 'month';
+          break;
+        case 'toggle-narrow-weekend':
+          options.month.narrowWeekend = !options.month.narrowWeekend;
+          options.week.narrowWeekend = !options.week.narrowWeekend;
+          viewName = this.$refs.tuiCalendar.invoke('getViewName');
 
+          target.querySelector('input').checked = options.month.narrowWeekend;
+          break;
+        case 'toggle-start-day-1':
+          options.month.startDayOfWeek = options.month.startDayOfWeek ? 0 : 1;
+          options.week.startDayOfWeek = options.week.startDayOfWeek ? 0 : 1;
+          viewName = this.$refs.tuiCalendar.invoke('getViewName');
+
+          target.querySelector('input').checked = options.month.startDayOfWeek;
+          break;
+        case 'toggle-workweek':
+          options.month.workweek = !options.month.workweek;
+          options.week.workweek = !options.week.workweek;
+          viewName = this.$refs.tuiCalendar.invoke('getViewName');
+
+          target.querySelector('input').checked = !options.month.workweek;
+          break;
+        default:
+          break;
+      }
+      console.log('들어왔습니다.')
+      this.$refs.tuiCalendar.invoke('setOptions', (options, true));
+      console.log('여기가 문제냐?')
+      console.log(viewName,'여기는 Vue에요')
+      this.$refs.tuiCalendar.invoke('changeView', ('newViewName', viewName));
+      console.log('위에가 끝났습니다.')
       this.setDropdownCalendarType();
       this.setRenderRangeText();
       this.setSchedules();
     },
     setSchedules() {
         this.$refs.tuiCalendar.invoke('clear');
-        generateSchedule(this.$refs.tuiCalendar.invoke('getViewName'), this.$refs.tuiCalendar.invoke('getDateRangeStart'), this.$refs.tuiCalendar.invoke('getDateRangeEnd'));
-        this.$refs.tuiCalendar.invoke('createSchedules', (ScheduleList));
+        this.generateSchedule(this.$refs.tuiCalendar.invoke('getViewName'), this.$refs.tuiCalendar.invoke('getDateRangeStart'), this.$refs.tuiCalendar.invoke('getDateRangeEnd'));
+        this.$refs.tuiCalendar.invoke('createSchedules', (this.ScheduleList));
 
         this.refreshScheduleVisibility();
     },
@@ -307,11 +374,15 @@ export default {
         var type = this.$refs.tuiCalendar.invoke('getViewName');
 
         if (type === 'day') {
-            type = 'Daily';
+          type = 'Daily';
         } else if (type === 'week') {
-            type = 'Weekly';
+          type = 'Weekly';
+        } else if (options.month.visibleWeeksCount === 2) {
+          type = '2 weeks';
+        } else if (options.month.visibleWeeksCount === 3) {
+          type = '3 weeks';
         } else {
-            type = 'Monthly';
+          type = 'Monthly';
         }
 
         calendarTypeName.innerHTML = type;
@@ -376,7 +447,18 @@ export default {
       // $('#dropdownMenu-calendars-list').on('click', onChangeNewScheduleCalendar);
 
       // window.addEventListener('resize', resizeThrottled);
-    }
+    },
+    generateSchedule(viewName, renderStart, renderEnd) {
+    this.ScheduleList = [];
+    CalendarList.forEach(function(calendar) {
+        var i = 0, length = 10;
+        if (viewName === 'month') {
+            length = 3;
+        } else if (viewName === 'day') {
+            length = 4;
+        }
+    });
+  },
   },
 }
 </script>
