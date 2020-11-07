@@ -1,12 +1,13 @@
 <template>
   <v-container
     id="home"
-    class="pt-12 pb-0 px-0"
+    class="pb-0 px-0"
     fluid
     tag="section"
   >
-    <home-headline />
-    
+   
+    <home-slider />
+
   </v-container>
 </template>
 
@@ -15,7 +16,7 @@
     name: 'Home',
 
     components: {
-      HomeHeadline: () => import('@/components/base/HomeHeadline'),
+      HomeSlider: () => import('@/components/base/HomeSlider'),
     },
   }
 </script>

@@ -1,5 +1,5 @@
 {
-  "name": "@vuetify-themes/photography",
+  "name": "@health-for-everyone/ssafy",
   "version": "1.0.1",
   "private": true,
   "scripts": {
@@ -12,12 +12,14 @@
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "plugin": "^0.3.3",
+    "slick-carousel": "^1.8.1",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.3",
     "vue-meta": "^2.3.3",
     "vue-router": "^3.1.6",
     "vue-uuid": "^2.0.2",
     "vue-webrtc": "^1.2.2",
+    "vue-slick-carousel": "^1.0.6",
     "vuetify": "^2.2.25",
     "vuex": "^3.3.0",
     "vuex-pathify": "^1.4.1"

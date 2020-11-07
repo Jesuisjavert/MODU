@@ -8,6 +8,7 @@ import VueCookies from 'vue-cookies'
 import WebRTC from 'vue-webrtc'
 import UUID from 'vue-uuid'
 
+
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 
