@@ -45,7 +45,7 @@
       />
     </v-app-bar>
 
-    <home-drawer
+    <drawer
       v-model="drawer"
       :items="items"
     />
@@ -54,7 +54,7 @@
 
 <script>
   export default {
-    name: 'HomeAppBar',
+    name: 'CoreAppBar',
 
     components: {
       Drawer: () => import('./Drawer'),

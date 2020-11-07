@@ -53,7 +53,7 @@
 
 <script>
   export default {
-    name: 'About us',
+    name: 'Aboutus',
     components: {
       CamSlider: () => import('@/components/base/CamSlider'),
     }

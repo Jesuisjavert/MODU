@@ -39,8 +39,8 @@
     components: { VueSlickCarousel },
     data(){
       return {
-        c1 : '',
-        c2 : '',
+        c1 : {},
+        c2 : {},
       }
     },
     computed : {
