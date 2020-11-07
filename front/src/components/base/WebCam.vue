@@ -77,6 +77,21 @@
             </div>
         </div> -->
         <!-- 케로젤 실험2 -->
+        <!-- <div class="video-list" >
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" v-if="selectCam === item.id" height="500" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+                <video controls autoplay playsinline ref="videos" v-else height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
+        </div> -->
+        <!-- 케로젤 실험3 -->
+        <VueSlickCarousel
+        ref="c1"
+        :asNavFor="focus2"
+        :slidesToShow="4"
+        :focusOnSelect="true">
         <div class="video-list" >
             <div v-for="item in videoList"
                 v-bind:video="item"
@@ -86,9 +101,37 @@
                 <video controls autoplay playsinline ref="videos" v-else height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
             </div>
         </div>
+        </VueSlickCarousel>
+        
         <WebCreateBtn>시작하기</WebCreateBtn>
         <WebJoinBtn>입장하기</WebJoinBtn>
         <CamSlider></CamSlider>
+        <!-- <VueSlickCarousel
+        ref="c1"
+        :asNavFor="focus2"
+        :slidesToShow="4"
+        :focusOnSelect="true">
+          <div><h3>1</h3></div>
+          <div><h3>2</h3></div>
+          <div><h3>3</h3></div>
+          <div><h3>4</h3></div>
+          <div><h3>5</h3></div>
+          <div><h3>6</h3></div>
+        </VueSlickCarousel>
+        
+        <VueSlickCarousel 
+          ref="c2"
+          :asNavFor='focus1'
+          :slidesToShow="1"
+          :focusOnSelect="true"
+        >
+          <div><h1>1</h1></div>
+          <div><h1>2</h1></div>
+          <div><h1>3</h1></div>
+          <div><h1>4</h1></div>
+          <div><h1>5</h1></div>
+          <div><h1>6</h1></div>
+        </VueSlickCarousel> -->
     </div>
 </template>
 
@@ -96,6 +139,12 @@
   import RTCMultiConnection from 'rtcmulticonnection';
   import { uuid } from 'vue-uuid';
   require('adapterjs');
+
+  // 캠슬라이더
+  import VueSlickCarousel from 'vue-slick-carousel'
+  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+
   export default {
     name: 'vue-webrtc',
     components: {
@@ -113,7 +162,19 @@
         uuid: '',
         inviteButtonFlag: false,
         selectCam: null,
+        // 캠슬라이더
+        c1 : {},
+        c2 : {},
       };
+    },
+    computed: {
+      // 캠슬라이더
+      focus1(){
+        return this.c1
+      },
+      focus2(){
+        return this.c2
+      }
     },
     props: {
     //   roomId: {
@@ -160,6 +221,10 @@
     watch: {
     },
     mounted() {
+      // 캠슬라이더
+      this.c1 = this.$refs.c1
+      this.c2 = this.$refs.c2
+
       var that = this;
       this.rtcmConnection = new RTCMultiConnection();
       this.rtcmConnection.socketURL = this.socketURL;
@@ -228,6 +293,8 @@
         that.videoList = newList;
         that.$emit('left-room', stream.streamid);
       };
+
+      // videoList가 불러와졌을 경우에만 실행
       console.log(this.videoList)
       if (this.videoList.length > 0) {
         this.selectCam = this.videoList[0].id
@@ -235,6 +302,7 @@
       }
     },
     watch: {
+      // selectCam의 default값 설정
       videoList: function() {
         if (this.selectCam === null) {
           this.selectCam = this.videoList[0].id
