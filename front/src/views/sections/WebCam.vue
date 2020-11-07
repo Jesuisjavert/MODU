@@ -17,7 +17,7 @@
                 v-bind:video="item"
                 v-bind:key="item.id"
                 class="video-item">
-                <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+                <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="500" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
                 <video controls autoplay playsinline ref="videos" v-else :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
             </div>
         </div>
@@ -186,9 +186,44 @@ export default {
         },
         leave() {
             $cookies.remove('roomID')
+            alert('수업이 종료되었습니다.')
+            this.$router.push({ name: 'Home' })
         },
         shareScreen() {
-
+            var that = this;
+            if (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia) {
+                function addStreamStopListener(stream, callback) {
+                    var streamEndedEvent = 'ended';
+                    if ('oninactive' in stream) {
+                        streamEndedEvent = 'inactive';
+                    }
+                    stream.addEventListener(streamEndedEvent, function() {
+                        callback();
+                        callback = function() {};
+                    }, false);
+                }
+                function onGettingSteam(stream) {
+                    that.rtcmConnection.addStream(stream);
+                    that.$emit('share-started', stream.streamid);
+                    addStreamStopListener(stream, function() {
+                    that.rtcmConnection.removeStream(stream.streamid);
+                    that.$emit('share-stopped', stream.streamid);
+                    });
+                }
+                function getDisplayMediaError(error) {
+                    console.log('Media error: ' + JSON.stringify(error));
+                }
+                if (navigator.mediaDevices.getDisplayMedia) {
+                    navigator.mediaDevices.getDisplayMedia({video: true, audio: false}).then(stream => {
+                    onGettingSteam(stream);
+                    }, getDisplayMediaError).catch(getDisplayMediaError);
+                }
+                else if (navigator.getDisplayMedia) {
+                    navigator.getDisplayMedia({video: true}).then(stream => {
+                    onGettingSteam(stream);
+                    }, getDisplayMediaError).catch(getDisplayMediaError);
+                }
+            }
         }
     },
     destroyed(){

@@ -33,6 +33,7 @@
             </div>
         </div>
         <WebCreateBtn>시작하기</WebCreateBtn>
+        <WebJoinBtn>입장하기</WebJoinBtn>
     </div>
 </template>
 
@@ -44,6 +45,7 @@
     name: 'vue-webrtc',
     components: {
       WebCreateBtn: () => import('@/components/base/WebCreateBtn'),
+      WebJoinBtn: () => import('@/components/base/WebJoinBtn'),
     },
     data() {
       return {

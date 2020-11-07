@@ -7,19 +7,18 @@
 </template>
 
 <script>
-import RTCMultiConnection from 'rtcmulticonnection';
-require('adapterjs');
 
 export default {
     name: "WebJoinBtn",
     methods: {
         joinWeb() {
-            
+          $cookies.set('roomID', this.joinRoomId)
+          this.$router.push({ name: 'WebCam' })
         },
     },
     data () {
         return {
-            joinRoomId: '',
+            joinRoomId: 'public-room',
         }
     },
     mounted() {
