@@ -19,8 +19,10 @@
                 class="video-item">
                 <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="500" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
                 <video controls autoplay playsinline ref="videos" v-else :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+                <p>{{ item.id }}</p>
             </div>
         </div>
+        <!-- <v-button @click="changeUserId">닉네임변경</v-button> -->
   </div>
 </template>
 
@@ -97,6 +99,15 @@ export default {
             audio: this.enableAudio,
             video: this.enableVideo
         };
+
+        // // 닉네임 변경 실험
+        // let today = new Date()
+        // var tempUserId = today.getSeconds();
+        // console.log(tempUserId)
+        // this.rtcmConnection.changeUserId(tempUserId, function() {
+        //     alert('닉변됨' + rtcmConnection.userid)
+        // })
+
         this.rtcmConnection.sdpConstraints.mandatory = {
             OfferToReceiveAudio: this.enableAudio,
             OfferToReceiveVideo: this.enableVideo
@@ -224,6 +235,12 @@ export default {
                     }, getDisplayMediaError).catch(getDisplayMediaError);
                 }
             }
+        },
+        printer(item) {
+            console.log(item)
+        },
+        changeUserId() {
+            
         }
     },
     destroyed(){

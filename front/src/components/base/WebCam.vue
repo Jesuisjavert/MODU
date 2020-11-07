@@ -23,7 +23,17 @@
             <!-- <button type="button" class="btn btn-primary" @click="stopVideo">Stop Video</button> -->
           </div>
         </div>
-        <div class="video-list" >
+        <!-- 초기설정 -->
+        <!-- <div class="video-list" >
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
+        </div> -->
+        <!-- 나만 작은화면 -->
+        <!-- <div class="video-list" >
             <div v-for="item in videoList"
                 v-bind:video="item"
                 v-bind:key="item.id"
@@ -31,9 +41,54 @@
                 <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
                 <video controls autoplay playsinline ref="videos" v-else :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
             </div>
+        </div> -->
+        <!-- 선택하면 캐로젤실험 전 값 -->
+        <!-- <div class="video-list" >
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
+        </div>
+        <div class="select-video">
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" v-if="localVideo.id !== item.id" height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
+        </div> -->
+        <!-- 캐로젤 실험 -->
+        <!-- <div class="video-list" >
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" v-if="selectCam === item.id" height="500" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
+        </div>
+        <div class="select-video">
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" v-if="selectCam !== item.id" height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
+        </div> -->
+        <!-- 케로젤 실험2 -->
+        <div class="video-list" >
+            <div v-for="item in videoList"
+                v-bind:video="item"
+                v-bind:key="item.id"
+                class="video-item">
+                <video controls autoplay playsinline ref="videos" v-if="selectCam === item.id" height="500" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+                <video controls autoplay playsinline ref="videos" v-else height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
+            </div>
         </div>
         <WebCreateBtn>시작하기</WebCreateBtn>
         <WebJoinBtn>입장하기</WebJoinBtn>
+        <CamSlider></CamSlider>
     </div>
 </template>
 
@@ -46,6 +101,7 @@
     components: {
       WebCreateBtn: () => import('@/components/base/WebCreateBtn'),
       WebJoinBtn: () => import('@/components/base/WebJoinBtn'),
+      CamSlider: () => import('@/components/base/CamSlider'),
     },
     data() {
       return {
@@ -56,6 +112,7 @@
         roomId: 'public-room',
         uuid: '',
         inviteButtonFlag: false,
+        selectCam: null,
       };
     },
     props: {
@@ -172,12 +229,25 @@
         that.$emit('left-room', stream.streamid);
       };
       console.log(this.videoList)
+      if (this.videoList.length > 0) {
+        this.selectCam = this.videoList[0].id
+        console.log(this.selectCam)
+      }
+    },
+    watch: {
+      videoList: function() {
+        if (this.selectCam === null) {
+          this.selectCam = this.videoList[0].id
+          // console.log('비디오리스트1번', this.selectCam)
+        }
+      }
     },
     methods: {
       stopVideo() {
           this.enableVideo = false
       },
       printer(item) {
+        this.selectCam = item.id
         console.log(item)
       },
       join() {

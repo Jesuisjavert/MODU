@@ -16,7 +16,7 @@
   <VueSlickCarousel 
     ref="c2"
     :asNavFor='focus1'
-    :slidesToShow="2"
+    :slidesToShow="1"
     :focusOnSelect="true"
   >
     <div><h1>1</h1></div>
@@ -40,8 +40,8 @@
     components: { VueSlickCarousel },
     data(){
       return {
-        c1 : '',
-        c2 : '',
+        c1 : {},
+        c2 : {},
       }
     },
     computed : {
