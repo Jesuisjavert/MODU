@@ -139,3 +139,18 @@
 2. Vue.use 를 사용하는 Library들이 대체적으로 Ionic프로젝트에서는 오류가 많이 나고 작업이 잘 되지 않는 것으로 파악. CDN 방식으로 적용하는 참고 예제들을 가져오려고 하나 어려움이 많음.
 3. 도커와 CI/ CD에 관련한 학습을 진행중이라 도커를 도입할 예정.
 4. Alert 기능을 준비하기 위한 기본 세팅 페이지를 생성 완료
+
+#### 2020 - 10 - 29 ~ 10 - 30 각자 페이지 구현
+
+1. 새로 모델링 적용한 Back API 모델 수정 및 로직 수정
+2. 페이지 작업
+
+
+
+#### 2020 - 11.2 ~ 11.6  webRTC 및 fullcalendar 개발, MainPage 개발. 기본 로직 수정
+
+1. 새로운 모델링에 맞게 frontpage와 axios, postman 을 활용해서 접속확인 및 기본 로그인 등 기능 개발. 
+2. webRTC carousel 적용 slick-slider 컴포넌트와 동기화 작업
+3. fullcalendar 예약 기능 및 pt 프로그램 기능 추가
+4. Frontpage와 Backend 연결하면서 기능 추가
+5. 메인페이지에 Info Component 관련 하위 컴포넌트 생성

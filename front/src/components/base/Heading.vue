@@ -49,7 +49,7 @@
       },
       size: {
         type: String,
-        default: 'display-2',
+        default: 'display-3',
       },
       space: {
         type: [Number, String],

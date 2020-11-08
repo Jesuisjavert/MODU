@@ -4,14 +4,14 @@
       :min-height="minHeight"
       :src="require('@/assets/modu34.jpg')"
       class="white--text"
-      gradient="to right, rgba(90, 90, 90, .8), rgba(5, 11, 31, .8)"
-      max-height="750"
+      gradient="to right, rgba(45, 45, 45, .8), rgba(5, 11, 31, .8)"
+      max-height="500"
     >
-      <v-container class="fill-height px-4 py-12">
+      <v-container class="fill-height px-4 py-12 mt-12 pt-12" >
         <v-responsive
           class="d-flex align-center"
           height="100%"
-          max-width="700"
+          max-width="800"
           width="100%"
         >
           <base-heading title="당신을 위한, 당신에 의한, 당신의 트레이너를 찾아보세요" />

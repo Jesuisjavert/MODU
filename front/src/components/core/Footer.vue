@@ -34,7 +34,7 @@
       <div class="my-3" />
 
       <div>
-        Copyright &copy; {{ date }}&nbsp;<strong>Apolio</strong>
+        Copyright &copy; {{ date }}&nbsp;<strong>Health for Everyone</strong>
       </div>
     </div>
   </v-footer>

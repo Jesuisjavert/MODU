@@ -4,14 +4,13 @@
       :min-height="minHeight"
       :src="require('@/assets/modu37.jpg')"
       class="white--text"
-      gradient="to right, rgba(90, 90, 90, .8), rgba(5, 11, 31, .8)"
-      max-height="750"
+      gradient="to right, rgba(45, 45, 45, .8), rgba(5, 11, 31, .8)"
+      max-height="500"
     >
-      <v-container class="fill-height px-4 py-12">
+      <v-container class="fill-height px-4 py-12 mt-12 pt-12">
         <v-responsive
           class="d-flex align-center"
-          height="100%"
-          max-width="700"
+          max-width="600"
           width="100%"
         >
           <base-heading title="실시간 화상PT 서비스를 통해 바로 피드백을 받아보세요" />

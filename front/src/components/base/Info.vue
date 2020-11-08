@@ -2,13 +2,13 @@
   <v-theme-provider :dark="dark">
     <div>
       <base-img
-        :src="require('@/assets/logo2.png')"
+        :src="require('@/assets/modublack.png')"
         contain
         max-width="128"
         min-height="78"
         width="100%"
       />
-
+      <br>
       <base-title
         size="body-1"
         space="4"
