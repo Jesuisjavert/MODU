@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Trainer, Client, UserProfile
+from .models import Trainer, Client, UserProfile, Tag
 
 User = get_user_model()
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
     image_url =  serializers.SerializerMethodField(read_only=True)

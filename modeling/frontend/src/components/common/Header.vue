@@ -19,7 +19,9 @@ export default {
             'name' : '프로그램'}],
             clientlist : [
             {'url': 'ClientProgram',
-            'name' : '프로그램'}],
+            'name' : '프로그램'},
+            {'url': 'Mypage',
+            'name' : '마이페이지'}],
         }
     },
     methods : {

@@ -1,12 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from accounts.models import Gym
-from accounts.serializers import ClientSerializer, TrainerSerializer
-
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = '__all__'
+from accounts.serializers import ClientSerializer, TrainerSerializer, UserSerializers, TagSerializer
 
 class GymSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,8 +55,26 @@ class ProgramPaymentSerialiezr(serializers.ModelSerializer):
         model = ProgramPayment
         fields = ('program', 'price')
 
+
+# 클라이언트 mypage를 위한 Serializer
+
+class ClientProgramCommentSerializer(serializers.ModelSerializer):
+    program = ProgramSerialiezer(read_only=True)
+    class Meta:
+        model = ProgramComment
+        fields = '__all__'
+
+class ClientTrainerCommentSerializer(serializers.ModelSerializer):
+    trainer = TrainerSerializer(read_only=True)
+    class Meta:
+        model = TrainerComment
+        fields = '__all__'
+
 class ClientDetailSerializer(serializers.ModelSerializer):
+    user = UserSerializers(read_only=True)
     programpayment = ProgramPaymentSerialiezr(read_only=True, many=True)
+    trainercomment = ClientTrainerCommentSerializer(read_only=True, many=True)
+    programcomment = ClientProgramCommentSerializer(read_only=True, many=True)
     class Meta:
         model = Client
         fields = '__all__'
