@@ -7,7 +7,6 @@ import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
 import WebRTC from 'vue-webrtc'
 import UUID from 'vue-uuid'
-import VueToast from 'vue-toast-notification'
 
 
 Vue.use(VueCookies)
@@ -15,7 +14,6 @@ Vue.config.productionTip = false
 
 Vue.use(WebRTC)
 Vue.use(UUID)
-Vue.use(VueToast)
 
 new Vue({
   router,
