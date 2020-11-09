@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import webCam from '@/views/sections/WebCam.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +40,16 @@ export default new Router({
           path: '/oauth2/redirect',
           name: 'Oauth',
           component: () => import('@/views/oauth/Index.vue'),
+        },
+        {
+          path: '/webrtc',
+          name: 'webrtc',
+          component: () => import('@/components/base/WebCam.vue')
+        },
+        {
+          path: '/webcam',
+          name: 'WebCam',
+          component: webCam,
         },
       ],
     },
