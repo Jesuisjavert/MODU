@@ -28,7 +28,6 @@
           <label :for="'c'+index">휴무일</label>
           <input v-model="day.disabled" type="checkbox" :name="'c'+index" id="">
       </div>
-      <button @click="test()">테스트입니다.</button>
       <button @click="submitTrainer()">제출</button>
   </div>
 </template>
@@ -113,12 +112,6 @@ export default {
             .catch((err)=>{
                 console.log(err.response)
             })
-      },
-      test(){
-          axios.post(`${constants.API_URL}rest-auth/test/`,this.schedule)
-          .then((res)=>{
-              console.log(res)
-          })
       },
       ...mapMutations(['SET_TYPETOKEN'])
     },
