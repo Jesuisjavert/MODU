@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..models import Program,ProgramPrice
+from ..models import Program,ProgramPrice,ProgramSchedule
 from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr
 from django.http import Http404
 from accounts.models import Tag
@@ -34,7 +34,7 @@ class ProgramView(generics.ListCreateAPIView):
                     else:
                         programdetail[key_index][key_data] = k[keydata][0]
             for eachdata in programdetail:
-                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=0)
+                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=int(eachdata['offline_count']))
                     
                     
         
@@ -72,6 +72,14 @@ class ProgramDetailView(APIView):
                 serializer.save(trainer_id=request.user.id)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({"message": "수정 실패"}, status=status.HTTP_400_BAD_REQUEST)
+
+class OnlineProgramSchedule(APIView):
+    def post(self,request,pk):
+        onlineprogram = Program.objects.get(id=pk)
+        for schedule in request.data['schedule']:
+            if schedule['disabled'] == False:
+                ProgramSchedule.objects.create(day=schedule['day'],start_hour=schedule['start_hour'],end_hour=schedule['end_hour'],program=onlineprogram)
+                return Response({'data': True})
 
 class TrainerProgramView(APIView):
     def get(self, request):
