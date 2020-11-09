@@ -46,12 +46,12 @@
         },
         {
           icon: 'mdi-food-off',
-          title: 'Review',
+          title: 'Diet management',
           text: '식단관리 캘린더로 간편하게',
         },
         {
           icon: 'mdi-chat-processing-outline',
-          title: 'Smooth Transition',
+          title: 'Realtime FaceChat',
           text: '화상채팅으로 실시간 온라인 홈트레이닝',
         },
       ],
