@@ -15,14 +15,16 @@
 
     mixins: [
       LoadSections([
-        'About',
+        'Aboutus',
+        'feature2',
+        'info',
       ]),
     ],
 
     props: {
       id: {
         type: String,
-        default: 'about',
+        default: 'aboutus',
       },
     },
   }

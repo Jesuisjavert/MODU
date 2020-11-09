@@ -16,6 +16,10 @@
     mixins: [
       LoadSections([
         'home',
+        'feature1',
+        'TopTrainer',
+        'TopProgram',
+        'info',
       ]),
     ],
 

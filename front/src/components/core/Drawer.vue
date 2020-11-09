@@ -1,61 +1,42 @@
 <template>
   <v-navigation-drawer
-    v-model="drawer"
-    right
+    bottom
+    color="transparent"
     fixed
+    height="auto"
+    overlay-color="secondary"
+    overlay-opacity=".8"
     temporary
+    v-bind="$attrs"
+    v-on="$listeners"
   >
-    <v-list>
+    <v-list
+      color="white"
+      shaped
+    >
       <v-list-item
-        v-for="(link, i) in links"
-        :key="i"
-        :to="{
-          name: link
-        }"
-        active-class="primary--text font-weight-bold"
-        class="subtitle-1"
-        exact
-        min-width="128"
-        text
+        v-for="name in items"
+        :key="name"
+        :to="{ name }"
+        :exact="name === 'Home'"
+        color="primary"
       >
         <v-list-item-content>
-          <v-list-item-title v-text="link" />
+          <v-list-item-title v-text="name" />
         </v-list-item-content>
       </v-list-item>
     </v-list>
-
-    <template v-slot:append>
-      <div class="py-8">
-        <v-img
-          :src="require('@/assets/logo.png')"
-          class="mx-auto mb-8"
-          max-width="128"
-        />
-
-        <div class="text-center title">
-          <span class="primary--text">Apolio</span><br><span class="display-1 font-weight-bold">Jesuisjavert</span>
-        </div>
-      </div>
-    </template>
   </v-navigation-drawer>
 </template>
 
 <script>
-  // Utilities
-  import { mapState } from 'vuex'
-
   export default {
     name: 'CoreDrawer',
 
-    computed: {
-      ...mapState(['links']),
-      drawer: {
-        get () {
-          return this.$store.state.drawer
-        },
-        set (val) {
-          this.$store.commit('SET_DRAWER', val)
-        },
+    props: {
+      items: {
+        type: Array,
+        default: () => ([]),
       },
     },
   }
