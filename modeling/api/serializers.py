@@ -54,6 +54,14 @@ class ProgramUserSerialiezr(serializers.ModelSerializer):
         fields = ('client',)
 
 class ProgramPaymentSerialiezr(serializers.ModelSerializer):
+    program = ProgramSerialiezer(read_only=True)
+    price = ProgramPriceSerializer(read_only=True)
     class Meta:
         model = ProgramPayment
-        fields = ()
+        fields = ('program', 'price')
+
+class ClientDetailSerializer(serializers.ModelSerializer):
+    programpayment = ProgramPaymentSerialiezr(read_only=True, many=True)
+    class Meta:
+        model = Client
+        fields = '__all__'
