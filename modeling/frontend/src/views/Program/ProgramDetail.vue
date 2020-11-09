@@ -5,6 +5,15 @@
 
 			<hr>
 
+			<div>
+				<label for="price">상품 선택</label>
+				<select name="price" id="price" v-model="selectPrice">
+					<option :value=item.id v-for="item in program.programprice" :key="item.id">{{item.title}}</option>
+				</select>
+				
+				<button @click="program_apply()">신청하기</button>
+			</div>
+
 			<h3>{{program.title}}</h3>
 
 			<hr>
@@ -68,7 +77,8 @@ export default {
 				submitData: {
 					content: null,
 					rate: null
-				}
+				},
+				selectPrice: null,
       }
     },
 
@@ -123,6 +133,11 @@ export default {
 				.catch((err)=>{
 					console.log(err)
 				})
+			},
+			program_apply() {
+				console.log(this.selectPrice)
+				console.log(this.program)
+				this.$router.push({name: 'ProgramApply', query: { program: this.program.id, price: this.selectPrice }})
 			}
     },
     
