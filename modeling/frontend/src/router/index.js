@@ -11,6 +11,7 @@ import Login from '../views/Login.vue'
 import store from '../store/index.js'
 import KakaoPayApprove from '../views/KakaoPayApprove.vue'
 import ProgramDetail from '../views/Program/ProgramDetail.vue'
+import ClientProgram from '../views/Client/Program/ClientProgram.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path : '/program',
     name : 'Program',
     component : Program
+  },
+  {
+    path: '/client/program',
+    name: 'ClientProgram',
+    component : ClientProgram,
   },
   {
     path : '/program/:pk',
