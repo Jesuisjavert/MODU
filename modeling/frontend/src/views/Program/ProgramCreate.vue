@@ -11,7 +11,29 @@
 <br>
 <label for="title">프로그램 명</label>
 <input type="text" v-model="inputdata.title" name="title">
+
 <br>
+<div>
+  <span>태그등록 : </span>
+  <input @input="autocomplete" type="text">
+  태그등록
+</div>
+
+<div>
+  <div v-for="(tag,index) in autocompletelist" :key="index">
+    <li>{{tag}} <button @click="appendTag(tag)">추가</button></li>
+   
+  </div>
+</div>
+
+<div>
+  <span>등록 태그 : </span>
+  <div v-for="(tag,index) in inputdata.tags" :key="index">
+    <li>{{tag}}</li>
+     <button @click="deleteTag(index)">삭제</button>
+  </div> 
+</div>
+
 <label for="content">설명 : </label>
 <input type="text" v-model="inputdata.content" name="content">
 <br>
@@ -44,6 +66,7 @@ export default {
           title : '',
           content : '',
           thumb_img : [],
+          tags : [],
 
         },
         detaildata :[{
@@ -53,6 +76,7 @@ export default {
           
         }],
         constants,
+        autocompletelist : [],
       }
     },
     methods: {
@@ -75,12 +99,13 @@ export default {
       },
       createProgram(){
         let formData = new FormData()
-        console.log(this.userToken)
+        let tags = this.inputdata.tags.join()
         let Token = 'Bearer '+this.userToken
         formData.append('title',this.inputdata.title)
         formData.append('content',this.inputdata.content)
         formData.append('_type',this.inputdata._type)
         formData.append('thumb_img',this.inputdata.thumb_img[0])
+        formData.append('tags',tags)
         const data = {
           program_detail : this.detaildata
         }
@@ -100,7 +125,28 @@ export default {
 
       },
      setFormData(formData, data, parentKey) { if (!(formData instanceof FormData)) return; if (!(data instanceof Object)) return; Object.keys(data).forEach(key => { const val = data[key]; if (parentKey) key = `${parentKey}[${key}]`; if (val instanceof Object && !Array.isArray(val)) { return this.setFormData(formData, val, key); } if (Array.isArray(val)) { val.forEach((v, idx) => { if (v instanceof Object) { this.setFormData(formData, v, `${key}[${idx}]`); } else { formData.append(`${key}[${idx}]`, v); } }); } else { formData.append(key, val); } }); }
+    ,autocomplete(event){
+      this.autocompletelist = []
+      const inputValue = event.target.value.trim()
+      if(inputValue.length > 0){
+        this.constants.tags.forEach((item)=>{
+         if(item.includes(inputValue)){
+           this.autocompletelist.push(item)
+         }
+       })
 
+      }
+    },
+    appendTag(tag){
+      console.log(this.inputdata.tags.indexOf(tag))
+      if (this.inputdata.tags.indexOf(tag) === -1){
+        this.inputdata.tags.push(tag)
+
+      }
+    },
+    deleteTag(index){
+      this.inputdata.tags.splice(index,1)
+    }
 
 
     },

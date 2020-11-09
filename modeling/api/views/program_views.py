@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from ..models import Program,ProgramPrice
 from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr
 from django.http import Http404
-
+from accounts.models import Tag
 class ProgramView(generics.ListCreateAPIView):
     # 프로그램 GET 정보가져오기
     queryset = Program.objects.all()
@@ -20,6 +20,9 @@ class ProgramView(generics.ListCreateAPIView):
             saved_program = serializer.save(trainer_id=request.user.trainer.first().id)
             k = dict(request.data)
             programdetail = []
+            tags = request.data['tags'].split(',')
+            for eachtag in tags:
+                saved_program.tags.add(Tag.objects.get(name=eachtag))
             for keydata in k.keys():
                 if 'program_detail' in keydata:
                     key_index = int(keydata.replace('program_detail[','').split(']')[0])
