@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .serializers import *
-from .models import User,TrainerSchedule
+from .models import User,TrainerSchedule,Tag
 from rest_framework import generics 
 from rest_framework.response import Response
 from django.http import Http404
@@ -53,6 +53,9 @@ class UserInfo(APIView):
             if serializer.is_valid(raise_exception=True):
                 trainer = serializer.save(user=request.user)
                 self.put_user(1)
+                tags = request.data['taglist'].split(',')
+                for eachtag in tags:
+                    trainer.tags.add(Tag.objects.get(name=eachtag))
                 for schedule in request.data['schedule']:
                     if schedule['disabled'] == False:
                         TrainerSchedule.objects.create(day=schedule['day'],start_hour=schedule['start_hour'],end_hour=schedule['end_hour'],trainer=trainer)
