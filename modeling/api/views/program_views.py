@@ -34,7 +34,7 @@ class ProgramView(generics.ListCreateAPIView):
                     else:
                         programdetail[key_index][key_data] = k[keydata][0]
             for eachdata in programdetail:
-                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=0)
+                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=int(eachdata['offline_count']))
                     
                     
         
