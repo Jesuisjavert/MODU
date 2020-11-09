@@ -337,6 +337,7 @@ export default {
     },
     setSchedules() {
         this.$refs.tuiCalendar.invoke('clear');
+        console.log('문제',this.$refs.tuiCalendar.invoke('getViewName'), this.$refs.tuiCalendar.invoke('getDateRangeStart'), this.$refs.tuiCalendar.invoke('getDateRangeEnd'))
         this.generateSchedule(this.$refs.tuiCalendar.invoke('getViewName'), this.$refs.tuiCalendar.invoke('getDateRangeStart'), this.$refs.tuiCalendar.invoke('getDateRangeEnd'));
         this.$refs.tuiCalendar.invoke('createSchedules', (this.ScheduleList));
 
@@ -384,7 +385,7 @@ export default {
         } else {
           type = 'Monthly';
         }
-
+        console.log('끝')
         calendarTypeName.innerHTML = type;
     },
     onChangeCalendars(e) {
@@ -450,15 +451,18 @@ export default {
     },
     generateSchedule(viewName, renderStart, renderEnd) {
     this.ScheduleList = [];
-    CalendarList.forEach(function(calendar) {
+    this.CalendarList.forEach(function(calendar) {
         var i = 0, length = 10;
         if (viewName === 'month') {
             length = 3;
         } else if (viewName === 'day') {
             length = 4;
         }
-    });
-  },
+        for (; i < length; i += 1) {
+          generateRandomSchedule(calendar, renderStart, renderEnd);
+        }
+      });
+    },
   },
 }
 </script>
