@@ -16,7 +16,7 @@
 <script>
 import axios from 'axios'
 import constants from '@/api/constants'
-import {mapState} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
     name : 'KakaoPayApprove',
@@ -29,18 +29,26 @@ export default {
     },
     methods:{
       approve(){
+          let Token = "Bearer " + this.userToken;
           let form = new FormData()
           // let pg_token = this.$route.query.pg_token
           form.append('tid', this.tid)
           form.append('pg_token', this.$route.query.pg_token)
-          axios.post(`${this.constants.API_URL}kakaopay/approve/`, form)
+          axios.post(`${this.constants.API_URL}kakaopay/approve/`, form,{
+            headers: {
+              Authorization: Token,
+            },
+          })
           .then((res)=>{
+            this.REMOVE_TID
             console.log(res.data)
           })
           .catch((err)=>{
             console.log(err)
           })
-      }
+      },
+      
+      ...mapMutations(['REMOVE_TID'])
     },
     created() {
       this.approve()

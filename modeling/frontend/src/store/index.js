@@ -25,6 +25,9 @@ export default new Vuex.Store({
       state.tid = token,
       sessionStorage.setItem('tid',token)
     },
+    REMOVE_TID(){
+      sessionStorage.removeItem('tid')
+    },
   },
   actions: {
   },

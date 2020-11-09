@@ -45,6 +45,8 @@ class ProgramPayment(models.Model):
     # 결제 완료 테이블
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programpayment")
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programpayment")
+    price = models.ForeignKey(ProgramPrice, on_delete=models.CASCADE, related_name="programpayment")
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class ProgramReservationDay(models.Model):
     # 오프라인 프로그램 예약 날짜 테이블
