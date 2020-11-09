@@ -22,6 +22,7 @@
 <script>
 import axios from 'axios'
 import constants from '@/api/constants'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
     name: "ProgramApply",
@@ -67,40 +68,45 @@ export default {
         });
       },
       pay(){
-            let baseUrl = "http://127.0.0.1:8000/"
-            let form = new FormData()
-            form.append('amount', this.value)
-            axios.post(baseUrl+"api/kakaopay/", form)
-            .then((res)=>{
-                // let payUrl = res.data.next_redirect_pc_url
-                console.log(res)
-                // location.href = payUrl
-                // console.log(payUrl)
-            })
-            .catch((err)=>{
-                console.log(err)
-                alert("에러가 발생했습니다. 다시 시도해주세요")
-                this.$router.push('/')
-            })
-        },
-        approve(){
-            let baseUrl = "http://127.0.0.1:8000/"
-            let form = new FormData()
-            // let pg_token = this.$route.query.pg_token
-            form.append('amount', this.value)
-            axios.post(baseUrl+"api/kakaopay/approve", form)
-            .then((res)=>{
-                let payUrl = res.data.next_redirect_pc_url
-                console.log(res)
-                location.href = payUrl
-                console.log(payUrl)
-            })
-            .catch((err)=>{
-                console.log(err)
-                alert("에러가 발생했습니다. 다시 시도해주세요")
-                this.$router.push('/')
-            })
-        },
+          let form = new FormData()
+          form.append('item_name', this.program.title + " | " + this.price.title)
+          // form.append('partner_order_id', this.program.trainer.id)
+          form.append('total_amount', this.price.price)
+          axios.post(`${this.constants.API_URL}kakaopay/`, form)
+          .then((res)=>{
+              this.SET_TID(res.data.tid)
+              let payUrl = res.data.next_redirect_pc_url
+              location.href = payUrl
+          })
+          .catch((err)=>{
+              console.log(err)
+              alert("에러가 발생했습니다. 다시 시도해주세요")
+              this.$router.push('/')
+          })
+      },
+      approve(){
+          let baseUrl = "http://127.0.0.1:8000/"
+          let form = new FormData()
+          // let pg_token = this.$route.query.pg_token
+          form.append('amount', this.value)
+          axios.post(baseUrl+"api/kakaopay/approve", form)
+          .then((res)=>{
+              let payUrl = res.data.next_redirect_pc_url
+              console.log(res)
+              location.href = payUrl
+              console.log(payUrl)
+          })
+          .catch((err)=>{
+              console.log(err)
+              alert("에러가 발생했습니다. 다시 시도해주세요")
+              this.$router.push('/')
+          })
+      },
+        
+      ...mapMutations(['SET_TID'])
+    },
+    computed : {
+        ...mapState(['tid'])
     }
     
 }
