@@ -1,0 +1,67 @@
+[
+	{
+		"model": "accounts.tag",
+		"id": 1,
+		"fields":{"name": "다이어트"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 2,
+		"fields":{"name": "바른체형"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 3,
+		"fields":{"name": "기능개선"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 4,
+		"fields":{"name": "바디프로필"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 5,
+		"fields":{"name": "대회준비"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 6,
+		"fields":{"name": "근력향상"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 7,
+		"fields":{"name": "기초체력"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 8,
+		"fields":{"name": "벌크업"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 9,
+		"fields":{"name": "하체라인"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 10,
+		"fields":{"name": "줌바"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 11,
+		"fields":{"name": "요가"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 12,
+		"fields":{"name": "에어로빅댄스"}
+	},
+	{
+		"model": "accounts.tag",
+		"id": 13,
+		"fields":{"name": "스피닝"}
+	}
+]
