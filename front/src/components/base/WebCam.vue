@@ -106,6 +106,7 @@
         <WebCreateBtn>시작하기</WebCreateBtn>
         <WebJoinBtn>입장하기</WebJoinBtn>
         <CamSlider></CamSlider>
+        <Notification></Notification>
         <!-- <VueSlickCarousel
         ref="c1"
         :asNavFor="focus2"
@@ -151,6 +152,7 @@
       WebCreateBtn: () => import('@/components/base/WebCreateBtn'),
       WebJoinBtn: () => import('@/components/base/WebJoinBtn'),
       CamSlider: () => import('@/components/base/CamSlider'),
+      Notification: () => import('@/components/base/Notification'),
     },
     data() {
       return {
