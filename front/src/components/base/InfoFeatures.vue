@@ -17,11 +17,11 @@
 
     data: () => ({
       features: [
-        'Write your comment',
+        'Find your perfect trainer',
         'Mobile Accesibility',
-        'Let your idea spread',
+        'Let your routine regularly',
         'Responsive Image',
-        'Signup',
+        'Online Personal Training',
       ],
     }),
   }

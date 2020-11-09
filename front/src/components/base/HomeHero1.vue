@@ -5,20 +5,19 @@
       :src="require('@/assets/modu34.jpg')"
       class="white--text"
       gradient="to right, rgba(45, 45, 45, .8), rgba(5, 11, 31, .8)"
-      max-height="500"
+      aspect-ratio="12"
     >
       <v-container class="fill-height px-4 py-12 mt-12 pt-12" >
         <v-responsive
           class="d-flex align-center"
           height="100%"
-          max-width="800"
+          max-width="850"
           width="100%"
         >
           <base-heading title="당신을 위한, 당신에 의한, 당신의 트레이너를 찾아보세요" />
 
           <base-body>
-            Infographic hypotheses influencer user experience Long madel ture gen-z paradigm shift client partner network product seilans solve management influencer analytics leverage virality.
-            incubator seed round massmarket. 
+            모두의 헬스에서 당신이 원하는 Online / Offline 코스를 검색해보세요. 운동루틴 관리부터 식단조절 프로그램까지. 체계적인 프로그램을 매칭 시켜드립니다.
           </base-body>
 
           <div
@@ -26,7 +25,7 @@
             class="d-flex flex-wrap"
           >
             <base-btn>
-              Discover More
+              프로그램 찾기
             </base-btn>
 
             <span class="font-weight-bold ml-6 mr-4 my-4">or</span>

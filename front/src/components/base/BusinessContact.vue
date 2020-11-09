@@ -53,12 +53,12 @@
         {
           icon: 'mdi-cellphone',
           title: 'Phone',
-          text: 'Donghoon : +82)010-1234-5678 <br> Ikhan : +82)010-1234-5678',
+          text: 'CS team : +82) 10-4873-3847 <br> Dev team: *82) 10-0824-2938',
         },
         {
           icon: 'mdi-email',
           title: 'Email',
-          text: 'Donghoon: jesuisjavert@gmail.com <br> Ikhan : dlrgks0831@gmail.com',
+          text: 'CS: jesuisjavert@gmail.com <br> Dev: dlrgks0831@gmail.com',
         },
       ],
     }),

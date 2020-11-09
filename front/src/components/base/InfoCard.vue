@@ -1,5 +1,5 @@
 <template>
-  <v-theme-provider :dark="dark">
+  <v-theme-provider >
     <v-container class="pa-0">
       <v-row
         :justify="justify"

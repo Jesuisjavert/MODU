@@ -16,6 +16,8 @@
     mixins: [
       LoadSections([
         'Aboutus',
+        'feature2',
+        'info',
       ]),
     ],
 

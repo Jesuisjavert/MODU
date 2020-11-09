@@ -19,7 +19,7 @@
 
   export default {
     name: 'MyComponent',
-    components: { VueSlickCarousel, HomeHero1, HomeHero2, HomeHero3, },
+    components: { VueSlickCarousel, HomeHero1, HomeHero2, HomeHero3},
     data() {
         return {
           settings: {
@@ -29,7 +29,7 @@
             "autoplaySpeed": 2000,
             "pauseOnDotsHover": true,
             "pauseOnFocus": true,
-            "pauseOnHover": true
+            "pauseOnHover": true,
           }
         }
       },
