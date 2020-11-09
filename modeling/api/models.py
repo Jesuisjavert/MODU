@@ -47,12 +47,12 @@ class ProgramPayment(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programpayment")
 
 class ProgramReservationDay(models.Model):
-    # 프로그램 날짜 테이블
+    # 오프라인 프로그램 예약 날짜 테이블
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programreservationday")
     day = models.DateField(verbose_name="날짜")
 
 class ProgramReservationTime(models.Model):
-    # 프로그램 날짜에대한 시간 테이블
+    # 오프라인 프로그램 예약날짜에 대한 상세시간 테이블
     ProgramDay = models.ForeignKey(ProgramReservationDay, on_delete=models.CASCADE, related_name="programreservationtime")
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programreservationtime")
     start_hour = models.DateTimeField()
@@ -61,14 +61,14 @@ class ProgramReservationTime(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ProgramSchedule(models.Model):
-    # 프로그램 스케줄 테이블
+    # 온라인 프로그램 스케줄 테이블
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="progamschedule")
     day = models.CharField(max_length=20, verbose_name="00요일")
     start_hour = models.DateTimeField()
     end_hour = models.DateTimeField()
 
 class ProgramRecord(models.Model):
-    # 프로그램 기록 테이블
+    # 회원의 프로그램을 들은 출석 및 기록(프로그램 활성화 비활성 등등)테이블
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programrecord")
     programprice = models.ForeignKey(ProgramPrice, on_delete=models.CASCADE, related_name="programrecord")
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programrecord")
