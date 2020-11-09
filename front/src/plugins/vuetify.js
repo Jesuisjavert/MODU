@@ -1,12 +1,13 @@
 import Vue from 'vue'
-import Vuetify, { VRow } from 'vuetify/lib'
+import Vuetify, { VRow, VCol } from 'vuetify/lib'
 // import colors from 'vuetify/lib/util/colors'
 
 Vue.use(Vuetify, {
-  components: { VRow },
+  components: { VRow, VCol},
 })
 export default new Vuetify({
   theme: {
+    dark: false,
     themes: {
       light: {
         primary: '#ff002b',

@@ -1,7 +1,7 @@
 <template>
   <v-container
     id="home"
-    class="pb-0 px-0"
+    class="pt-0 pb-0 px-0 mx-0"
     fluid
     tag="section"
   >

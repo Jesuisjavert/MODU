@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="about"
+    id="about us"
     class="pa-0"
     fluid
     tag="section"
@@ -14,7 +14,6 @@
         md="6"
       >
         <v-img
-          height="calc(100vh - 96px - 156px)"
           src="@/assets/logo.png"
         />
       </v-col>
@@ -32,37 +31,28 @@
             class="mb-6"
             :class="$vuetify.breakpoint.mdAndUp ? 'display-1' : 'display-1'"
           >
-            Hello.<br>
+            Hi, We're Health for Everyone<br>
           </h1>
 
           <p>
-           모두의 헬스
+           모두의 헬스는 온/오프라인 헬스 트레이너–개인PT회원 관리 및 
+           <br>온라인 홈트레이닝 화상대면 관리 플랫폼 서비스입니다.
           </p>
 
-          <div class="signature">
-            Health for everyone
-          </div>
+          
         </v-responsive>
       </v-col>
     </v-row>
-
-  <cam-slider />
 
   </v-container>
 </template>
 
 <script>
   export default {
-    name: 'About',
+    name: 'Aboutus',
     components: {
-      CamSlider: () => import('@/components/base/CamSlider'),
     }
   }
 </script>
 
-<style lang="sass">
-  .signature
-    font-family: 'Cedarville Cursive', cursive !important
-    font-size: 2rem
-    font-style: italic
-</style>
+

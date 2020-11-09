@@ -4,20 +4,20 @@
       :min-height="minHeight"
       :src="require('@/assets/modu35.jpg')"
       class="white--text"
-      height="500"
+      gradient="to right, rgba(45, 45, 45, .8), rgba(5, 11, 31, .8)"
+      aspect-ratio="12"
     >
-      <v-container class="fill-height px-4 py-12">
+      <v-container class="fill-height px-4 py-12 mt-12 pt-12">
         <v-responsive
           class="d-flex align-center"
           height="100%"
-          max-width="700"
+          max-width="800"
           width="100%"
         >
           <base-heading title="운동루틴, 일정관리, 식단까지." />
 
           <base-body>
-            Infographic hypotheses influencer user experience Long madel ture gen-z paradigm shift client partner network product seilans solve management influencer analytics leverage virality.
-            incubator seed round massmarket. 
+            캘린더 기능을 통해, 운동루틴과 트레이너와의 세션 및 식단까지 간편하게 관리 받아보세요.
           </base-body>
 
           <div
