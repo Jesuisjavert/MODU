@@ -34,6 +34,8 @@ export default {
           // let pg_token = this.$route.query.pg_token
           form.append('tid', this.tid)
           form.append('pg_token', this.$route.query.pg_token)
+          form.append('program_id', this.$route.query.program)
+          form.append('price_id', this.$route.query.price)
           axios.post(`${this.constants.API_URL}kakaopay/approve/`, form,{
             headers: {
               Authorization: Token,
@@ -54,7 +56,7 @@ export default {
       this.approve()
     },
     computed : {
-        ...mapState(['tid'])
+        ...mapState(['tid', 'userToken'])
     }
 }
 </script>

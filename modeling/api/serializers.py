@@ -52,3 +52,8 @@ class ProgramUserSerialiezr(serializers.ModelSerializer):
     class Meta:
         model = ProgramPayment
         fields = ('client',)
+
+class ProgramPaymentSerialiezr(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramPayment
+        fields = ()

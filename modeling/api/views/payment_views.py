@@ -1,5 +1,7 @@
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from ..serializers import ProgramPaymentSerialiezr
 import requests
 import json
 
@@ -31,7 +33,6 @@ class KakaoPay(APIView):
             'cancel_url': 'http://localhost:8080/cancel/',
         }
         response = requests.post(url+"/v1/payment/ready", params=params, headers=headers)
-        print(response.status_code==200)
         response = json.loads(response.text)
         return Response(response)
 
@@ -52,4 +53,15 @@ class KakaoPayApprove(APIView):
         }
         response = requests.post(url+"/v1/payment/approve", params=params, headers=headers)
         response = json.loads(response.text)
-        return Response(response)
+
+        serializer = ProgramPaymentSerialiezr(data=request.data)
+        try:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(
+                    client_id = request.user.client.first().id,
+                    program_id = request.POST.get('program_id'),
+                    price_id = request.POST.get('price_id')
+                )
+                return Response(response, status=status.HTTP_201_CREATED)
+        except:
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
