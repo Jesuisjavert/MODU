@@ -110,7 +110,6 @@ export default {
           program_detail : this.detaildata
         }
         this.setFormData(formData,data)
-        console.log(formData,'-----')
         axios.post(`${constants.API_URL}program/`,formData,{
          headers: {
                         Authorization: Token,

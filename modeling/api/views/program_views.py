@@ -27,7 +27,6 @@ class ProgramView(generics.ListCreateAPIView):
                 if 'program_detail' in keydata:
                     key_index = int(keydata.replace('program_detail[','').split(']')[0])
                     key_data = keydata.replace('program_detail[','').split(']')[1].replace('[','')
-                    print(key_data)
                     if len(programdetail) < key_index+1:
                         programdetail.append({
                             key_data : k[keydata][0]

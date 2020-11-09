@@ -14,6 +14,21 @@
       <input type="text" name="address" v-model="submitData.address">
       <label for="content"> 자기소개 </label>
       <input type="text" name="content" v-model="submitData.content">
+      <div v-for="(day,index) in schedule" :key="index">
+          <div v-if="!day.disabled">
+          <label :for="'e'+index">{{day.day}}</label>
+          <input v-model="day.start_hour" type="time" step="3600" :name="'e'+index">
+          ~
+           <input v-model="day.end_hour" type="time" step="3600" :name="'e'+index">
+
+          </div>
+          <div v-else>
+              {{day.day}} 는 쉬는날입니다.
+          </div>
+          <label :for="'c'+index">휴무일</label>
+          <input v-model="day.disabled" type="checkbox" :name="'c'+index" id="">
+      </div>
+      <button @click="test()">테스트입니다.</button>
       <button @click="submitTrainer()">제출</button>
   </div>
 </template>
@@ -34,12 +49,58 @@ export default {
                 is_first : '1',
                 content : '',
             },
+            schedule : [
+                {
+                    day : '월요일',
+                    start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },
+                {
+                    day : '화요일',
+                    start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },
+                {
+                    day : '수요일',
+                     start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },
+                {
+                    day : '목요일',
+                     start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },
+                
+                {
+                    day : '금요일',
+                     start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },{
+                    day : '토요일',
+                     start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },
+                {
+                    day : '일요일',
+                    start_hour : '00:00',
+                    end_hour : '23:00',
+                    disabled : false
+                },
+
+            ],
             constants,
       }
     },
     methods : {
       submitTrainer(){
         const Token = 'Bearer '+this.userToken
+            this.submitData['schedule'] = this.schedule
             axios.post(`${constants.API_URL}rest-auth/user/`,this.submitData,{
                     headers: {
                         Authorization: Token,
@@ -52,6 +113,12 @@ export default {
             .catch((err)=>{
                 console.log(err.response)
             })
+      },
+      test(){
+          axios.post(`${constants.API_URL}rest-auth/test/`,this.schedule)
+          .then((res)=>{
+              console.log(res)
+          })
       },
       ...mapMutations(['SET_TYPETOKEN'])
     },
