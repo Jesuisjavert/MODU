@@ -183,12 +183,14 @@ export default {
         // }
         // join code
         var that = this;
+        console.log(that)
         this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
             console.log(roomid)
             console.log(isRoomExist,'----')
             if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
                 that.$emit('opened-room', roomid);
             }
+        console.log('여긴어때')
         })
     },
     methods: {

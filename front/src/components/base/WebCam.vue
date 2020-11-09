@@ -24,14 +24,14 @@
           </div>
         </div>
         <!-- 초기설정 -->
-        <!-- <div class="video-list" >
+        <div class="video-list" >
             <div v-for="item in videoList"
                 v-bind:video="item"
                 v-bind:key="item.id"
                 class="video-item">
                 <video controls autoplay playsinline ref="videos" :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
             </div>
-        </div> -->
+        </div>
         <!-- 나만 작은화면 -->
         <!-- <div class="video-list" >
             <div v-for="item in videoList"
@@ -87,7 +87,7 @@
             </div>
         </div> -->
         <!-- 케로젤 실험3 -->
-        <VueSlickCarousel
+        <!-- <VueSlickCarousel
         ref="c1"
         :asNavFor="focus2"
         :slidesToShow="4"
@@ -101,12 +101,12 @@
                 <video controls autoplay playsinline ref="videos" v-else height="100" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
             </div>
         </div>
-        </VueSlickCarousel>
+        </VueSlickCarousel> -->
         
         <WebCreateBtn>시작하기</WebCreateBtn>
         <WebJoinBtn>입장하기</WebJoinBtn>
         <CamSlider></CamSlider>
-        <Notification></Notification>
+        <!-- <FBA></FBA> -->
         <!-- <VueSlickCarousel
         ref="c1"
         :asNavFor="focus2"
@@ -142,9 +142,9 @@
   require('adapterjs');
 
   // 캠슬라이더
-  import VueSlickCarousel from 'vue-slick-carousel'
-  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+  // import VueSlickCarousel from 'vue-slick-carousel'
+  // import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+  // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
   export default {
     name: 'vue-webrtc',
@@ -152,7 +152,7 @@
       WebCreateBtn: () => import('@/components/base/WebCreateBtn'),
       WebJoinBtn: () => import('@/components/base/WebJoinBtn'),
       CamSlider: () => import('@/components/base/CamSlider'),
-      Notification: () => import('@/components/base/Notification'),
+      FBA: () => import('@/components/base/FBA'),
     },
     data() {
       return {
