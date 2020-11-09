@@ -39,11 +39,48 @@
       <label for="image">이미지</label>
       <input type="file" @change="uploadimg" name="image" />
       <br />
+      <div v-if="inputdata._type == '온라인'">
+        수업 요일 선택
+        <div v-for="(day, index) in schedule" :key="index">
+          <div v-if="!day.disabled">
+            <label :for="'e' + index">{{ day.day }}</label>
+            <input
+              v-model="day.start_hour"
+              type="time"
+              step="3600"
+              :name="'e' + index"
+            />
+            ~
+            <input
+              v-model="day.end_hour"
+              type="time"
+              step="3600"
+              :name="'e' + index"
+            />
+          </div>
+          <div v-else>{{ day.day }} 는 쉬는날입니다.</div>
+          <label :for="'c' + index">휴무일</label>
+          <input
+            v-model="day.disabled"
+            type="checkbox"
+            :name="'c' + index"
+            id=""
+          />
+        </div>
+      </div>
+
+      <br />
       <div>프로그램 회수 및 가격 설정</div>
       <div v-for="(data, index) in detaildata" :key="index">
         이름 : <input type="text" v-model="data.title" /> 가격 :
         <input type="number" v-model="data.price" /> 횟수 :
-        <input type="number" v-model="data.online_count" />
+
+        <input
+          v-if="inputdata._type == '온라인'"
+          type="number"
+          v-model="data.online_count"
+        />
+        <input v-else type="number" v-model="data.offline_count" />
         <button @click="deletedata(index)">x</button>
       </div>
       <button @click="appenddetail">추가</button>
@@ -61,7 +98,7 @@ export default {
   data() {
     return {
       inputdata: {
-        _type: "",
+        _type: "온라인",
         title: "",
         content: "",
         thumb_img: [],
@@ -72,11 +109,72 @@ export default {
           price: 0,
           title: "",
           online_count: 0,
+          offline_count: 0,
+        },
+      ],
+      schedule: [
+        {
+          day: "월요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
+        },
+        {
+          day: "화요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
+        },
+        {
+          day: "수요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
+        },
+        {
+          day: "목요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
+        },
+
+        {
+          day: "금요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
+        },
+        {
+          day: "토요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
+        },
+        {
+          day: "일요일",
+          start_hour: "00:00",
+          end_hour: "23:00",
+          disabled: false,
         },
       ],
       constants,
       autocompletelist: [],
     };
+  },
+  watch: {
+    "inputdata._type": function(newVal, oldVal) {
+      if (oldVal == "온라인") {
+        this.detaildata = this.detaildata.map((item) => {
+          item.online_count = 0;
+          return item;
+        });
+      } else {
+        this.detaildata = this.detaildata.map((item) => {
+          item.offline_count = 0;
+          return item;
+        });
+      }
+    },
   },
   methods: {
     uploadimg(event) {
@@ -85,11 +183,22 @@ export default {
       this.inputdata.thumb_img = [];
       this.inputdata.thumb_img.push(file);
     },
+    schedulesubmit(id) {
+      const pushdata = {
+        schedule: this.schedule,
+      };
+      axios
+        .post(`${constants.API_URL}program/${id}/schedule/`, pushdata)
+        .then((res) => {
+          console.log(res);
+        });
+    },
     appenddetail() {
       this.detaildata.push({
         price: 0,
         title: "",
         online_count: 0,
+        offline_count: 0,
       });
     },
     deletedata(index) {
@@ -116,6 +225,9 @@ export default {
         })
         .then((res) => {
           console.log(res);
+          if (this.inputdata._type == "온라인") {
+            this.schedulesubmit(res.data.id);
+          }
         })
         .catch((err) => {
           console.log(err.response);

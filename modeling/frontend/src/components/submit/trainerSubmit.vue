@@ -37,7 +37,6 @@
     <div>
       <span>태그등록 : </span>
       <input @input="autocomplete" type="text" />
-      태그등록
     </div>
 
     <div>

@@ -66,8 +66,8 @@ class ProgramSchedule(models.Model):
     # 온라인 프로그램 스케줄 테이블
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="progamschedule")
     day = models.CharField(max_length=20, verbose_name="00요일")
-    start_hour = models.DateTimeField()
-    end_hour = models.DateTimeField()
+    start_hour = models.TimeField()
+    end_hour = models.TimeField()
 
 class ProgramRecord(models.Model):
     # 회원의 프로그램을 들은 출석 및 기록(프로그램 활성화 비활성 등등)테이블
@@ -82,7 +82,7 @@ class ProgramRecord(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class ProgramRecordDetail(models.Model):
-    # 프로그램 기록 하루 데이터 테이블
+    # 프로그램 기록 하루 데이터(상세 테이블) 테이블
     programRecord = models.ForeignKey(ProgramRecord, on_delete=models.CASCADE, related_name="programrecorddetail")
     _type = models.CharField(max_length=20)
     content = models.CharField(max_length=800)
