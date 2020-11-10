@@ -57,7 +57,6 @@ class ProgramPaymentSerialiezr(serializers.ModelSerializer):
 
 
 # 클라이언트 mypage를 위한 Serializer
-
 class ClientProgramCommentSerializer(serializers.ModelSerializer):
     program = ProgramSerialiezer(read_only=True)
     class Meta:
