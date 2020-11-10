@@ -2,14 +2,6 @@
   <div>
     <VueSlickCarousel v-bind="settings">
       <div><TrainerCard1 /></div>
-      <div><TrainerCard2 /></div>
-      <div><TrainerCard3 /></div>
-      <div><TrainerCard1 /></div>
-      <div><TrainerCard2 /></div>
-      <div><TrainerCard3 /></div>
-      <div><TrainerCard1 /></div>
-      <div><TrainerCard2 /></div>
-      <div><TrainerCard3 /></div>
     </VueSlickCarousel>
   </div>
 </template>
@@ -20,12 +12,10 @@
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
   
   import TrainerCard1 from '@/components/base/TrainerCard1'
-  import TrainerCard2 from '@/components/base/TrainerCard2'
-  import TrainerCard3 from '@/components/base/TrainerCard3'
 
   export default {
     name: 'MyComponent',
-    components: { VueSlickCarousel, TrainerCard1, TrainerCard2, TrainerCard3},
+    components: { VueSlickCarousel, TrainerCard1},
     data() {
         return {
           settings: {
