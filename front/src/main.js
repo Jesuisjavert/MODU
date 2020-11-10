@@ -7,13 +7,17 @@ import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
 import WebRTC from 'vue-webrtc'
 import UUID from 'vue-uuid'
+import VideoBg from 'vue-videobg'
 
 
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 
+window.Kakao.init('abde304aa1e26779e03c975a6d6035de');
+
 Vue.use(WebRTC)
 Vue.use(UUID)
+Vue.component('video-bg', VideoBg)
 
 new Vue({
   router,

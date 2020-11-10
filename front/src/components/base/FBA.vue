@@ -2,13 +2,13 @@
     <v-menu
         v-model="menu"
         :close-on-content-click="false"
-        bottom
+        top
         left
         max-width="90%"
         min-width="275"
         offset-x
         offset-y
-        origin="top right"
+        origin="bottom right"
         transition="scale-transition"
     >
         <template v-slot:activator="{ attrs, on }">
@@ -18,7 +18,7 @@
             color="rgb(255, 0, 0, 0)"
             black
             flat
-            style="position: fixed; top: 25%; right: 6%;"
+            style="position: fixed; bottom: 10%; right: 6%;"
             v-bind="attrs"
             v-on="on"
         >
