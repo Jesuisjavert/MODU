@@ -57,8 +57,8 @@ class ProgramReservationTime(models.Model):
     # 오프라인 프로그램 예약날짜에 대한 상세시간 테이블
     ProgramDay = models.ForeignKey(ProgramReservationDay, on_delete=models.CASCADE, related_name="programreservationtime")
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programreservationtime")
-    start_hour = models.TimeField()
-    end_hour = models.TimeField()
+    start_hour = models.DateTimeField()
+    end_hour = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

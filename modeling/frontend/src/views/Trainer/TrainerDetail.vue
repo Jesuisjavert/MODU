@@ -16,11 +16,7 @@ export default {
     return {
 			constants,
 			comment: null,
-			trainer: {
-        user: {
-          "image_url": null,
-        }
-      },
+			trainer: null,
     }
 	},
 	created() {
