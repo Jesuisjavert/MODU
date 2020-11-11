@@ -19,18 +19,21 @@
     name: 'MyComponent',
     components: { VueSlickCarousel, TrainerCard },
     data() {
-        return {
-          settings: {
-          "centerMode": true,
-          "centerPadding": "30px",
-          "focusOnSelect": true,
-          "infinite": true,
-          "slidesToShow": 3,
-          "speed": 500
-          },
-          trainers: null,
-        }
-      },
+      return {
+        settings: {
+        "centerMode": true,
+        "centerPadding": "30px",
+        "focusOnSelect": true,
+        "infinite": true,
+        "slidesToShow": 3,
+        "speed": 500
+        },
+        trainers: null,
+      }
+    },
+    created() {
+      this.get_trainer()
+    },
     methods: {
       get_trainer() {
         axios.get(`http://127.0.0.1:8000/api/trainer/`)

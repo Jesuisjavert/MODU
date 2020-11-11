@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Trainer, Client, UserProfile, Tag
+from .models import Trainer, Client, UserProfile, Tag, TrainerSchedule
 
 User = get_user_model()
+
+class TrainerScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrainerSchedule
+        fields = '__all__'
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,13 +40,16 @@ class UserSerializers(serializers.ModelSerializer):
 
 class TrainerSerializer(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
+    tags = TagSerializer(read_only=True,many=True)
+    trainerschedule = TrainerScheduleSerializer(read_only=True, many=True)
     class Meta:
         model = Trainer
-        exclude = ('tags',)
+        fields = '__all__'
 
 class ClientSerializer(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
+    tags = TagSerializer(read_only=True,many=True)
     class Meta:
         model = Client
-        exclude = ('tags',)
+        fields = '__all__'
 
