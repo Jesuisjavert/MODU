@@ -85,3 +85,9 @@ class ClientDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
+
+class ClientNotificationSerializer(serializers.ModelSerializer):
+    program_title = serializers.CharField(source='program.title')
+    class Meta:
+        model = Notification
+        fields = '__all__'

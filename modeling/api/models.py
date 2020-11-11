@@ -90,6 +90,14 @@ class ProgramRecordDetail(models.Model):
 
 
 class ProgramWebRtc(models.Model):
+    # WebRtc room_id를 저장해놓기 위한 테이블
     webrtcroomId = models.CharField(max_length=200)
     program = models.ForeignKey(Program,on_delete=models.CASCADE,related_name='programwebrtc')
     create_at = models.DateField(auto_now_add=True)
+
+class Notification(models.Model):
+    # WebRtc가 생성됬을때 보내는 쪽지용도
+    webrtcroomId = models.CharField(max_length=200)
+    client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name='notification')
+    program = models.ForeignKey(Program,on_delete=models.CASCADE,related_name='notification')
+    is_view = models.BooleanField(default=False)

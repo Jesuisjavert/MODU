@@ -12,6 +12,7 @@ urlpatterns = [
     path('trainer/program/', views.TrainerProgramView.as_view(), name="trainerprogram"),
     path('trainer/program/online/',views.TrainerOnlineProgramView.as_view(),name="traineronlineprogram"),
     path('client/', views.ClientView.as_view(), name="client"),
+    path('client/notification/',views.ClientNotification.as_view(),name='clientNotification'),
     path('program/', views.ProgramView.as_view(), name="program"),
     path('program/<int:pk>/', views.ProgramDetailView.as_view(), name="programdetail"),
     path('program/<int:pk>/user/', views.ProgramUserView.as_view(), name="programuser"),

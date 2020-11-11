@@ -80,7 +80,6 @@ export default {
       ];
       var dayOfWeek = week[today.getDay()];
       let flag = false;
-      dayOfWeek = "월요일";
       onlinelecture.programschedule.forEach((item) => {
         if (item.day == dayOfWeek) {
           flag = true;
