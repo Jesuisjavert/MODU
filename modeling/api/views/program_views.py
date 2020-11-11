@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..models import Program,ProgramPrice,ProgramSchedule,ProgramWebRtc,Notification
+from ..models import Program,ProgramPrice,ProgramSchedule,ProgramWebRtc,Notification,ProgramRecord
 from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr,ProgramOnlieSerialiezer
 from django.http import Http404
 from accounts.models import Tag
@@ -123,3 +123,13 @@ class TrainerOnlineProgramView(APIView):
                 Notification.objects.create(webrtcroomId=webRtc.webrtcroomId,client=listenclient,program=webRtc.program)
             return Response({'data' : webRtc.webrtcroomId,'is_first' : True})
         return Response({'data':True})
+
+
+class ProgramReocordCheck(APIView):
+    def get(self,request,pk):
+        loginclient = request.user.client.first()
+        target_program = Program.objects.get(pk=pk)
+        if ProgramRecord.objects.filter(client=loginclient,program=target_program,is_active=False).exists():
+            return Response({'data':False,'message':'이미 동일한 프로그램을 듣고 계시네요'})
+        else:
+            return Response({'data':True,'message':'새 프로그램을 들어보세요.'})
