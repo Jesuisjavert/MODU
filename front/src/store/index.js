@@ -7,10 +7,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userToken : sessionStorage.getItem('auth-token'),
-    userType : sessionStorage.getItem('userType')
+    userType : sessionStorage.getItem('userType'),
   },
   getters: {
-    isLogined : (state) => !!state.userToken
+    isLogined : (state) => !!state.userToken,
+    isKakaoLogined() { return state.kakaoCheck }
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -20,7 +21,7 @@ export default new Vuex.Store({
     SET_TYPETOKEN(state,token){
       state.userType = token,
       sessionStorage.setItem('userType',token)
-    }
+    },
   },
   
   actions : {
