@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-from accounts.models import Gym
+from accounts.models import Gym, TrainerSchedule
 from accounts.serializers import ClientSerializer, TrainerSerializer, UserSerializers, TagSerializer
 
 class GymSerializer(serializers.ModelSerializer):
@@ -57,7 +57,6 @@ class ProgramPaymentSerialiezr(serializers.ModelSerializer):
 
 
 # 클라이언트 mypage를 위한 Serializer
-
 class ClientProgramCommentSerializer(serializers.ModelSerializer):
     program = ProgramSerialiezer(read_only=True)
     class Meta:

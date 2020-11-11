@@ -25,7 +25,7 @@
         class="mx-0"
       >
         <v-rating
-          :value="4.5"
+          :value="this.$attrs.comment.rate"
           color="amber"
           dense
           half-increments
@@ -34,7 +34,7 @@
         ></v-rating>
 
         <div class="grey--text ml-4">
-          4.5 (413)
+          {{this.$attrs.comment.rate}} ({{this.$attrs.comment.count}})
         </div>
       </v-row>
 
@@ -42,7 +42,7 @@
         <p>- {{tag.name}} </p>
       </div>
 
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+      <div>{{this.$attrs.content}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -133,7 +133,8 @@
         var dayOfWeek = week[date.getDay()];
         this.holiday = false
 
-        let nowHour = new Date().getHours()
+        let nowHour = new Date() < date ? 0 : new Date().getHours()
+
         for (var i=0, item; item=this.$attrs.trainerschedule[i]; i++) {
           if (item.day==dayOfWeek) {
             this.holiday = true
