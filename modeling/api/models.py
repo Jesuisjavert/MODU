@@ -77,8 +77,8 @@ class ProgramRecord(models.Model):
     is_active = models.BooleanField(default=False)
     max_online_count = models.IntegerField()
     max_offline_count = models.IntegerField()
-    now_online_count = models.IntegerField()
-    now_offline_count = models.IntegerField()
+    now_online_count = models.IntegerField(default=0)
+    now_offline_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class ProgramRecordDetail(models.Model):

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from ..serializers import ProgramPaymentSerialiezr
 import requests
 import json
+from ..models import ProgramRecord
 
 class KakaoPay(APIView):
     # 카카오 페이 결제 준비 단계
@@ -57,10 +58,17 @@ class KakaoPayApprove(APIView):
         serializer = ProgramPaymentSerialiezr(data=request.data)
         try:
             if serializer.is_valid(raise_exception=True):
-                serializer.save(
+                programpayment = serializer.save(
                     client_id = request.user.client.first().id,
                     program_id = request.POST.get('program_id'),
                     price_id = request.POST.get('price_id')
+                )
+                ProgramRecord.objects.create(
+                    program = programpayment.program,
+                    programprice = programpayment.price,
+                    client = programpayment.client,
+                    max_online_count = programpayment.price.online_count,
+                    max_offline_count = programpayment.price.offline_count
                 )
                 return Response(response, status=status.HTTP_201_CREATED)
         except:
