@@ -64,7 +64,7 @@ class ProgramReservationTime(models.Model):
 
 class ProgramSchedule(models.Model):
     # 온라인 프로그램 스케줄 테이블
-    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="progamschedule")
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name="programschedule")
     day = models.CharField(max_length=20, verbose_name="00요일")
     start_hour = models.TimeField()
     end_hour = models.TimeField()
@@ -87,3 +87,9 @@ class ProgramRecordDetail(models.Model):
     _type = models.CharField(max_length=20)
     content = models.CharField(max_length=800)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ProgramWebRtc(models.Model):
+    webrtcroomId = models.CharField(max_length=200)
+    program = models.ForeignKey(Program,on_delete=models.CASCADE,related_name='programwebrtc')
+    create_at = models.DateField(auto_now_add=True)

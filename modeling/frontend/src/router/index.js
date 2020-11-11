@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Trainer from '../views/Trainer/Trainer.vue'
 import TrainerDetail from '../views/Trainer/TrainerDetail.vue'
+import OnlineLecture from '../views/Trainer/OnlineLecture.vue'
 import Program from '../views/Program/Program.vue'
 import ProgramCreate from '../views/Program/ProgramCreate.vue'
 import Mypage from '../views/Mypage.vue'
@@ -33,7 +34,7 @@ const routes = [
     component: Trainer
   },
   {
-    path: '/trainer/:pk',
+    path: '/trainer/detail/:pk',
     name: 'TrainerDetail',
     component: TrainerDetail
   },
@@ -77,6 +78,11 @@ const routes = [
     path: '/kakaopay/approve',
     name: 'KakaoPayApprove',
     component: KakaoPayApprove
+  },
+  {
+    path : '/trainer/onlinelecture',
+    name : 'OnlineLecture',
+    component : OnlineLecture
   }
 ]
 

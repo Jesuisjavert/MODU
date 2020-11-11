@@ -2,10 +2,11 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..models import Program,ProgramPrice,ProgramSchedule
-from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr
+from ..models import Program,ProgramPrice,ProgramSchedule,ProgramWebRtc
+from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr,ProgramOnlieSerialiezer
 from django.http import Http404
 from accounts.models import Tag
+from datetime import datetime
 class ProgramView(generics.ListCreateAPIView):
     # 프로그램 GET 정보가져오기
     queryset = Program.objects.all()
@@ -97,3 +98,25 @@ class ProgramUserView(APIView):
         clients = program.programpayment.all()
         serializer = ProgramUserSerialiezr(clients, many=True)
         return Response(serializer.data)
+
+
+
+class TrainerOnlineProgramView(APIView):
+    def get(self, request):
+        try:
+            trainer = request.user.trainer.first()
+            programs = trainer.program.all()
+            serializer = ProgramOnlieSerialiezer(programs, many=True)
+            return Response(serializer.data)
+        except:
+            return Response({"message": "트레이너가 아닙니다"},status=status.HTTP_400_BAD_REQUEST)
+    def post(self,request):
+        print(request.data['webRtcroomId'])
+        today = datetime.today().strftime("%Y-%m-%d")
+        webRtcfind = ProgramWebRtc.objects.filter(program_id=request.data['program_id']).filter(create_at=today)
+        if webRtcfind.exists():
+            return Response({'data':webRtcfind.first().webrtcroomId ,'is_first': False})
+        else:
+            webRtc = ProgramWebRtc.objects.create(program_id=request.data['program_id'],webrtcroomId = request.data['webRtcroomId'] )
+            return Response({'data' : webRtc.webrtcroomId,'is_first' : True})
+        return Response({'data':True})
