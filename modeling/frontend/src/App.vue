@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
+<<<<<<< Updated upstream
       <Header />
+=======
+      <Header/>
+
+>>>>>>> Stashed changes
     </div>
     <router-view />
   </div>
@@ -16,6 +21,11 @@ export default {
 };
 </script>
 <style>
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -25,7 +35,8 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  justify-content: center;
+  
 }
 
 #nav a {

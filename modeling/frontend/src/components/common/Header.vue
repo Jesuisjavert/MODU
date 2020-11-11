@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <router-link to="/">메인 화면</router-link> |
     <router-link v-if="!isLogined" to="/login">로그인</router-link>
     <router-link
@@ -48,4 +48,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.header{
+    background-color: #aaaaaa;
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+}
+</style>
