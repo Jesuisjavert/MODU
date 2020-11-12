@@ -13,7 +13,7 @@
     <div>
       <h3>예약하기</h3>
       <input type="date" name="" id="" v-model="date">날자
-      <input type="number" name="" id="" v-model="time">시간
+      <input type="time" name="" id="" v-model="time">시간
       <input type="number" name="" id="" v-model="program_id"> 프로젝트 넘버
       <button @click="reservation"></button>
     </div>
@@ -24,6 +24,8 @@
 <script>
 import axios from 'axios'
 import constants from '@/api/constants'
+import { mapState } from "vuex";
+
 export default {
   data(){
     return {
@@ -78,16 +80,24 @@ export default {
         })
     },
     reservation() {
+      let Token = "Bearer " + this.userToken;
       let form = new FormData()
       form.append('date', this.date)
       form.append('time', this.time)
       form.append('program_id', this.program_id)
 			const pk = this.$route.params.pk
-      axios.post(`${this.constants.API_URL}trainer/${pk}/reservation/`,form)
+      axios.post(`${this.constants.API_URL}trainer/${pk}/reservation/`, form, {
+        headers: {
+          Authorization: Token,
+        },
+      })
       .then((res)=>{
         console.log(res.data)
       })
     }
-  }
+  },
+  computed: {
+    ...mapState(["userToken"]),
+  },
 }
 </script>
