@@ -1,8 +1,8 @@
 <template>
     <div>
         <base-heading class="white--text text-center mb-10 pb-5">손님 가입 페이지입니다</base-heading>
-        <v-card color="rgb(255, 255, 255, 0.3)" class="container mb-10">
-            <div class="mx-5 my-5">
+        <v-card color="rgb(255, 255, 255, 0.7)" class="container mb-10">
+            <div class="mx-5 my-5 font-weight-black">
                 <v-text-field
                 label="이름"
                 :rules="rules"
