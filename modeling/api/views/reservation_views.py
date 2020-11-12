@@ -7,6 +7,12 @@ from ..models import ProgramReservationDay, ProgramReservationTime, Program
 from django.http import Http404
 
 class TrainerReservationView(APIView):
-    def post(self,request):
+    def post(self, request, pk):
+        date = request.POST.get('date')
+        print(date)
         program = Program.objects.get(pk=request.POST.get('program_id'))
-        return Response()
+        if not program.programreservationday.filter(day=date).exists():
+            ProgramReservationDay.objects.create(
+                program=program,
+                day=date
+            )
