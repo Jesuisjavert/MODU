@@ -3,7 +3,7 @@
     <v-fade-transition mode="out-in">
       <router-view />
     </v-fade-transition>
-    <FBA></FBA>
+    <FBA v-if="this.$store.state.userType === 'client'"></FBA>
   </div>
 </template>
 

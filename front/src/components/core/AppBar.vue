@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
   export default {
     name: 'CoreAppBar',
 
@@ -62,16 +63,33 @@
 
     data: () => ({
       drawer: null,
-      items: [
+      ansitems: [
         'Home',
         'About us',
         'Contact',
         'Membership',
       ],
+      loginitems : [
+        'Home',
+        'About us',
+        'Contact',
+        'Mypage',
+        // 'Logout'
+      ]
     }),
     methods: {
       gohome() {
         this.$router.push('/')
+      }
+    },
+    computed : {
+      ...mapGetters(['isUserTypeCheck']),
+      items(){
+        if (this.isUserTypeCheck){
+          return this.loginitems
+        } else{
+          return this.ansitems
+        }
       }
     }
   }

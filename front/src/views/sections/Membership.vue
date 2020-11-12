@@ -26,7 +26,11 @@
                     <div v-else-if="selected === 'client'">
                         <ClientSubmit></ClientSubmit>
                     </div>
-                    <Btn @click="clear" class="mt-10">초기화</Btn>
+                    <v-col class="font-weight-black">
+                        <span class="mr-5">혹시 선택을 잘못하셨나요?</span>
+                        <span class="blue--text text-decoration-underline" @click="clear" style="cursor: pointer">초기화</span>
+                        <span class="ml-1">버튼을 눌러보세요</span>
+                    </v-col>
                 </div>
             </v-row>
         </MembershipItem>

@@ -11,6 +11,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLogined : (state) => !!state.userToken,
+    isUserTypeCheck : (state) => !!state.userType,
     isKakaoLogined() { return state.kakaoCheck }
   },
   mutations: {
