@@ -30,6 +30,7 @@ class ProgramSerialiezer(serializers.ModelSerializer):
     programprice = ProgramPriceSerializer(read_only=True, many=True)
     tags = TagSerializer(read_only=True,many=True)
     def get_image_url(self,program):
+        print(program)
         image = str(program.thumb_img)
         return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+image
     class Meta:
@@ -89,4 +90,14 @@ class ClientNotificationSerializer(serializers.ModelSerializer):
     program_title = serializers.CharField(source='program.title')
     class Meta:
         model = Notification
+        fields = '__all__'
+
+class ProgramReservationDaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramReservationDay
+        fields = '__all__'
+
+class ProgramReservationTime(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramReservationTime
         fields = '__all__'
