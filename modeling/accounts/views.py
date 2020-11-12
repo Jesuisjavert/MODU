@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .serializers import *
-from .models import User
+from .models import User,TrainerSchedule,Tag
 from rest_framework import generics 
 from rest_framework.response import Response
 from django.http import Http404
@@ -37,13 +37,10 @@ class UserInfo(APIView):
     def get(self, request):
         user = self.get_object()
         if user.is_first==1:
-            print('트레이너')
             serializer = TrainerSerializer(user.trainer.first())
         elif user.is_first==2:
-            print('클라이언트')
             serializer = ClientSerializer(user.client.first())
         else:
-            print('초기유저')
             serializer = UserSerializers(user)
         return Response(serializer.data)
 
@@ -54,8 +51,14 @@ class UserInfo(APIView):
         if request.data['is_first']=='1':
             serializer = TrainerSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                serializer.save(user=request.user)
+                trainer = serializer.save(user=request.user)
                 self.put_user(1)
+                tags = request.data['taglist'].split(',')
+                for eachtag in tags:
+                    trainer.tags.add(Tag.objects.get(name=eachtag))
+                for schedule in request.data['schedule']:
+                    if schedule['disabled'] == False:
+                        TrainerSchedule.objects.create(day=schedule['day'],start_hour=schedule['start_hour'],end_hour=schedule['end_hour'],trainer=trainer)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:

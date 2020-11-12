@@ -1,6 +1,10 @@
 <template>
 	<div>
-		{{trainer}}
+		<h1>트레이너 디테일</h1>
+		<div>
+			<img :src=trainer.user.image_url height="300px">
+		</div>
+
 	</div>
 </template>
 
@@ -12,7 +16,11 @@ export default {
     return {
 			constants,
 			comment: null,
-			trainer: null,
+			trainer: {
+        user: {
+          "image_url": null
+        }
+      },
     }
 	},
 	created() {

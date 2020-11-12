@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Trainer from '../views/Trainer/Trainer.vue'
 import TrainerDetail from '../views/Trainer/TrainerDetail.vue'
+import OnlineLecture from '../views/Trainer/OnlineLecture.vue'
 import Program from '../views/Program/Program.vue'
 import ProgramCreate from '../views/Program/ProgramCreate.vue'
 import Mypage from '../views/Mypage.vue'
@@ -11,6 +12,8 @@ import Login from '../views/Login.vue'
 import store from '../store/index.js'
 import KakaoPayApprove from '../views/KakaoPayApprove.vue'
 import ProgramDetail from '../views/Program/ProgramDetail.vue'
+import ClientProgram from '../views/Client/Program/ClientProgram.vue'
+import ProgramApply from '../views/Program/ProgramApply.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +34,7 @@ const routes = [
     component: Trainer
   },
   {
-    path: '/trainer/:pk',
+    path: '/trainer/detail/:pk',
     name: 'TrainerDetail',
     component: TrainerDetail
   },
@@ -39,6 +42,17 @@ const routes = [
     path : '/program',
     name : 'Program',
     component : Program
+  },
+  {
+    path : '/program/apply',
+    name : 'ProgramApply',
+    component : ProgramApply,
+    props: true
+  },
+  {
+    path: '/client/program',
+    name: 'ClientProgram',
+    component : ClientProgram,
   },
   {
     path : '/program/:pk',
@@ -64,6 +78,11 @@ const routes = [
     path: '/kakaopay/approve',
     name: 'KakaoPayApprove',
     component: KakaoPayApprove
+  },
+  {
+    path : '/trainer/onlinelecture',
+    name : 'OnlineLecture',
+    component : OnlineLecture
   }
 ]
 

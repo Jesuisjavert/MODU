@@ -1,15 +1,7 @@
 <template>
   <div>
-    <VueSlickCarousel v-bind="settings">
-      <div><ProgramCard1 /></div>
-      <div><ProgramCard2 /></div>
-      <div><ProgramCard3 /></div>
-      <div><ProgramCard1 /></div>
-      <div><ProgramCard2 /></div>
-      <div><ProgramCard3 /></div>
-      <div><ProgramCard1 /></div>
-      <div><ProgramCard2 /></div>
-      <div><ProgramCard3 /></div>
+    <VueSlickCarousel v-bind="settings" v-for="program in programs" :key="program.id">
+      <div><ProgramCard v-bind="program"/></div>
     </VueSlickCarousel>
   </div>
 </template>
@@ -19,24 +11,39 @@
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
   
-  import ProgramCard1 from '@/components/base/ProgramCard1'
-  import ProgramCard2 from '@/components/base/ProgramCard2'
-  import ProgramCard3 from '@/components/base/ProgramCard3'
+  import ProgramCard from '@/components/base/ProgramCard'
+  
+  import axios from 'axios'
 
   export default {
     name: 'MyComponent',
-    components: { VueSlickCarousel, ProgramCard1, ProgramCard2, ProgramCard3},
+    components: { VueSlickCarousel, ProgramCard},
     data() {
-        return {
-          settings: {
-          "centerMode": true,
-          "centerPadding": "30px",
-          "focusOnSelect": true,
-          "infinite": true,
-          "slidesToShow": 3,
-          "speed": 500
-          }
-        }
-      },
+      return {
+        settings: {
+        "centerMode": true,
+        "centerPadding": "30px",
+        "focusOnSelect": true,
+        "infinite": true,
+        "slidesToShow": 3,
+        "speed": 500
+        },
+        programs: []
+      }
+    },
+    created() {
+      this.get_program()
+    },
+    methods: {
+      get_program() {
+        axios.get(`http://127.0.0.1:8000/api/program/`)
+          .then((res)=>{
+            this.programs = res.data
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      }
+    }
   }
 </script> 

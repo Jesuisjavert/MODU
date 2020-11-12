@@ -1,22 +1,31 @@
 <template>
   <div id="app">
     <div id="nav">
-    <Header/>
+<<<<<<< Updated upstream
+      <Header />
+=======
+      <Header/>
 
+>>>>>>> Stashed changes
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
-import Header from '@/components/common/Header.vue'
+import Header from "@/components/common/Header.vue";
 export default {
-  name : 'App',
-  components : {
-    Header
-  }
-}
+  name: "App",
+  components: {
+    Header,
+  },
+};
 </script>
 <style>
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -26,7 +35,8 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  justify-content: center;
+  
 }
 
 #nav a {

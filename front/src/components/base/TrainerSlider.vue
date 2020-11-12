@@ -1,15 +1,7 @@
 <template>
   <div>
-    <VueSlickCarousel v-bind="settings">
-      <div><TrainerCard1 /></div>
-      <div><TrainerCard2 /></div>
-      <div><TrainerCard3 /></div>
-      <div><TrainerCard1 /></div>
-      <div><TrainerCard2 /></div>
-      <div><TrainerCard3 /></div>
-      <div><TrainerCard1 /></div>
-      <div><TrainerCard2 /></div>
-      <div><TrainerCard3 /></div>
+    <VueSlickCarousel v-bind="settings" v-for="trainer in trainers" :key="trainer.id">
+      <div><TrainerCard v-bind="trainer"/></div>
     </VueSlickCarousel>
   </div>
 </template>
@@ -19,24 +11,39 @@
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
   
-  import TrainerCard1 from '@/components/base/TrainerCard1'
-  import TrainerCard2 from '@/components/base/TrainerCard2'
-  import TrainerCard3 from '@/components/base/TrainerCard3'
+  import TrainerCard from '@/components/base/TrainerCard'
+
+  import axios from 'axios'
 
   export default {
     name: 'MyComponent',
-    components: { VueSlickCarousel, TrainerCard1, TrainerCard2, TrainerCard3},
+    components: { VueSlickCarousel, TrainerCard },
     data() {
-        return {
-          settings: {
-          "centerMode": true,
-          "centerPadding": "30px",
-          "focusOnSelect": true,
-          "infinite": true,
-          "slidesToShow": 3,
-          "speed": 500
-          }
-        }
-      },
+      return {
+        settings: {
+        "centerMode": true,
+        "centerPadding": "30px",
+        "focusOnSelect": true,
+        "infinite": true,
+        "slidesToShow": 3,
+        "speed": 500
+        },
+        trainers: null,
+      }
+    },
+    created() {
+      this.get_trainer()
+    },
+    methods: {
+      get_trainer() {
+        axios.get(`http://127.0.0.1:8000/api/trainer/`)
+          .then((res)=>{
+            this.trainers = res.data
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      }
+    }
   }
 </script> 

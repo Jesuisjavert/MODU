@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userToken : sessionStorage.getItem('auth-token'),
-    userType : sessionStorage.getItem('userType')
+    userType : sessionStorage.getItem('userType'),
+    tid : sessionStorage.getItem('tid'),
   },
   getters : {
     isLogined : (state) => !!state.userToken
@@ -19,7 +20,14 @@ export default new Vuex.Store({
     SET_TYPETOKEN(state,token){
       state.userType = token,
       sessionStorage.setItem('userType',token)
-    }
+    },
+    SET_TID(state,token){
+      state.tid = token,
+      sessionStorage.setItem('tid',token)
+    },
+    REMOVE_TID(){
+      sessionStorage.removeItem('tid')
+    },
   },
   actions: {
   },

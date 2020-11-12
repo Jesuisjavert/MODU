@@ -14,15 +14,49 @@
 </template>
 
 <script>
+import axios from 'axios'
+import constants from '@/api/constants'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
     name : 'KakaoPayApprove',
-    data: () => ({
-    }),
+    data(){
+      return {
+        constants,
+      }
+    },
     mounted(){
     },
     methods:{
+      approve(){
+          let Token = "Bearer " + this.userToken;
+          let form = new FormData()
+          // let pg_token = this.$route.query.pg_token
+          form.append('tid', this.tid)
+          form.append('pg_token', this.$route.query.pg_token)
+          form.append('program_id', this.$route.query.program)
+          form.append('price_id', this.$route.query.price)
+          axios.post(`${this.constants.API_URL}kakaopay/approve/`, form,{
+            headers: {
+              Authorization: Token,
+            },
+          })
+          .then((res)=>{
+            this.REMOVE_TID
+            console.log(res.data)
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      },
       
+      ...mapMutations(['REMOVE_TID'])
+    },
+    created() {
+      this.approve()
+    },
+    computed : {
+        ...mapState(['tid', 'userToken'])
     }
 }
 </script>

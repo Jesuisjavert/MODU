@@ -1,8 +1,18 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Trainer, Client, UserProfile
-
+from .models import Trainer, Client, UserProfile, Tag, TrainerSchedule
+from django.db.models import Avg
 User = get_user_model()
+
+class TrainerScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrainerSchedule
+        fields = '__all__'
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
     image_url =  serializers.SerializerMethodField(read_only=True)
@@ -30,13 +40,24 @@ class UserSerializers(serializers.ModelSerializer):
 
 class TrainerSerializer(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
+    tags = TagSerializer(read_only=True,many=True)
+    trainerschedule = TrainerScheduleSerializer(read_only=True, many=True)
+    comment = serializers.SerializerMethodField(read_only=True)
+
+    def get_comment(self,trainer):
+        return {
+            "count": trainer.trainercomment.count(),
+            "rate": trainer.trainercomment.aggregate(Avg('rate'))['rate__avg']
+        }
+
     class Meta:
         model = Trainer
-        exclude = ('tags',)
+        fields = '__all__'
 
 class ClientSerializer(serializers.ModelSerializer):
     user = UserSerializers(read_only=True)
+    tags = TagSerializer(read_only=True,many=True)
     class Meta:
         model = Client
-        exclude = ('tags',)
+        fields = '__all__'
 

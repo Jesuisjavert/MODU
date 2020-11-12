@@ -1,12 +1,7 @@
 from rest_framework import serializers
 from .models import *
-from accounts.models import Gym
-from accounts.serializers import ClientSerializer, TrainerSerializer
-
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = '__all__'
+from accounts.models import Gym, TrainerSchedule
+from accounts.serializers import ClientSerializer, TrainerSerializer, UserSerializers, TagSerializer
 
 class GymSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,12 +28,20 @@ class ProgramSerialiezer(serializers.ModelSerializer):
     trainer = TrainerSerializer(read_only=True)
     image_url =  serializers.SerializerMethodField(read_only=True)
     programprice = ProgramPriceSerializer(read_only=True, many=True)
+    tags = TagSerializer(read_only=True,many=True)
     def get_image_url(self,program):
         image = str(program.thumb_img)
         return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+image
     class Meta:
         model = Program
-        exclude = ('tags',)
+        fields = '__all__'
+# onlineProgram을 위한 거
+class ProgramScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramSchedule
+        fields ='__all__'
+class ProgramOnlieSerialiezer(ProgramSerialiezer):
+    programschedule = ProgramScheduleSerializer(read_only=True,many=True)
 
 class ProgramCommentSerializer(serializers.ModelSerializer):
     client = ClientSerializer(read_only=True)
@@ -51,3 +54,39 @@ class ProgramUserSerialiezr(serializers.ModelSerializer):
     class Meta:
         model = ProgramPayment
         fields = ('client',)
+
+class ProgramPaymentSerialiezr(serializers.ModelSerializer):
+    program = ProgramSerialiezer(read_only=True)
+    price = ProgramPriceSerializer(read_only=True)
+    class Meta:
+        model = ProgramPayment
+        fields = ('program', 'price')
+
+
+# 클라이언트 mypage를 위한 Serializer
+class ClientProgramCommentSerializer(serializers.ModelSerializer):
+    program = ProgramSerialiezer(read_only=True)
+    class Meta:
+        model = ProgramComment
+        fields = '__all__'
+
+class ClientTrainerCommentSerializer(serializers.ModelSerializer):
+    trainer = TrainerSerializer(read_only=True)
+    class Meta:
+        model = TrainerComment
+        fields = '__all__'
+
+class ClientDetailSerializer(serializers.ModelSerializer):
+    user = UserSerializers(read_only=True)
+    programpayment = ProgramPaymentSerialiezr(read_only=True, many=True)
+    trainercomment = ClientTrainerCommentSerializer(read_only=True, many=True)
+    programcomment = ClientProgramCommentSerializer(read_only=True, many=True)
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+class ClientNotificationSerializer(serializers.ModelSerializer):
+    program_title = serializers.CharField(source='program.title')
+    class Meta:
+        model = Notification
+        fields = '__all__'

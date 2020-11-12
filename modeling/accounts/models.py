@@ -45,8 +45,8 @@ class Trainer(models.Model):
 class TrainerSchedule(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="trainerschedule")
     day = models.CharField(max_length=20, verbose_name="00요일")
-    start_hour = models.DateTimeField()
-    end_hour = models.DateTimeField()
+    start_hour = models.TimeField()
+    end_hour = models.TimeField()
 
 class TrainerHoliday(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, related_name="trainerholiday")

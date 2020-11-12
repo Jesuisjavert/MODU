@@ -2,10 +2,11 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..models import Program,ProgramPrice
-from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr
+from ..models import Program,ProgramPrice,ProgramSchedule,ProgramWebRtc,Notification,ProgramRecord
+from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSerialiezr,ProgramOnlieSerialiezer
 from django.http import Http404
-
+from accounts.models import Tag
+from datetime import datetime
 class ProgramView(generics.ListCreateAPIView):
     # 프로그램 GET 정보가져오기
     queryset = Program.objects.all()
@@ -20,11 +21,13 @@ class ProgramView(generics.ListCreateAPIView):
             saved_program = serializer.save(trainer_id=request.user.trainer.first().id)
             k = dict(request.data)
             programdetail = []
+            tags = request.data['tags'].split(',')
+            for eachtag in tags:
+                saved_program.tags.add(Tag.objects.get(name=eachtag))
             for keydata in k.keys():
                 if 'program_detail' in keydata:
                     key_index = int(keydata.replace('program_detail[','').split(']')[0])
                     key_data = keydata.replace('program_detail[','').split(']')[1].replace('[','')
-                    print(key_data)
                     if len(programdetail) < key_index+1:
                         programdetail.append({
                             key_data : k[keydata][0]
@@ -32,7 +35,7 @@ class ProgramView(generics.ListCreateAPIView):
                     else:
                         programdetail[key_index][key_data] = k[keydata][0]
             for eachdata in programdetail:
-                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=0)
+                ProgramPrice.objects.create(title=eachdata['title'],online_count=int(eachdata['online_count']),price=int(eachdata['price']),program=saved_program,offline_count=int(eachdata['offline_count']))
                     
                     
         
@@ -71,6 +74,14 @@ class ProgramDetailView(APIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response({"message": "수정 실패"}, status=status.HTTP_400_BAD_REQUEST)
 
+class OnlineProgramSchedule(APIView):
+    def post(self,request,pk):
+        onlineprogram = Program.objects.get(id=pk)
+        for schedule in request.data['schedule']:
+            if schedule['disabled'] == False:
+                ProgramSchedule.objects.create(day=schedule['day'],start_hour=schedule['start_hour'],end_hour=schedule['end_hour'],program=onlineprogram)
+                return Response({'data': True})
+
 class TrainerProgramView(APIView):
     def get(self, request):
         try:
@@ -87,3 +98,38 @@ class ProgramUserView(APIView):
         clients = program.programpayment.all()
         serializer = ProgramUserSerialiezr(clients, many=True)
         return Response(serializer.data)
+
+
+
+class TrainerOnlineProgramView(APIView):
+    def get(self, request):
+        try:
+            trainer = request.user.trainer.first()
+            programs = trainer.program.all()
+            serializer = ProgramOnlieSerialiezer(programs, many=True)
+            return Response(serializer.data)
+        except:
+            return Response({"message": "트레이너가 아닙니다"},status=status.HTTP_400_BAD_REQUEST)
+    def post(self,request):
+        today = datetime.today().strftime("%Y-%m-%d")
+        webRtcfind = ProgramWebRtc.objects.filter(program_id=request.data['program_id']).filter(create_at=today)
+        if webRtcfind.exists():
+            return Response({'data':webRtcfind.first().webrtcroomId ,'is_first': False})
+        else:
+            webRtc = ProgramWebRtc.objects.create(program_id=request.data['program_id'],webrtcroomId = request.data['webRtcroomId'] )
+            programrecords = webRtc.program.programrecord.all()
+            for programrecord in programrecords:
+                listenclient = programrecord.client
+                Notification.objects.create(webrtcroomId=webRtc.webrtcroomId,client=listenclient,program=webRtc.program)
+            return Response({'data' : webRtc.webrtcroomId,'is_first' : True})
+        return Response({'data':True})
+
+
+class ProgramReocordCheck(APIView):
+    def get(self,request,pk):
+        loginclient = request.user.client.first()
+        target_program = Program.objects.get(pk=pk)
+        if ProgramRecord.objects.filter(client=loginclient,program=target_program,is_active=False).exists():
+            return Response({'data':False,'message':'이미 동일한 프로그램을 듣고 계시네요'})
+        else:
+            return Response({'data':True,'message':'새 프로그램을 들어보세요.'})
