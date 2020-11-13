@@ -36,7 +36,8 @@
     },
     methods: {
       get_program() {
-        axios.get(`http://127.0.0.1:8000/api/program/`)
+        // axios.get(`http://127.0.0.1:8000/api/program/`)
+        axios.get(`http://k3c202.p.ssafy.io:8000/api/program/`)
           .then((res)=>{
             this.programs = res.data
           })

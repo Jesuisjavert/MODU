@@ -36,7 +36,8 @@
     },
     methods: {
       get_trainer() {
-        axios.get(`http://127.0.0.1:8000/api/trainer/`)
+        // axios.get(`http://127.0.0.1:8000/api/trainer/`)
+        axios.get(`http://k3c202.p.ssafy.io:8000/api/trainer/`)
           .then((res)=>{
             this.trainers = res.data
           })

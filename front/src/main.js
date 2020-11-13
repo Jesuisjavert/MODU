@@ -10,7 +10,8 @@ import UUID from 'vue-uuid'
 import VideoBg from 'vue-videobg'
 
 import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
+// const socket = io('http://localhost:3000');
+const socket = io('http://k3c202.p.ssafy.io:3000');
 Vue.prototype.$socket = socket;
 
 Vue.use(VueCookies)
