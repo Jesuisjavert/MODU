@@ -47,17 +47,17 @@ export default {
     methods :{
         submitClient(){
             const Token = 'Bearer '+this.userToken
-            axios.post(`${constants.API_URL}rest-auth/user/`,this.submitData,{
+            axios.post(`${constants.API_URL}rest-auth/user/`, this.submitData, {
                 headers: {
                     Authorization: Token,
                 },
             })
-            .then((res)=>{
+            .then((res) => {
                 console.log(res.data)
                 this.SET_TYPETOKEN('client')
                 this.$router.push({ name: 'Home' })
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err.response)
             })
         },

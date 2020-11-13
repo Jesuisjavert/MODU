@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: "MembershipItem",
+    name: "ItemRow",
 }
 </script>
 

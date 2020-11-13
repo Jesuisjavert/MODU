@@ -1,12 +1,12 @@
 <template>
     <VideoBg>
-        <MembershipItem v-if="isLogined === false">
+        <ItemRow v-if="isLogined === false">
             <base-heading class="white--text text-center">당신의 운동 파트너</base-heading>
             <base-heading class="white--text text-center mt-10">모두의 헬스와 함께</base-heading>
             <base-heading class="white--text text-center my-10 pb-5">카카오톡을 통해 지금 바로 시작해보세요</base-heading>
             <KakaoLoginBtn class="mt-10 pt-5"></KakaoLoginBtn>
-        </MembershipItem>
-        <MembershipItem v-else-if="isLogined === true">
+        </ItemRow>
+        <ItemRow v-else-if="isLogined === true">
             <div v-if="!selected">
                 <base-heading class="white--text text-center">모두의 헬스가</base-heading>
                 <base-heading class="white--text text-center mt-10">처음이시군요</base-heading>
@@ -33,7 +33,7 @@
                     </v-col>
                 </div>
             </v-row>
-        </MembershipItem>
+        </ItemRow>
     </VideoBg>
 </template>
 
@@ -43,7 +43,7 @@ export default {
     name : 'LoginView',
     components: {
         VideoBg: () => import('@/components/base/VideoBg'),
-        MembershipItem: () => import('@/components/base/MembershipItem'),
+        ItemRow: () => import('@/components/base/ItemRow'),
         KakaoLoginBtn: () => import('@/components/base/KakaoLoginBtn'),
         // JoinBtn: () => import('@/components/base/JoinBtn'),
         Btn: () => import('@/components/base/Btn'),

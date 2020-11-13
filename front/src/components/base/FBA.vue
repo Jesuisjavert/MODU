@@ -62,15 +62,38 @@
 </template>
 
 <script>
+import axios from 'axios'
+import constants from '@/api/constants.js'
+import { mapState } from 'vuex'
 export default {
     name: "FBA",
     data() {
         return {
             menu: false,
+            constants
         }
+    },
+    methods : {
+        getNotification () {
+            const Token = 'Bearer ' + this.userToken 
+            axios.get(`${constants.API_URL}client/notification/`,{
+                headers: {
+                    Authorization: Token,
+                },
+            })
+            .then((res) => {
+                console.log(res) 
+            })
+        }
+    },
+    computed : {
+        ...mapState(['userToken'])
     },
     components: {
         WebJoinBtn: () => import('@/components/base/WebJoinBtn'),
+    },
+    mounted(){
+        this.getNotification()
     }
 }
 </script>

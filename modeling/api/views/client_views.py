@@ -13,9 +13,13 @@ class ClientView(APIView):
 class ClientNotification(APIView):
 	def get(self,request):
 		loginclient = request.user.client.first()
-		notifications = loginclient.notification.all()
-		serializer = ClientNotificationSerializer(notifications,many=True)
-		return Response(serializer.data)
+		if loginclient != None:
+			notifications = loginclient.notification.all()
+			if notifications.exist():
+				serializer = ClientNotificationSerializer(notifications,many=True)
+				return Response(serializer.data)
+		else:
+			return Response({'data':'client가 아닌데?'})
 
 class ClientNotificationDetail(APIView):
 	def put(self,request,pk):

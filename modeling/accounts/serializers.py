@@ -33,7 +33,7 @@ class UserSerializers(serializers.ModelSerializer):
             userimage = str(user.userprofile.first().profile_img)
             return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+userimage
         except:
-            return None
+            return 'https://lh3.googleusercontent.com/proxy/sEx-Zh7LpdFg6X1_WLCsb4hIrpfLkIYu_e134TQ-dj0k7MfYNl133Up6r13sCqXJV_8QTVDdx9N2Rh0CM2V4jVydbgTMKmrI80qHKYlQqPzVjHe-YroS6pPoib9Ov2P25jVn0CrVPb3HJ6MJkj1HEX_4RUTBeWCedPw4FtsQ5A'
     class Meta:
         model = User
         fields = ['id','username','is_first','image_url']

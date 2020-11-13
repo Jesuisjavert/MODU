@@ -34,7 +34,7 @@ export default new Router({
         {
           path: '/Mypage',
           name: 'Mypage',
-          component: () => import('@/views/mypage/Index.vue'),
+          component: () => import('@/views/sections/Mypage.vue'),
         },
         {
           path: '/oauth2/redirect',

@@ -29,6 +29,8 @@
 <script>
 import RTCMultiConnection from 'rtcmulticonnection';
 import { uuid } from 'vue-uuid';
+import axios from 'axios'
+import constants from '@/api/constants.js'
 require('adapterjs');
 
 export default {
@@ -42,6 +44,7 @@ export default {
             videoList: [],
             canvas: null,
             roomId: 'public-room',
+            constants,
         }
     },
     props: {
@@ -175,7 +178,16 @@ export default {
         } else {
             const newUuid = this.$uuid.v4()
             this.roomId = newUuid
-            $cookies.set('roomID', newUuid )
+            $cookies.set('roomID', this.roomId )
+            // const data = {
+            //     'program_id': 1, // 나중에 program의 id를 받아와서 넣어주면 돼
+            //     webRtcroomId : this.roomId
+            // }
+            // axios.post(`${constants.API_URL}api/trainer/program/online/`, data)
+            // .then((res)=>{
+            //     this.roomId = res.data.data
+            //     $cookies.set('roomID', this.roomId )
+            // })
         }
         console.log(this.roomId)
         // if ($cookies.isKey('roomID') === false) {
