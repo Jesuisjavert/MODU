@@ -1,7 +1,9 @@
 <template>
   <div>
-    <VueSlickCarousel v-bind="settings" v-for="trainer in trainers" :key="trainer.id">
-      <div><TrainerCard v-bind="trainer"/></div>
+    <VueSlickCarousel v-bind="settings" v-if="trainers!=null">
+      <div v-for="trainer in trainers" :key="trainer.id">
+        <TrainerCard v-bind="trainer"/>
+      </div>
     </VueSlickCarousel>
   </div>
 </template>

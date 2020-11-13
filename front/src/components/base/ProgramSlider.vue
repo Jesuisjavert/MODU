@@ -1,7 +1,7 @@
 <template>
   <div>
-    <VueSlickCarousel v-bind="settings" v-for="program in programs" :key="program.id">
-      <div><ProgramCard v-bind="program"/></div>
+    <VueSlickCarousel v-bind="settings" v-if="programs!=null">
+      <div v-for="program in programs" :key="program.id"><ProgramCard v-bind="program"/></div>
     </VueSlickCarousel>
   </div>
 </template>
@@ -28,7 +28,7 @@
         "slidesToShow": 3,
         "speed": 500
         },
-        programs: []
+        programs: null,
       }
     },
     created() {
