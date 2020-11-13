@@ -39,7 +39,7 @@
            <br>온라인 홈트레이닝 화상대면 관리 플랫폼 서비스입니다.
           </p>
 
-          
+          <WebCreateBtn>ㅎㅇㅎㅇ</WebCreateBtn>
         </v-responsive>
       </v-col>
     </v-row>
@@ -51,6 +51,7 @@
   export default {
     name: 'Aboutus',
     components: {
+      WebCreateBtn: () => import('@/components/base/WebCreateBtn'),
     }
   }
 </script>
