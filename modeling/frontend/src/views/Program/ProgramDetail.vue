@@ -36,15 +36,24 @@
           </div>
           <button class="btn btn-primary" @click="comment_submit">작성</button>
         </div>
-        <div>
-          <div v-for="comment in comments" :key="comment.id">
-            <p>{{comment}}</p>
-          </div>
-          <div>
-            <p>코멘트</p>
-            <p>코멘트</p>
-            <p>코멘트</p>
-            <p>코멘트</p>
+        <div class="comments">
+          <div class="comment" v-for="comment in comments" :key="comment.id">
+            <div>
+              <img :src="comment.client.user.image_url" alt="">
+            </div>
+            <div>
+              <div class="comment-top">
+                <div class="comment-left">
+                  <span>{{comment.client.user.username}}</span>
+                  <span>{{comment.rate}}</span>
+                </div>
+                <div class="comment-right">
+                  <span>수정</span>
+                  <span>삭제</span>
+                </div>
+              </div>
+              <div class="comment-bottom">{{comment.content}}</div>
+            </div>
           </div>
         </div>
         <div v-if="userType == 'client'">
@@ -269,4 +278,33 @@ export default {
   height: 60px;
 }
 
+.comments {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comment {
+  width: 28.5vw;
+}
+
+.comment img {
+  height: 15px;
+  width: 15px;
+}
+
+.comment-top {
+  display: flex;
+}
+
+.comment-left {
+}
+
+.comment-right {
+}
+
+.comment-bottom {
+  border: 1px solid;
+}
 </style>
