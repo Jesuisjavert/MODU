@@ -7,6 +7,8 @@ from ..serializers import ProgramSerialiezer, ClientSerializer, ProgramUserSeria
 from django.http import Http404
 from accounts.models import Tag
 from datetime import datetime
+from accounts.models import Trainer
+
 class ProgramView(generics.ListCreateAPIView):
     # 프로그램 GET 정보가져오기
     queryset = Program.objects.all()
@@ -99,8 +101,6 @@ class ProgramUserView(APIView):
         serializer = ProgramUserSerialiezr(clients, many=True)
         return Response(serializer.data)
 
-
-
 class TrainerOnlineProgramView(APIView):
     def get(self, request):
         try:
@@ -124,7 +124,6 @@ class TrainerOnlineProgramView(APIView):
             return Response({'data' : webRtc.webrtcroomId,'is_first' : True})
         return Response({'data':True})
 
-
 class ProgramReocordCheck(APIView):
     def get(self,request,pk):
         loginclient = request.user.client.first()
@@ -133,3 +132,9 @@ class ProgramReocordCheck(APIView):
             return Response({'data':False,'message':'이미 동일한 프로그램을 듣고 계시네요'})
         else:
             return Response({'data':True,'message':'새 프로그램을 들어보세요.'})
+
+class TrainerPkProgram(APIView):
+    def get(self, request, pk):
+        programs = Trainer.objects.get(pk=pk).program.all()
+        serializer = ProgramSerialiezer(programs, many=True)
+        return Response(serializer.data)

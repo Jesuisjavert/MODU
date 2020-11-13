@@ -57,8 +57,8 @@ class ProgramReservationTime(models.Model):
     # 오프라인 프로그램 예약날짜에 대한 상세시간 테이블
     ProgramDay = models.ForeignKey(ProgramReservationDay, on_delete=models.CASCADE, related_name="programreservationtime")
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="programreservationtime")
-    start_hour = models.DateTimeField()
-    end_hour = models.DateTimeField()
+    start_hour = models.TimeField()
+    end_hour = models.TimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -101,3 +101,15 @@ class Notification(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name='notification')
     program = models.ForeignKey(Program,on_delete=models.CASCADE,related_name='notification')
     is_view = models.BooleanField(default=False)
+
+
+class ChatRoom(models.Model):
+    roomid = models.CharField(max_length=200)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,related_name='chatroom')
+    client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name='chatroom')
+
+class ChatLog(models.Model):
+    chatroom = models.ForeignKey(ChatRoom,on_delete=models.CASCADE,related_name='chatlog')
+    username = models.CharField(max_length=100)
+    message = models.TextField()
+    time = models.DateTimeField()

@@ -10,7 +10,9 @@ urlpatterns = [
     path('trainer/<int:pk>/comment/', views.TrainerCommentView.as_view(), name="trainercomment"),
     path('trainer/comment/<int:pk>/', views.TrainerCommentDetailView.as_view(), name="trainercommentdetail"),
     path('trainer/program/', views.TrainerProgramView.as_view(), name="trainerprogram"),
-    path('trainer/program/online/',views.TrainerOnlineProgramView.as_view(),name="traineronlineprogram"),
+    path('trainer/program/online/', views.TrainerOnlineProgramView.as_view(), name="traineronlineprogram"),
+    path('trainer/<int:pk>/program/', views.TrainerPkProgram.as_view()),
+    path('trainer/<int:pk>/reservation/', views.TrainerReservationView.as_view(), name="trainerreservation"),
     path('client/', views.ClientView.as_view(), name="client"),
     path('client/notification/',views.ClientNotification.as_view(),name='clientNotification'),
     path('client/notification/<int:pk>/',views.ClientNotificationDetail.as_view(),name='ClientNotificationDetail'),
@@ -21,6 +23,7 @@ urlpatterns = [
     path('program/<int:pk>/comment/', views.ProgramCommentView.as_view(), name="programcomment"),
     path('program/comment/<int:pk>/', views.ProgramCommentDetailView.as_view(), name="programcommentdetail"),
     path('program/recordcheck/<int:pk>/',views.ProgramReocordCheck.as_view()),
+    path('chat/',views.ChatRooms.as_view()),
     path('kakaopay/', views.KakaoPay.as_view(), name="kakaopay"),
     path('kakaopay/approve/', views.KakaoPayApprove.as_view(), name="kakaopayapprove"),
 ]
