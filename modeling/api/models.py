@@ -101,3 +101,15 @@ class Notification(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name='notification')
     program = models.ForeignKey(Program,on_delete=models.CASCADE,related_name='notification')
     is_view = models.BooleanField(default=False)
+
+
+class ChatRoom(models.Model):
+    roomid = models.CharField(max_length=200)
+    trainer = models.ForeignKey(Trainer,on_delete=models.CASCADE,related_name='chatroom')
+    client = models.ForeignKey(Client,on_delete=models.CASCADE,related_name='chatroom')
+
+class ChatLog(models.Model):
+    chatroom = models.ForeignKey(ChatRoom,on_delete=models.CASCADE,related_name='chatlog')
+    username = models.CharField(max_length=100)
+    message = models.TextField()
+    time = models.DateTimeField()

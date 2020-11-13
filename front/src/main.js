@@ -6,6 +6,9 @@ import './plugins/base'
 import vuetify from './plugins/vuetify'
 import VueCookies from 'vue-cookies'
 
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
+Vue.prototype.$socket = socket;
 
 Vue.use(VueCookies)
 Vue.config.productionTip = false
