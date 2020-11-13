@@ -19,9 +19,10 @@
                 <p>그외 정보들 넣을거</p>
             </v-col>
             <v-col cols="auto" class="ml-auto">
-                <v-icon @click="updateProfile" style="cursor: pointer">
+                <!-- <v-icon @click="updateProfile" style="cursor: pointer">
                     mdi-cog
-                </v-icon>
+                </v-icon> -->
+                <TrainerInfoModal></TrainerInfoModal>
             </v-col>
         </v-row>
         <h3>여기는 자기소개입니다</h3>
@@ -40,6 +41,7 @@ export default {
     components: {
         ItemColumn: () => import('@/components/base/ItemColumn'),
         Btn: () => import('@/components/base/Btn'),
+        TrainerInfoModal: () => import('@/components/base/TrainerInfoModal'),
     },
     data () {
         return {
