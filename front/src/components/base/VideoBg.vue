@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: "VideoBg",
+    name: "MembershipBg",
 }
 </script>
 
