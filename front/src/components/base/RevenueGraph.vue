@@ -11,7 +11,11 @@
         :type="type"
         :auto-line-width="autoLineWidth"
         auto-draw
-    ></v-sparkline>
+    >
+        <template v-slot:label="item">
+            ${{ item.value }}
+        </template>
+    </v-sparkline>
 </template>
 
 <script>
@@ -40,6 +44,15 @@ export default {
             fill: false,
             type: 'trend',
             autoLineWidth: false,
+            value: [
+                423,
+                446,
+                675,
+                510,
+                590,
+                610,
+                760,
+            ],
         }
     }
 }

@@ -10,11 +10,11 @@
 
 <script>
 export default {
-
+    name: "VideoBg",
 }
 </script>
 
-<style>
+<style scoped>
     .background-video {
         opacity: 0.81;
     }
