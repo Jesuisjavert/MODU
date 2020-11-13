@@ -14,7 +14,7 @@ class TrainerView(generics.ListAPIView):
 
     # 트레이너 정보 수정
     def put(self, request):
-        trainer = Trainer.objects.get(pk=request.user.tariner.first().id)
+        trainer = Trainer.objects.get(pk=request.user.trainer.first().id)
         serializer = TrainerSerializer(trainer, data=request.data)
         if serializer.is_valid():
             serializer.save()
