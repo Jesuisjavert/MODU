@@ -12,21 +12,21 @@ class TrainerView(generics.ListAPIView):
     queryset = Trainer.objects.all()
     serializer_class = TrainerSerializer
 
+    # 트레이너 정보 수정
+    def put(self, request):
+        trainer = Trainer.objects.get(pk=request.user.tariner.first().id)
+        serializer = TrainerSerializer(trainer, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class TrainerDetailView(APIView):
     # 트레이너 디테일
     def get(self, request, pk):
         trainer = Trainer.objects.get(pk=pk)
         serializer = TrainerSerializer(trainer)
         return Response(serializer.data)
-
-    # 트레이너 정보 수정
-    def put(self, request, pk):
-        trainer = Trainer.objects.get(pk=pk)
-        serializer = TrainerSerializer(trainer, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TrainerCommentView(APIView):
     # 트레이너 댓글 가져오기
