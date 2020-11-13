@@ -60,7 +60,12 @@ export default new Router({
           path : 'chatroom/',
           name : 'chatroom',
           component : ()=> import('@/views/chat/chat.vue')
-        }
+        },
+        {
+          path : '/trainer/:pk',
+          name : 'TrainerDetail',
+          component : ()=> import('@/views/trainer/Index.vue')
+        },
       ],
     },
   ],

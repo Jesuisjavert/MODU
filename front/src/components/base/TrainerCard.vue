@@ -99,9 +99,9 @@
       <v-btn
         color="deep-purple lighten-2"
         text
-        @click="reserve"
+        @click="go_detail()"
       >
-        Reserve
+        상세보기
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -125,6 +125,9 @@
         this.loading = false
 
         setTimeout(() => (this.loading = false), 2000)
+      },
+      go_detail() {
+        this.$router.push("trainer/" + this.$attrs.id);
       },
       get_schedule() {
         this.scheudles = []
