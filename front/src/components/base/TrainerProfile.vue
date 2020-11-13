@@ -73,6 +73,18 @@ export default {
         },
         updateProfile() {
             console.log('프록필수정')
+            const Token = 'Bearer ' + this.userToken
+            axios.put(`${constants.API_URL}trainer/`, {
+                headers: {
+                    Authorization: Token,
+                },
+            })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         }
     },
 }
