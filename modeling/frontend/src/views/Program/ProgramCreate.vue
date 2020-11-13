@@ -1,117 +1,51 @@
 <template>
-<<<<<<< Updated upstream
-  <div>
-    <span>새 프로그램 등록페이지입니다.</span>
-    <br />
-    <div>
-      수업방식 :
-      <input type="radio" id="one" value="오프라인" v-model="inputdata._type" />
-      <label for="one">오프라인</label>
-      <input type="radio" id="two" value="온라인" v-model="inputdata._type" />
-      <label for="two">온라인</label>
-      <br />
-      <label for="title">프로그램 명</label>
-      <input type="text" v-model="inputdata.title" name="title" />
-
-      <br />
-      <div>
-        <span>태그등록 : </span>
-        <input @input="autocomplete" type="text" />
-        태그등록
-      </div>
-
-      <div>
-        <div v-for="(tag, index) in autocompletelist" :key="index">
-          <li>{{ tag }} <button @click="appendTag(tag)">추가</button></li>
-        </div>
-      </div>
-
-      <div>
-        <span>등록 태그 : </span>
-        <div v-for="(tag, index) in inputdata.tags" :key="index">
-          <li>{{ tag }}</li>
-          <button @click="deleteTag(index)">삭제</button>
-        </div>
-      </div>
-
-      <label for="content">설명 : </label>
-      <input type="text" v-model="inputdata.content" name="content" />
-      <br />
-      <label for="image">이미지</label>
-      <input type="file" @change="uploadimg" name="image" />
-      <br />
-      <div v-if="inputdata._type == '온라인'">
-        수업 요일 선택
-        <div v-for="(day, index) in schedule" :key="index">
-          <div v-if="!day.disabled">
-            <label :for="'e' + index">{{ day.day }}</label>
-            <input
-              v-model="day.start_hour"
-              type="time"
-              step="3600"
-              :name="'e' + index"
-            />
-            ~
-            <input
-              v-model="day.end_hour"
-              type="time"
-              step="3600"
-              :name="'e' + index"
-            />
-          </div>
-          <div v-else>{{ day.day }} 는 쉬는날입니다.</div>
-          <label :for="'c' + index">휴무일</label>
-          <input
-            v-model="day.disabled"
-            type="checkbox"
-            :name="'c' + index"
-            id=""
-          />
-        </div>
-      </div>
-
-      <br />
-      <div>프로그램 회수 및 가격 설정</div>
-      <div v-for="(data, index) in detaildata" :key="index">
-        이름 : <input type="text" v-model="data.title" /> 가격 :
-        <input type="number" v-model="data.price" /> 횟수 :
-
-        <input
-          v-if="inputdata._type == '온라인'"
-          type="number"
-          v-model="data.online_count"
-        />
-        <input v-else type="number" v-model="data.offline_count" />
-        <button @click="deletedata(index)">x</button>
-      </div>
-      <button @click="appenddetail">추가</button>
-    </div>
-    <button @click="createProgram()">제출</button>
-=======
   <div class="program">
     <div class="hero">
       <p>새 프로그램</p>
     </div>
-    <br>
+    <br />
     <div class="row">
       <div class="col-6 program-box">
         <div class="program-contents program-method">
           <span>수업 방식</span>
-          <label class="box-radio-input" for="two"><input type="radio" id="two" value="온라인" checked="checked" v-model="inputdata._type"><span>온라인</span></label>
-          <label class="box-radio-input" for="one"><input type="radio" id="one" value="오프라인" v-model="inputdata._type"><span>오프라인</span></label>
+          <label class="box-radio-input" for="two"
+            ><input
+              type="radio"
+              id="two"
+              value="온라인"
+              checked="checked"
+              v-model="inputdata._type"
+            /><span>온라인</span></label
+          >
+          <label class="box-radio-input" for="one"
+            ><input
+              type="radio"
+              id="one"
+              value="오프라인"
+              v-model="inputdata._type"
+            /><span>오프라인</span></label
+          >
         </div>
         <div class="program-contents program-name">
           <span>프로그램 명</span>
-          <input type="text" v-model="inputdata.title" name="title">
+          <input type="text" v-model="inputdata.title" name="title" />
         </div>
         <div class="program-contents program-tag">
           <span>태그 추가하기</span>
-          <input @input="autocomplete" placeholder="태그를 등록하세요" type="text">
+          <input
+            @input="autocomplete"
+            placeholder="태그를 등록하세요"
+            type="text"
+          />
         </div>
         <div class="program-contents tag-insert">
-          <div class="tag-box" >
-            <div v-for="(tag,index) in autocompletelist" :key="index">
-              <li @click="appendTag(tag)"><span class="tag tag-plus">{{tag}} <i class="fas fa-plus"></i></span></li>
+          <div class="tag-box">
+            <div v-for="(tag, index) in autocompletelist" :key="index">
+              <li @click="appendTag(tag)">
+                <span class="tag tag-plus"
+                  >{{ tag }} <i class="fas fa-plus"></i
+                ></span>
+              </li>
             </div>
           </div>
         </div>
@@ -119,28 +53,43 @@
           <span>태그</span>
           <div class="add-tag">
             <div class="tag-list">
-              <div v-for="(tag,index) in inputdata.tags" :key="index">
-                <li><span class="tag">{{tag}} <i class="fas fa-minus" @click="deleteTag(index)"></i></span></li>
-              </div> 
+              <div v-for="(tag, index) in inputdata.tags" :key="index">
+                <li>
+                  <span class="tag"
+                    >{{ tag }}
+                    <i class="fas fa-minus" @click="deleteTag(index)"></i
+                  ></span>
+                </li>
+              </div>
             </div>
           </div>
         </div>
         <div class="program-contents program-explain">
           <span>설명</span>
-          <textarea type="text" v-model="inputdata.content" name="content"></textarea>
+          <textarea
+            type="text"
+            v-model="inputdata.content"
+            name="content"
+          ></textarea>
         </div>
         <div class="program-contents program-img">
           <span>이미지</span>
-          <input type="file" @change="uploadimg" name="image">
+          <input type="file" @change="uploadimg" name="image" />
         </div>
       </div>
       <div class="col-5 program-setting">
         <h3>프로그램 회수 및 가격 설정</h3>
-        <div class="program-cost" v-for=" (data,index) in detaildata" :key="index">
-          이름 : <input type="text" required v-model="data.title"> 
-          가격 : <input type="number" required v-model="data.price"> 
-          횟수 : <input type="number" required v-model="data.online_count"> 
-          <button @click="deletedata(index)"><i class="fas fa-minus"></i></button>
+        <div
+          class="program-cost"
+          v-for="(data, index) in detaildata"
+          :key="index"
+        >
+          이름 : <input type="text" required v-model="data.title" /> 가격 :
+          <input type="number" required v-model="data.price" /> 횟수 :
+          <input type="number" required v-model="data.online_count" />
+          <button @click="deletedata(index)">
+            <i class="fas fa-minus"></i>
+          </button>
         </div>
         <div class="cost-explain">
           <span>항목을 필수적으로 입력해야 합니다.</span>
@@ -149,7 +98,6 @@
       </div>
     </div>
     <button class="submit-btn" @click="createProgram()">제출</button>
->>>>>>> Stashed changes
   </div>
 </template>
 
@@ -346,9 +294,6 @@ export default {
 };
 </script>
 
-<<<<<<< Updated upstream
-<style></style>
-=======
 <style scoped>
 .program {
   height: calc(100vh - 100px);
@@ -357,7 +302,7 @@ export default {
 
 .hero {
   display: flex;
-  position : relative;
+  position: relative;
   height: 300px;
   z-index: 1;
   justify-content: center;
@@ -393,27 +338,27 @@ export default {
 }
 
 .box-radio-input input[type="radio"] {
-  display:none;
+  display: none;
 }
 
 .box-radio-input input[type="radio"] + span {
-  display:inline-block;
+  display: inline-block;
   border-radius: 4px;
-  background:none;
-  border:1px solid #dfdfdf; 
-  padding:0px 10px;
-  text-align:center;
-  height:35px;
-  line-height:33px;
-  font-weight:500;
-  cursor:pointer;
+  background: none;
+  border: 1px solid #dfdfdf;
+  padding: 0px 10px;
+  text-align: center;
+  height: 35px;
+  line-height: 33px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .box-radio-input input[type="radio"]:checked + span {
-  border:1px solid #1F85DE;
+  border: 1px solid #1f85de;
   border-radius: 4px;
-  background:#1F85DE;
-  color:#fff;
+  background: #1f85de;
+  color: #fff;
 }
 
 .program-box {
@@ -438,7 +383,7 @@ export default {
 .program-contents > input {
   width: 400px;
   border: none;
-  border-bottom: 1px solid #1F85DE;
+  border-bottom: 1px solid #1f85de;
 }
 
 .tag-insert {
@@ -452,7 +397,7 @@ export default {
   display: flex;
 }
 
-.tag-box li{
+.tag-box li {
   cursor: pointer;
 }
 
@@ -475,15 +420,15 @@ export default {
 }
 
 .tag-plus:hover {
-  border: 2px solid #1F85DE;
-  background-color: #1F85DE;
+  border: 2px solid #1f85de;
+  background-color: #1f85de;
   color: #ffffff;
   transition: ease-in-out 0.2s;
 }
 
 .add-tag {
   width: 400px;
-  border-bottom: 1px solid #1F85DE;
+  border-bottom: 1px solid #1f85de;
 }
 
 .tag-list {
@@ -497,7 +442,6 @@ export default {
   margin-right: 12px;
 }
 
-
 .tag-list span i {
   cursor: pointer;
 }
@@ -508,14 +452,14 @@ export default {
 }
 
 .program-explain textarea {
-  border-color: #1F85DE;
+  border-color: #1f85de;
   width: 400px;
   height: 100px;
   resize: none;
 }
 
 .program-setting {
-  border: 1px solid #1F85DE;
+  border: 1px solid #1f85de;
   padding: 10px 0px;
 }
 
@@ -551,7 +495,4 @@ export default {
   color: #ffffff;
   font-weight: 600;
 }
-
-
 </style>
->>>>>>> Stashed changes

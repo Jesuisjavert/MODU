@@ -21,6 +21,7 @@
     "vue-uuid": "^2.0.2",
     "vue-videobg": "^2.0.0",
     "vue-webrtc": "^1.2.2",
+    "vue-socket.io": "^3.0.10",
     "vuetify": "^2.2.25",
     "vuex": "^3.3.0",
     "vuex-pathify": "^1.4.1"

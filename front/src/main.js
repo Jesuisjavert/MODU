@@ -9,6 +9,9 @@ import WebRTC from 'vue-webrtc'
 import UUID from 'vue-uuid'
 import VideoBg from 'vue-videobg'
 
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
+Vue.prototype.$socket = socket;
 
 Vue.use(VueCookies)
 Vue.config.productionTip = false

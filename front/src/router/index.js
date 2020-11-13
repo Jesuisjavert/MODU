@@ -51,6 +51,16 @@ export default new Router({
           name: 'WebCam',
           component: webCam,
         },
+        {
+          path : 'watingroom/',
+          name : 'WatnigRoom',
+          component : () => import('@/views/chat/watingroom.vue')
+        },
+        {
+          path : 'chatroom/',
+          name : 'chatroom',
+          component : ()=> import('@/views/chat/chat.vue')
+        }
       ],
     },
   ],

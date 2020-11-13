@@ -1,12 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-<<<<<<< Updated upstream
       <Header />
-=======
-      <Header/>
-
->>>>>>> Stashed changes
     </div>
     <router-view />
   </div>
