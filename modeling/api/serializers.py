@@ -105,3 +105,13 @@ class ProgramReservationTime(serializers.ModelSerializer):
     class Meta:
         model = ProgramReservationTime
         fields = '__all__'
+
+class ChatRoomSerializer(serializers.ModelSerializer):
+    client_name = serializers.CharField(source='client.user.username')
+    class Meta:
+        model = ChatRoom
+        fields = '__all__'
+class ChatLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatLog
+        fields = '__all__'

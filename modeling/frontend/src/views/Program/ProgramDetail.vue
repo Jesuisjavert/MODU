@@ -1,37 +1,55 @@
 <template>
   <div>
     <div class="title">
-      <h3 class="title">{{program.title}}</h3>
+      <h3 class="title">{{ program.title }}</h3>
     </div>
     <div class="row">
-      <div class="col-4 program-explain">
-        <img :src=program.image_url height="300px">
-        <h3>프로그램 설명</h3>
-        <div>{{program.content}}</div>
+      <div class="col-4">
+        <div class="program-explain">
+          <img :src=program.image_url>
+          <h3>프로그램 설명</h3>
+          <div>{{program.content}}</div>
+        </div>
+        <div class="program-question" v-if="userType == 'client'">
+          <button class="btn btn-primary" @click="joinChatNumber()">문의하기</button>
+        </div>
       </div>
       <div class="col-6">
         <div class="price-explains">
           <h3>가격</h3>
           <div v-for="price in program.programprice" :key="price.id">
             <div class="price-explain">
-              <p>이용권 이름 : {{price.title}}</p>
-              <p>온라인 횟수 : {{price.online_count}}회</p>
-              <p>오프라인 횟수 : {{price.offline_count}}회</p>
-              <p>가격 : {{price.price}}원</p>
+              <p>이용권 이름 : {{ price.title }}</p>
+              <p>온라인 횟수 : {{ price.online_count }}회</p>
+              <p>오프라인 횟수 : {{ price.offline_count }}회</p>
+              <p>가격 : {{ price.price }}원</p>
             </div>
           </div>
         </div>
         <div class="select-box">
           <label for="price">상품 선택</label>
           <select name="price" id="price" v-model="selectPrice">
-            <option :value=item.id v-for="item in program.programprice" :key="item.id">{{item.title}}</option>
+            <option
+              :value="item.id"
+              v-for="item in program.programprice"
+              :key="item.id"
+              >{{ item.title }}</option
+            >
           </select>
-          <button class="btn btn-primary" @click="program_apply()">신청하기</button>
+          <button class="btn btn-primary" @click="program_apply()">
+            신청하기
+          </button>
         </div>
         <h3>댓글 작성</h3>
         <div class="comment-box">
           <div class="comment-create">
-            <input v-model="submitData.rate" type="number" max='5' min='0' name="rate">
+            <input
+              v-model="submitData.rate"
+              type="number"
+              max="5"
+              min="0"
+              name="rate"
+            />
             <textarea name="content" v-model="submitData.content"></textarea>
           </div>
           <button class="btn btn-primary" @click="comment_submit">작성</button>
@@ -39,27 +57,24 @@
         <div class="comments">
           <div class="comment" v-for="comment in comments" :key="comment.id">
             <div>
-              <img :src="comment.client.user.image_url" alt="">
+              <img :src="comment.client.user.image_url" alt="" />
             </div>
             <div>
               <div class="comment-top">
                 <div class="comment-left">
                   <span>{{comment.client.user.username}}</span>
-                  <span>{{comment.rate}}</span>
+                  <span>{{comment.rate}}점</span>
                 </div>
                 <div class="comment-right">
-                  <span>수정</span>
-                  <span>삭제</span>
+                  <span class="gara">수정</span>
+                  <span class="gara">삭제</span>
                 </div>
               </div>
-              <div class="comment-bottom">{{comment.content}}</div>
+              <div class="comment-bottom">{{ comment.content }}</div>
             </div>
           </div>
         </div>
-        <div v-if="userType == 'client'">
-          문의하기 버튼이 있는 곳이다.
-          <button @click="joinChatNumber()">문의하기</button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -110,7 +125,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          sessionStorage.setItem("chatroomId", res.data.roomId);
+          this.$socket.emit("join", res.data.roomId, this.username);
+          this.$router.push({ name: "Chat" });
         });
     },
     get_program() {
@@ -177,14 +194,14 @@ export default {
   },
 
   computed: {
-    ...mapState(["userToken", "userType"]),
+    ...mapState(["userToken", "userType", "username"]),
   },
 };
 </script>
 
 <style scoped>
 .title {
-  margin: 5vh 0px;
+  margin: 4vh 0px;
   font-size: 48px;
 }
 .row {
@@ -192,9 +209,13 @@ export default {
   justify-content: center;
 }
 
-.program-explain {
+.col-4 {
   margin-left: 10%;
+}
+
+.program-explain {
   border: solid 1px #dddddd;
+  border-radius: 4px;
   height: 60vh;
   padding: 0px;
 }
@@ -214,6 +235,10 @@ export default {
   font-size: 18px;
   padding: 8px 12px;
   text-align: start;
+}
+
+.program-question {
+  margin-top: 10px;
 }
 
 .price-explains{
@@ -279,7 +304,7 @@ export default {
 }
 
 .comments {
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -299,12 +324,32 @@ export default {
 }
 
 .comment-left {
+  display: flex;
+  flex: 6;
+  justify-content: flex-start;
 }
 
 .comment-right {
+  display: flex;
+  flex: 6;
+  justify-content: flex-end;
+  font-size: 13px;
+  color: #aaaaaa;
+}
+
+.gara {
+  cursor: pointer;
+}
+
+.comment span {
+  margin-right: 6px;
 }
 
 .comment-bottom {
-  border: 1px solid;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  min-height: 40px;
+  text-align: start;
+  padding: 2px 6px;
 }
 </style>
