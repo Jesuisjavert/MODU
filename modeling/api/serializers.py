@@ -42,11 +42,11 @@ class ProgramSerialiezer(serializers.ModelSerializer):
     class Meta:
         model = Program
         fields = '__all__'
+
+
 # onlineProgram을 위한 거
-
-
 class ProgramOnlieSerialiezer(ProgramSerialiezer):
-    programschedule = ProgramScheduleSerializer(read_only=True,many=True)
+    programschedule = ProgramScheduleSerializer(read_only=True, many=True)
 
 class ProgramCommentSerializer(serializers.ModelSerializer):
     client = ClientSerializer(read_only=True)
