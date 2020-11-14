@@ -17,14 +17,24 @@
       <div class="col-6">
         <div class="price-explains">
           <h3>가격</h3>
-          <div v-for="price in program.programprice" :key="price.id">
-            <div class="price-explain">
-              <p>이용권 이름 : {{ price.title }}</p>
-              <p>온라인 횟수 : {{ price.online_count }}회</p>
-              <p>오프라인 횟수 : {{ price.offline_count }}회</p>
-              <p>가격 : {{ price.price }}원</p>
-            </div>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">이용권 이름</th>
+                <th scope="col">온라인 횟수</th>
+                <th scope="col">오프라인 횟수</th>
+                <th scope="col">가격</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="price in program.programprice" :key="price.id">
+                <th scope="row">{{ price.title }}</th>
+                <td>{{ price.online_count }}회</td>
+                <td>{{ price.offline_count }}회</td>
+                <td>{{ price.price }}원</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="select-box">
           <label for="price">상품 선택</label>
@@ -228,7 +238,7 @@ export default {
 }
 
 .program-explain h3 {
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .program-explain div {
@@ -244,7 +254,10 @@ export default {
 .price-explains{
   margin: auto;
   width: 75%;
-  border-bottom: solid 2px #dddddd;
+}
+
+.price-explains h3 {
+  margin-bottom: 20px;
 }
 
 .price-explain {
