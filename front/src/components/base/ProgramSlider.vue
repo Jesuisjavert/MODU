@@ -10,6 +10,7 @@
   import VueSlickCarousel from 'vue-slick-carousel'
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+  import constants from "@/api/constants";
   
   import ProgramCard from '@/components/base/ProgramCard'
   
@@ -20,6 +21,7 @@
     components: { VueSlickCarousel, ProgramCard},
     data() {
       return {
+        constants,
         settings: {
         "centerMode": true,
         "centerPadding": "30px",
@@ -36,7 +38,7 @@
     },
     methods: {
       get_program() {
-        axios.get(`http://127.0.0.1:8000/api/program/`)
+        axios.get(`${this.constants.API_URL}program/`)
           .then((res)=>{
             this.programs = res.data
           })
