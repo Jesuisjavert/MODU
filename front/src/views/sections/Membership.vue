@@ -1,5 +1,6 @@
 <template>
-    <VideoBg>
+    <!-- <VideoBg> -->
+    <div>
         <ItemRow v-if="isLogined === false">
             <base-heading class="white--text text-center">당신의 운동 파트너</base-heading>
             <base-heading class="white--text text-center mt-10">모두의 헬스와 함께</base-heading>
@@ -34,7 +35,8 @@
                 </div>
             </v-row>
         </ItemRow>
-    </VideoBg>
+    </div>
+    <!-- </VideoBg> -->
 </template>
 
 <script>
