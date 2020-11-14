@@ -1,37 +1,50 @@
 <template>
   <div>
     <div class="title">
-      <h3 class="title">{{program.title}}</h3>
+      <h3 class="title">{{ program.title }}</h3>
     </div>
     <div class="row">
       <div class="col-4 program-explain">
-        <img :src=program.image_url height="300px">
+        <img :src="program.image_url" height="300px" />
         <h3>프로그램 설명</h3>
-        <div>{{program.content}}</div>
+        <div>{{ program.content }}</div>
       </div>
       <div class="col-6">
         <div class="price-explains">
           <h3>가격</h3>
           <div v-for="price in program.programprice" :key="price.id">
             <div class="price-explain">
-              <p>이용권 이름 : {{price.title}}</p>
-              <p>온라인 횟수 : {{price.online_count}}회</p>
-              <p>오프라인 횟수 : {{price.offline_count}}회</p>
-              <p>가격 : {{price.price}}원</p>
+              <p>이용권 이름 : {{ price.title }}</p>
+              <p>온라인 횟수 : {{ price.online_count }}회</p>
+              <p>오프라인 횟수 : {{ price.offline_count }}회</p>
+              <p>가격 : {{ price.price }}원</p>
             </div>
           </div>
         </div>
         <div class="select-box">
           <label for="price">상품 선택</label>
           <select name="price" id="price" v-model="selectPrice">
-            <option :value=item.id v-for="item in program.programprice" :key="item.id">{{item.title}}</option>
+            <option
+              :value="item.id"
+              v-for="item in program.programprice"
+              :key="item.id"
+              >{{ item.title }}</option
+            >
           </select>
-          <button class="btn btn-primary" @click="program_apply()">신청하기</button>
+          <button class="btn btn-primary" @click="program_apply()">
+            신청하기
+          </button>
         </div>
         <h3>댓글 작성</h3>
         <div class="comment-box">
           <div class="comment-create">
-            <input v-model="submitData.rate" type="number" max='5' min='0' name="rate">
+            <input
+              v-model="submitData.rate"
+              type="number"
+              max="5"
+              min="0"
+              name="rate"
+            />
             <textarea name="content" v-model="submitData.content"></textarea>
           </div>
           <button class="btn btn-primary" @click="comment_submit">작성</button>
@@ -39,20 +52,20 @@
         <div class="comments">
           <div class="comment" v-for="comment in comments" :key="comment.id">
             <div>
-              <img :src="comment.client.user.image_url" alt="">
+              <img :src="comment.client.user.image_url" alt="" />
             </div>
             <div>
               <div class="comment-top">
                 <div class="comment-left">
-                  <span>{{comment.client.user.username}}</span>
-                  <span>{{comment.rate}}</span>
+                  <span>{{ comment.client.user.username }}</span>
+                  <span>{{ comment.rate }}</span>
                 </div>
                 <div class="comment-right">
                   <span>수정</span>
                   <span>삭제</span>
                 </div>
               </div>
-              <div class="comment-bottom">{{comment.content}}</div>
+              <div class="comment-bottom">{{ comment.content }}</div>
             </div>
           </div>
         </div>
@@ -110,7 +123,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          sessionStorage.setItem("chatroomId", res.data.roomId);
+          this.$socket.emit("join", res.data.roomId, this.username);
+          this.$router.push({ name: "Chat" });
         });
     },
     get_program() {
@@ -177,7 +192,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["userToken", "userType"]),
+    ...mapState(["userToken", "userType", "username"]),
   },
 };
 </script>
@@ -216,7 +231,7 @@ export default {
   text-align: start;
 }
 
-.price-explains{
+.price-explains {
   margin: auto;
   width: 75%;
   border-bottom: solid 2px #dddddd;

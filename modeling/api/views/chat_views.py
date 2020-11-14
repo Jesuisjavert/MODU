@@ -1,9 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import base64
-from ..models import ChatRoom,Program
+from ..models import ChatRoom,Program,ChatLog
 from Crypto import Random
 from Crypto.Cipher import AES
+from ..serializers import ChatLogSerializer,ChatRoomSerializer
 
 
 BS = 16
@@ -34,6 +35,12 @@ key = [0x10, 0x01, 0x15, 0x1B, 0xA1, 0x11, 0x57, 0x72, 0x6C, 0x21, 0x56, 0x57, 0
 
 
 class ChatRooms(APIView):
+    def get(self,request):
+        targetuser = request.user
+        chatrooms = ChatRoom.objects.filter(trainer=targetuser.trainer.first())
+        serializer = ChatRoomSerializer(chatrooms,many=True)
+
+        return Response(serializer.data)
     def post(self,reqeust):
         program_id = reqeust.data['program_id']
         trainer = Program.objects.get(id=program_id).trainer
@@ -48,4 +55,42 @@ class ChatRooms(APIView):
                 client = reqeust.user.client.first(),
                 trainer = trainer )
             return Response({'roomId':roomId})
-        
+
+
+class ChatLogs(APIView):
+    def get(self,request):
+        if request.user.is_authenticated:
+            roomId = request.GET.get('roomId')
+            user = request.user
+            if user.trainer.all().exists():
+                _type = '트레이너'
+            elif user.client.all().exists():
+                _type = '클라이언트'
+            else:
+                return Response({'data':'잘못 들어오셨네요.'})
+            try:
+                print(_type)
+                if _type == '트레이너':
+                    targetchatroom = ChatRoom.objects.get(roomid__contains=roomId,trainer=user.trainer.first())
+                elif _type == '클라이언트':
+                    print('여기냐?')
+                    targetchatroom = ChatRoom.objects.get(roomid__contains=roomId,client=user.client.first())
+                chattinglog = ChatLog.objects.filter(chatroom=targetchatroom)
+                serializer = ChatLogSerializer(chattinglog,many=True)
+                print(serializer)
+                return Response(serializer.data)
+            except:
+                return Response({'data':'채팅창에 접근권한이 없습니다.'})
+        else:
+            return Response({'data':'Login을 하세요.'})
+    def post(self,request):
+        roomId = request.data['chatroomId']
+        username = request.data['username']
+        message = request.data['message']
+        time =  request.data['time']
+        targetchatroom = ChatRoom.objects.get(roomid__contains=roomId)
+        data = ChatLog.objects.create(username=username,
+        message=message,
+        time=time,
+        chatroom=targetchatroom)
+        return Response({'data':True})
