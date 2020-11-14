@@ -1,5 +1,19 @@
-var app = require('express')();
-var server = require('http').createServer(app);
+
+var fs = require('fs'); 
+var app = require('express')(); 
+var https  = require('https'); 
+var server = https.createServer({ 
+    ca: fs.readFileSync('/etc/letsencrypt/live/k3c202.p.ssafy.io/fullchain.pem'),
+    key: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/k3c202.p.ssafy.io/privkey.pem'), 'utf8').toString(),
+    cert: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/k3c202.p.ssafy.io/cert.pem'), 'utf8').toString(),
+    requestCert: false, 
+    rejectUnauthorized: false 
+},app);
+
+
+
+
+
 var io = require('socket.io')(server,{
     pingTimeout: 1000,
 });
