@@ -1,15 +1,25 @@
 <template>
-  <div>
-    <h1>This is an Chat page</h1>
-    <div v-for="(mes, ind) in messages" :key="ind">
-      <div :class="{ active: sameuser(ind), deactive: !sameuser(ind) }">
-        {{ ind }} : {{ mes.username }} : <span>{{ mes.message }}</span> 작성시간
-        :{{ mes.time }}
+  <div class="chat">
+    <h1><i class="fas fa-comments"></i> 1:1 문의</h1>
+    <div class="chat-box">
+      <div>
+        <div v-for="(mes, ind) in messages" :key="ind">
+          <div :class="{ active: sameuser(ind), deactive: !sameuser(ind) }">
+            <div :class="{ mychat: sameuser(ind), yourchat: !sameuser(ind) }">
+              <div class="message-box">
+                <span :class="{ mymessage: sameuser(ind), yourmessage: !sameuser(ind) }">{{ mes.message }}</span>
+                <span class="time">{{ mes.time.slice(12,16) }}</span>
+              </div>
+              <!-- {{ mes.username }} -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <input type="text" v-model="inputmessage" />
-    <button @click="chat()">제출</button>
-    <button @click="getChatLog()">테스트!</button>
+    <div class="chat-insert">
+      <input type="text" v-model="inputmessage" @keydown.enter="chat()" />
+      <button class="btn btn-primary" @click="chat()">입력</button>
+    </div>
   </div>
 </template>
 
@@ -99,11 +109,77 @@ export default {
 </script>
 
 <style scoped>
+.chat {
+  height: 75vh;
+  width: 60vw;
+  margin: auto;
+}
+
+i {
+  color: #007BFF;
+}
+
+.chat-box {
+  padding: 12px;
+  height: 60vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border: 1px solid #dddddd;
+  overflow-y:scroll
+}
+
 .active {
-  background-color: yellow;
   text-align: right;
 }
 .deactive {
   text-align: left;
+}
+
+.mychat {
+  color: #ffffff;
+}
+
+.yourchat {
+  max-width: 20vw;
+}
+
+.chat-insert {
+  margin-top: 20px;
+}
+
+.chat-insert input {
+  margin-right: 8px;
+}
+
+.chat-insert button {
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.message-box {
+  display: flex;
+  flex-direction: column;
+  margin: 4px 0px;
+}
+
+.mymessage {
+  margin-left: 35vw;
+  background-color: #007BFF;
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.yourmessage {
+  min-width: 5vw;
+  background-color: #E5E5EA;
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.time {
+  margin: 2px;
+  font-size: 12px;
+  color: #cecece;
 }
 </style>

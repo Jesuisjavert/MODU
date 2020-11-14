@@ -1,11 +1,24 @@
 <template>
   <div class="about">
-    <h1>Trainer 활성화 채팅창 목록</h1>
-    <div v-for="(room, index) in chatRooms" :key="index">
-      <div>{{ room.client_name }} 님과의 1대1 채팅</div>
-      <button @click="pushChat(index)">채팅 참가하기</button>
-    </div>
-    <button @click="getChattingRoom()">테스트</button>
+    <h1>1:1 문의 목록</h1>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">글쓴이</th>
+          <th scope="col">답변상태</th>
+          <th scope="col">답변하기</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(room, index) in chatRooms" :key="index">
+          <th class="table-item" scope="row">{{index + 1 }}</th>
+          <td class="table-item">{{ room.client_name }}님의 문의</td>
+          <td class="table-item">답변대기</td>
+          <td><button class="btn btn-primary" @click="pushChat(index)">채팅 참가하기</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -53,3 +66,22 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.about {
+  width: 70vw;
+  margin: auto;
+}
+
+h1 {
+  margin-top: 40px;
+}
+
+.table {
+  margin-top: 40px;
+}
+
+.table-item {
+  vertical-align: middle;
+}
+</style>
