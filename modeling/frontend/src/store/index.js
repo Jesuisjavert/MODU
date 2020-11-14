@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     userToken : sessionStorage.getItem('auth-token'),
     userType : sessionStorage.getItem('userType'),
+    username : sessionStorage.getItem('username'),
     tid : sessionStorage.getItem('tid'),
   },
   getters : {
@@ -28,6 +29,11 @@ export default new Vuex.Store({
     REMOVE_TID(){
       sessionStorage.removeItem('tid')
     },
+    SET_USERNAME(state,token){
+      state.username = token
+      sessionStorage.setItem('username',token)
+
+    }
   },
   actions: {
   },
