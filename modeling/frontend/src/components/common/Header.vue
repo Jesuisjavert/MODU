@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.header{
+.header {
     background-color: #aaaaaa;
     display: flex;
     height: 80px;

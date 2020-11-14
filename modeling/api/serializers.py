@@ -24,11 +24,17 @@ class ProgramPriceSerializer(serializers.ModelSerializer):
         model = ProgramPrice
         fields = '__all__'
 
+class ProgramScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProgramSchedule
+        fields ='__all__'
+
 class ProgramSerialiezer(serializers.ModelSerializer):
     trainer = TrainerSerializer(read_only=True)
     image_url =  serializers.SerializerMethodField(read_only=True)
     programprice = ProgramPriceSerializer(read_only=True, many=True)
     tags = TagSerializer(read_only=True,many=True)
+    programschedule = ProgramScheduleSerializer(read_only=True, many=True)
     def get_image_url(self,program):
         print(program)
         image = str(program.thumb_img)
@@ -37,10 +43,8 @@ class ProgramSerialiezer(serializers.ModelSerializer):
         model = Program
         fields = '__all__'
 # onlineProgram을 위한 거
-class ProgramScheduleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProgramSchedule
-        fields ='__all__'
+
+
 class ProgramOnlieSerialiezer(ProgramSerialiezer):
     programschedule = ProgramScheduleSerializer(read_only=True,many=True)
 
@@ -100,4 +104,14 @@ class ProgramReservationDaySerializer(serializers.ModelSerializer):
 class ProgramReservationTime(serializers.ModelSerializer):
     class Meta:
         model = ProgramReservationTime
+        fields = '__all__'
+
+class ChatRoomSerializer(serializers.ModelSerializer):
+    client_name = serializers.CharField(source='client.user.username')
+    class Meta:
+        model = ChatRoom
+        fields = '__all__'
+class ChatLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatLog
         fields = '__all__'
