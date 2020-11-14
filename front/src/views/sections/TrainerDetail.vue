@@ -4,17 +4,236 @@
     class="pa-0"
     fluid
     tag="section"
-  >
-    <h1>Detail</h1>
+  > 
+    <v-row>
+      <v-col
+        cols="6"
+        align="right"
+      >
+        <v-avatar size="150">
+          <img
+            alt="user"
+            :src="this.trainer.user.image_url"
+          >
+        </v-avatar>
+      </v-col>
+      <v-col
+        cols="6"
+        align="left"
+      >
+        <h1>{{trainer.name}} </h1>
+        <p>"{{trainer.content}}"</p>
 
+        <p>전문분야</p>
+        <div v-for="tag in trainer.tags" :key="tag.id">
+          <p>{{tag.name}}</p>
+        </div>
+      </v-col>
+    </v-row>
+    
+    <ItemColumn>
+      <v-col
+        cols="8"
+      >
+        <h3>예약하기</h3>
+
+        <v-col
+          cols="6"
+        >
+          <v-menu
+            v-model="menu2"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="예약 일정 선택"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+              v-model="date"
+              @input="menu2 = false"
+            ></v-date-picker>
+          </v-menu>
+        </v-col>
+
+        <v-chip-group
+          v-model="selection"
+          active-class="deep-purple accent-4 white--text"
+          column
+          v-if="holiday"
+        >
+          <div v-for="scheudle in scheudles" :key="scheudle.id">
+            <v-chip @click="set_time(scheudle)">{{scheudle}}</v-chip>
+          </div>
+        </v-chip-group>
+        <div v-else>
+          <h3>휴무일 입니다.</h3>
+        </div>
+
+
+        <v-btn
+          class="d-block mb-10"
+          depressed
+          color="primary"
+          @click="reservation"
+        >
+          예약
+        </v-btn>
+
+        <h3 class="d-inline">트레이닝 후기</h3>
+        <v-row
+          align="center"
+          class="mx-0 d-inline"
+        >
+          <v-rating
+            :value="this.trainer.comment.rate"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14"
+            class="d-inline"
+          ></v-rating>
+
+          <div class="grey--text ml-4 d-inline">
+            {{this.trainer.comment.rate}} ({{this.trainer.comment.count}})
+          </div>
+        </v-row>
+
+
+        <h3 class="mt-10">프로그램</h3>
+      </v-col>
+    </ItemColumn>
   </v-container>
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+import constants from "@/api/constants";
+
   export default {
     name: 'TrainerDetail',
     components: {
-    }
+      ItemRow: () => import('@/components/base/ItemRow'),
+      ItemColumn: () => import('@/components/base/ItemColumn')
+    },
+    data(){
+      return {
+        constants,
+        comment: null,
+        trainer: {
+          
+          user: {
+            "image_url": null
+          }
+        },
+        selection: 1,
+        date: null,
+        time: null,
+        program_id: null,
+        scheudles: [],
+        programs: null,
+        date: new Date().toISOString().substr(0, 10),
+        menu2: false,
+        holiday: false,
+      }
+    },
+    created() {
+      this.get_trainer()
+      this.get_comment()
+      this.get_programs()
+    },
+    methods: {
+      set_time(time) {
+        console.log(time)
+      },
+      get_trainer() {
+        const pk = this.$route.params.pk
+        axios.get(`${this.constants.API_URL}trainer/${pk}/`)
+          .then((res)=>{
+            console.log(res.data)
+            this.trainer = res.data
+            this.get_schedule()
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      },
+      get_comment() {
+        const pk = this.$route.params.pk
+        axios.get(`${this.constants.API_URL}trainer/${pk}/comment/`)
+          .then((res)=>{
+            this.comment = res.data
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      },
+      get_programs() {
+        const pk = this.$route.params.pk
+        axios.get(`${this.constants.API_URL}trainer/${pk}/program/`)
+          .then((res)=>{
+            this.programs = res.data
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+      },
+      reservation() {
+        let Token = "Bearer " + this.userToken;
+        let form = new FormData()
+        form.append('date', this.date)
+        form.append('time', this.time)
+        form.append('program_id', this.program_id)
+        const pk = this.$route.params.pk
+        axios.post(`${this.constants.API_URL}trainer/${pk}/reservation/`, form, {
+          headers: {
+            Authorization: Token,
+          },
+        })
+        .then((res)=>{
+          console.log(res.data)
+        })
+      },
+      get_schedule() {
+        this.scheudles = []
+        let date = new Date(this.date)
+        var week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        var dayOfWeek = week[date.getDay()];
+        this.holiday = false
+
+        let nowHour = new Date() < date ? 0 : new Date().getHours()
+
+        for (var i=0, item; item=this.trainer.trainerschedule[i]; i++) {
+          if (item.day==dayOfWeek) {
+            this.holiday = true
+            for (var j=8; j<18 ; j++){
+              if (nowHour < j){
+                this.scheudles.push(j +":00 " +(j<12 ? "AM" : "PM"))
+              }
+            }
+          }
+        }
+      },
+    },
+    computed: {
+      ...mapState(["userToken"]),
+    },
+    watch: {
+      date (val) {
+        this.get_schedule()
+      },
+    },
   }
 </script>
 

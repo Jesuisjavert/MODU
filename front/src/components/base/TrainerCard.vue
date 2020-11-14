@@ -64,7 +64,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="date"
-              label="Picker without buttons"
+              label="예약 일정 선택"
               prepend-icon="mdi-calendar"
               readonly
               v-bind="attrs"
