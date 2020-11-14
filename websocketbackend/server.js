@@ -1,7 +1,8 @@
 
 var fs = require('fs'); 
 var app = require('express')(); 
-var https  = require('https'); 
+var https  = require('https');
+const path = require('path'); 
 var server = https.createServer({ 
     ca: fs.readFileSync('/etc/letsencrypt/live/k3c202.p.ssafy.io/fullchain.pem'),
     key: fs.readFileSync(path.resolve(process.cwd(), '/etc/letsencrypt/live/k3c202.p.ssafy.io/privkey.pem'), 'utf8').toString(),
