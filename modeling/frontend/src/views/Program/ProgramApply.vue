@@ -1,21 +1,22 @@
 <template>
   <div>
-    <h1>프로그램 신청</h1>
-
-    <hr>
-    
-		<img :src=program.image_url height="300px">
-    <h3>프로그램명 : {{program.title}}</h3>
-    <p>결제 명 : {{price.title}}</p>
-    <p>결제 금액 : {{price.price}}</p>
-    <p>온라인 횟수 : {{price.online_count}}</p>
-    <p>온라인 횟수 : {{price.offline_count}}</p>
-
-    <hr>
-
-    <h3>결제 방법</h3>
-    <button @click="pay">카카오페이로 결제하기</button>
-
+    <div class="title">프로그램 신청</div>
+    <div class="row">
+      <div class="col-4">
+        <img :src=program.image_url height="300px">
+      </div>
+      <div class="col-3">
+        <h2>{{program.title}}</h2>
+        <hr>
+        <p>상품 명 : {{price.title}}</p>
+        <p>결제 금액 : {{price.price}}원</p>
+        <p>온라인 횟수 : {{price.online_count}}회</p>
+        <p>온라인 횟수 : {{price.offline_count}}회</p>
+        <h3>결제 방법</h3>
+        <hr>
+        <button class="btn btn-primary" @click="pay">카카오페이로 결제하기</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -95,3 +96,16 @@ export default {
     
 }
 </script>
+
+<style scoped>
+.title {
+  margin: 40px 20px 20px;
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.row {
+  margin: 5vw;
+  justify-content: center;
+}
+</style>

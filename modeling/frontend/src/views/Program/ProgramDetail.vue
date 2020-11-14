@@ -4,10 +4,15 @@
       <h3 class="title">{{program.title}}</h3>
     </div>
     <div class="row">
-      <div class="col-4 program-explain">
-        <img :src=program.image_url height="300px">
-        <h3>프로그램 설명</h3>
-        <div>{{program.content}}</div>
+      <div class="col-4">
+        <div class="program-explain">
+          <img :src=program.image_url>
+          <h3>프로그램 설명</h3>
+          <div>{{program.content}}</div>
+        </div>
+        <div class="program-question" v-if="userType == 'client'">
+          <button class="btn btn-primary" @click="joinChatNumber()">문의하기</button>
+        </div>
       </div>
       <div class="col-6">
         <div class="price-explains">
@@ -45,21 +50,18 @@
               <div class="comment-top">
                 <div class="comment-left">
                   <span>{{comment.client.user.username}}</span>
-                  <span>{{comment.rate}}</span>
+                  <span>{{comment.rate}}점</span>
                 </div>
                 <div class="comment-right">
-                  <span>수정</span>
-                  <span>삭제</span>
+                  <span class="gara">수정</span>
+                  <span class="gara">삭제</span>
                 </div>
               </div>
               <div class="comment-bottom">{{comment.content}}</div>
             </div>
           </div>
         </div>
-        <div v-if="userType == 'client'">
-          문의하기 버튼이 있는 곳이다.
-          <button @click="joinChatNumber()">문의하기</button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -184,7 +186,7 @@ export default {
 
 <style scoped>
 .title {
-  margin: 5vh 0px;
+  margin: 4vh 0px;
   font-size: 48px;
 }
 .row {
@@ -192,9 +194,13 @@ export default {
   justify-content: center;
 }
 
-.program-explain {
+.col-4 {
   margin-left: 10%;
+}
+
+.program-explain {
   border: solid 1px #dddddd;
+  border-radius: 4px;
   height: 60vh;
   padding: 0px;
 }
@@ -214,6 +220,10 @@ export default {
   font-size: 18px;
   padding: 8px 12px;
   text-align: start;
+}
+
+.program-question {
+  margin-top: 10px;
 }
 
 .price-explains{
@@ -279,7 +289,7 @@ export default {
 }
 
 .comments {
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -299,12 +309,32 @@ export default {
 }
 
 .comment-left {
+  display: flex;
+  flex: 6;
+  justify-content: flex-start;
 }
 
 .comment-right {
+  display: flex;
+  flex: 6;
+  justify-content: flex-end;
+  font-size: 13px;
+  color: #aaaaaa;
+}
+
+.gara {
+  cursor: pointer;
+}
+
+.comment span {
+  margin-right: 6px;
 }
 
 .comment-bottom {
-  border: 1px solid;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  min-height: 40px;
+  text-align: start;
+  padding: 2px 6px;
 }
 </style>
