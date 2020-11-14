@@ -69,15 +69,13 @@
           v-model="selection"
           active-class="deep-purple accent-4 white--text"
           column
-          v-if="holiday"
         >
-          <div v-for="scheudle in scheudles" :key="scheudle.id">
-            <v-chip @click="set_time(scheudle)">{{scheudle}}</v-chip>
+          <div v-for="(scheudle, index) in scheudles" :key="index">
+            <!-- {{scheudle}} -->
+            <v-chip @click="set_time(scheudle)" v-if="scheudle.status" color="green">{{scheudle.time}}</v-chip>
+            <v-chip v-else>{{scheudle.time}}</v-chip>
           </div>
         </v-chip-group>
-        <div v-else>
-          <h3>휴무일 입니다.</h3>
-        </div>
 
 
         <v-btn
@@ -214,16 +212,29 @@ import constants from "@/api/constants";
 
         let nowHour = new Date() < date ? 0 : new Date().getHours()
 
+        console.log('@@@@@@@@@@@@22')
+        // 처음 디폴트 시간표
+        for (var i=0; i<23; i++){
+          let item = {
+            "time": (i +":00 " +(i<12 ? "AM" : "PM")),
+            "status": false,
+          }
+          this.scheudles.push(item)
+        }
+        // console.log(this.scheudles)
+
+        // 트레이너 시간표
         for (var i=0, item; item=this.trainer.trainerschedule[i]; i++) {
           if (item.day==dayOfWeek) {
-            this.holiday = true
-            for (var j=8; j<18 ; j++){
-              if (nowHour < j){
-                this.scheudles.push(j +":00 " +(j<12 ? "AM" : "PM"))
-              }
+            let start_hour = (item.start_hour.substr(0,2))
+            let end_hour = (item.end_hour.substr(0,2))
+            for (var j=Number(start_hour); j<Number(end_hour); j++){
+              this.scheudles[j].status = true
             }
           }
         }
+
+
       },
     },
     computed: {
