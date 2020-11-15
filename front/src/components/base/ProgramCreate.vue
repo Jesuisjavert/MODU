@@ -228,7 +228,6 @@ export default {
   },
   methods: {
     uploadimg(event) {
-      console.log(event);
       const file = event.target.files[0];
       this.inputdata.thumb_img = [];
       this.inputdata.thumb_img.push(file);
@@ -318,7 +317,6 @@ export default {
       }
     },
     appendTag(tag) {
-      console.log(this.inputdata.tags.indexOf(tag));
       if (this.inputdata.tags.indexOf(tag) === -1) {
         this.inputdata.tags.push(tag);
       }

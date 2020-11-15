@@ -66,7 +66,6 @@ export default {
     },
     created() {
         this.fetchData()
-        console.log(this.userData)
     },
     methods: {
         async fetchData() {
@@ -90,7 +89,6 @@ export default {
             })
         },
         updateProfile() {
-            console.log('프록필수정')
             const Token = 'Bearer ' + this.userToken
             axios.put(`${constants.API_URL}trainer/`, {
                 headers: {
@@ -98,7 +96,6 @@ export default {
                 },
             })
             .then((res) => {
-                console.log(res)
             })
             .catch((err) => {
                 console.log(err)

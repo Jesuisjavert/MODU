@@ -86,7 +86,6 @@ export default {
     },
     methods : {
         clicktest(event){
-            console.log(event)
         },
         joinWeb(pk){
             const Token = 'Bearer ' + this.userToken

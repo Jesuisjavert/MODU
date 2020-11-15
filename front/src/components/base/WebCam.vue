@@ -297,10 +297,8 @@
       };
 
       // videoList가 불러와졌을 경우에만 실행
-      console.log(this.videoList)
       if (this.videoList.length > 0) {
         this.selectCam = this.videoList[0].id
-        console.log(this.selectCam)
       }
     },
     watch: {
@@ -318,21 +316,17 @@
       },
       printer(item) {
         this.selectCam = item.id
-        console.log(item)
       },
       join() {
         // 난수생성
          const newUuid = this.$uuid.v4()
          this.uuid = newUuid
-         console.log(this.uuid)
 
          // 초대버튼 활성
          this.inviteButtonFlag = true
 
          var that = this;
          this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
-             console.log(roomid)
-             console.log(isRoomExist,'----')
           if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
             that.$emit('opened-room', roomid);
           }
