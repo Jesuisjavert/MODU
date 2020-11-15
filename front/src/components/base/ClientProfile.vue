@@ -55,7 +55,7 @@ export default {
     components: {
         ItemColumn: () => import('@/components/base/ItemColumn'),
         Btn: () => import('@/components/base/Btn'),
-        ClientInfoModal: () => import('@/components/base/TrainerInfoModal'),
+        ClientInfoModal: () => import('@/components/base/ClientInfoModal'),
     },
     data () {
         return {
@@ -69,6 +69,7 @@ export default {
     },
     created() {
         this.fetchData()
+        console.log(this.userData)
     },
     methods: {
         async fetchData() {
