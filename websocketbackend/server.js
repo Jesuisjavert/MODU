@@ -1,4 +1,4 @@
-
+/*
 var fs = require('fs'); 
 var app = require('express')(); 
 var https  = require('https');
@@ -10,8 +10,9 @@ var server = https.createServer({
     requestCert: false, 
     rejectUnauthorized: false 
 },app);
-
-
+*/
+var app = require('express')()
+var server = require('http').createServer(app)
 
 
 

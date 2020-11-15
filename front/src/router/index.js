@@ -73,6 +73,11 @@ export default new Router({
           component: () => import('@/views/schedule/Index.vue'),
         },
         {
+          path: '/chat',
+          name: 'Chat',
+          component: () => import('@/views/chat/Index.vue'),
+        },
+        {
           path : '/logout',
           name : 'Logout',
           beforeEnter: function(to, from, next) {
