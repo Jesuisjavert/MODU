@@ -52,7 +52,7 @@ export default {
             this.REMOVE_TID
           })
           .catch((err)=>{
-            console.log(err)
+            // console.log(err)
           })
       },
       

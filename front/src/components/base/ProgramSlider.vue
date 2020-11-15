@@ -43,7 +43,7 @@
             this.programs = res.data
           })
           .catch((err)=>{
-            console.log(err)
+            // console.log(err)
           })
       }
     }

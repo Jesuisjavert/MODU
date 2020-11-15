@@ -148,7 +148,7 @@ export default {
           this.program = res.data;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     },
     get_client() {
@@ -159,7 +159,7 @@ export default {
           this.clients = res.data;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     },
     get_comment() {
@@ -170,7 +170,7 @@ export default {
           this.comments = res.data;
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     },
     comment_submit() {
@@ -187,10 +187,10 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     },
     program_apply() {

@@ -389,7 +389,7 @@
             });
           }
           function getDisplayMediaError(error) {
-            console.log('Media error: ' + JSON.stringify(error));
+            // console.log('Media error: ' + JSON.stringify(error));
           }
           if (navigator.mediaDevices.getDisplayMedia) {
             navigator.mediaDevices.getDisplayMedia({video: true, audio: false}).then(stream => {

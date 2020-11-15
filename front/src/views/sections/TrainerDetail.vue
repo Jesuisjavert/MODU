@@ -193,7 +193,7 @@
             this.get_schedule()
           })
           .catch((err)=>{
-            console.log(err)
+            // console.log(err)
           })
       },
       get_comment() {
@@ -203,7 +203,7 @@
             this.comments = res.data
           })
           .catch((err)=>{
-            console.log(err)
+            // console.log(err)
           })
       },
       get_programs() {
@@ -213,7 +213,7 @@
             this.programs = res.data
           })
           .catch((err)=>{
-            console.log(err)
+            // console.log(err)
           })
       },
       reservation() {

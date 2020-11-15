@@ -57,7 +57,7 @@ export default {
             this.get_price()
           })
           .catch((err)=>{
-            console.log(err)
+            // console.log(err)
           })
       },
       get_price() {
@@ -82,7 +82,7 @@ export default {
               location.href = payUrl
           })
           .catch((err)=>{
-              console.log(err)
+              // console.log(err)
               alert("에러가 발생했습니다. 다시 시도해주세요")
               this.$router.push('/')
           })

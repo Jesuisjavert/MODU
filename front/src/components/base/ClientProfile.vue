@@ -84,7 +84,7 @@ export default {
                 this.userData1 = this.userData[0]
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
         },
         updateProfile() {
@@ -97,7 +97,7 @@ export default {
             .then((res) => {
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
         }
     },
