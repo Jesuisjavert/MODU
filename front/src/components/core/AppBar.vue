@@ -73,7 +73,6 @@ import { mapGetters, mapState } from 'vuex'
         'Home',
         'About us',
         'Schedule',
-        'Chat',
         'Mypage',
         'Logout',
       ]
