@@ -4,11 +4,15 @@
     <MypageBg>
         <v-col cols="6" offset="3" class="py-0">
           <v-card color="rgb(255, 255, 255, 0.9)">
-            <ItemRow class="px-10 py-10">
+            <ItemRow class="px-10 py-10" v-if="this.$store.state.userType === 'trainer'">
                 <!-- <p>마이페이지</p> -->
                 <TrainerProfile></TrainerProfile>
-                <RevenueGraph></RevenueGraph>
                 <TrainerMypageList></TrainerMypageList>
+            </ItemRow>
+            <ItemRow class="px-10 py-10" v-if="this.$store.state.userType === 'client'">
+                <!-- <p>마이페이지</p> -->
+                <ClientProfile></ClientProfile>
+                <ClientMypageList></ClientMypageList>
             </ItemRow>
           </v-card>
         </v-col>
@@ -22,8 +26,9 @@ export default {
     MypageBg: () => import('@/components/base/MypageBg'),
     ItemRow: () => import('@/components/base/ItemRow'),
     TrainerProfile: () => import('@/components/base/TrainerProfile'),
-    RevenueGraph: () => import('@/components/base/RevenueGraph'),
     TrainerMypageList: () => import('@/components/base/TrainerMypageList'),
+    ClientProfile: () => import('@/components/base/ClientProfile'),
+    ClientMypageList: () => import('@/components/base/ClientMypageList'),
   },
 }
 </script>

@@ -16,7 +16,7 @@
                 </p>
             </v-expansion-panel-content>
             <v-expansion-panel-content v-else-if="item.title == '나의 프로그램'">
-                <TrainerMyProgram></TrainerMyProgram>
+                <ClientMyProgram></ClientMyProgram>
             </v-expansion-panel-content>
             <v-expansion-panel-content v-else-if="item.title == '이번달 수입'">
                 <RevenueGraph></RevenueGraph>
@@ -29,7 +29,7 @@
 export default {
     name: "TrainerMypage",
     components: {
-        TrainerMyProgram: () => import('@/components/base/TrainerMyProgram'),
+        ClientMyProgram: () => import('@/components/base/ClientMyProgram'),
         RevenueGraph: () => import('@/components/base/RevenueGraph'),
     },
     data() {
@@ -39,22 +39,13 @@ export default {
                     title: '나의 프로그램',
                 },
                 {
-                    title: '고객관리',
-                    content: [
-                        '이창완',
-                        '강동훈',
-                        '강병국',
-                        '배용균',
-                    ]
+                    title: '내 찜목록',
                 },
                 {
-                    title: '프로그램 추가',
+                  title: '내 결제내역',
                 },
                 {
-                  title: '식단관리',
-                },
-                {
-                    title: '이번달 수입',
+                    title: '이번달 출석현황',
                 },
             ],
         }

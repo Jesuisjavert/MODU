@@ -97,18 +97,20 @@
                 ></v-text-field>
               </v-col>
               <v-col v-if="!!this.userData[0].tags.length">
-                <v-col v-for="(tag, i) in userData[0].tags" :key="tag.id">
-                  <v-chip
-                    v-if="!!userData[0].tags[i]"
-                    class="ma-2"
-                    close
-                    color="red"
-                    text-color="white"
-                    @click:close="deleteTag(i)"
-                  >
-                    {{ userData[0].tags[i] }}
-                  </v-chip>
-                </v-col>
+                <v-row>
+                  <v-col v-for="(tag, i) in userData[0].tags" :key="tag.id">
+                    <v-chip
+                      v-if="!!userData[0].tags[i]"
+                      class="ma-2"
+                      close
+                      color="red"
+                      text-color="white"
+                      @click:close="deleteTag(i)"
+                    >
+                      {{ userData[0].tags[i] }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
               </v-col>
               <v-col cols="12">
                 <v-text-field
