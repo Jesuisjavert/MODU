@@ -72,9 +72,10 @@ import { mapGetters, mapState } from 'vuex'
       loginitems : [
         'Home',
         'About us',
-        'Contact',
+        'Schedule',
+        'Chat',
         'Mypage',
-        'Logout'
+        'Logout',
       ]
     }),
     methods: {
