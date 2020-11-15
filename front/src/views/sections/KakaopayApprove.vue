@@ -1,16 +1,17 @@
 <template>
     <div>
-        <h2>결제가 완료되었습니다!</h2>
-        <div>
-          <h3>주문자 정보</h3>
+      <br><br><br><br><br><br><br><br><br><br>
+      <base-section-heading title="카카오 페이 결제가 완료되었습니다." />
           <!-- <div>
             <div><div>주문번호</div><div>{{ res.partner_order_id }}</div></div>
             <div><div>상품명</div><div>{{ res.item_name }}</div></div>
             <div><div>결제금액</div><div>{{ amount }}원</div></div>
             <div><div>결제승인시각</div><div>{{ res.approved_at }}</div></div>
           </div> -->
+        <div class="d-flex justify-center">
+          <Btn @click="goHome">돌아가기</Btn>
         </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -20,6 +21,9 @@ import {mapMutations, mapState} from 'vuex'
 
 export default {
     name : 'KakaopayApprove',
+    components: {
+      Btn: () => import('@/components/base/Btn'),
+    },
     data(){
       return {
         constants,
@@ -28,6 +32,9 @@ export default {
     mounted(){
     },
     methods:{
+      goHome() {
+        this.$router.push({ name: 'Home' })
+      },
       approve(){
           let Token = "Bearer " + this.userToken;
           let form = new FormData()
