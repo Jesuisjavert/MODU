@@ -13,7 +13,9 @@ import VideoBg from 'vue-videobg'
 import io from 'socket.io-client';
 const socket = io('http://localhost:3000');
 Vue.prototype.$socket = socket;
+import VueMoment from 'vue-moment'
 
+Vue.use(VueMoment);
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 
