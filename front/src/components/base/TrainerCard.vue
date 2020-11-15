@@ -59,9 +59,9 @@
 
     <v-divider class="mx-4"></v-divider>
 
-    <v-row>
+    <v-row class="reservation">
       <v-col
-        cols="10"
+        cols="9"
       >
         <v-menu
           v-model="menu2"
@@ -71,7 +71,7 @@
           offset-y
           min-width="290px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template class="reservation" v-slot:activator="{ on, attrs }">
             <v-text-field
               v-model="date"
               label="예약 일정 선택"
@@ -96,8 +96,8 @@
         column
         v-if="holiday"
       >
-        <div v-for="scheudle in scheudles" :key="scheudle.id">
-          <v-chip>{{scheudle}}</v-chip>
+        <div class="reservations" v-for="scheudle in scheudles" :key="scheudle.id">
+          <v-chip class="reservation-btn">{{scheudle}}</v-chip>
         </div>
       </v-chip-group>
       <div v-else>
@@ -182,5 +182,25 @@
 
 .trainer-content {
   min-height: 40px;
+  vertical-align: middle;
 }
+
+.reservation {
+  display: flex;
+  justify-content: center;
+}
+
+.reservations {
+  display: flex;
+  justify-content: center;
+}
+
+.reservation-btn {
+  width: 83px;
+}
+
+.reservation-btn span {
+  text-align: center;
+}
+
 </style>

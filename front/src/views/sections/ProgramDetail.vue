@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container>
     <div class="title">
-      <h3 class="title">{{ program.title }}</h3>
+      <h3>{{ program.title }}</h3>
     </div>
     <div class="row">
       <div class="col-4">
@@ -17,24 +17,37 @@
       <div class="col-6">
         <div class="price-explains">
           <h3>가격</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">이용권 이름</th>
-                <th scope="col">온라인 횟수</th>
-                <th scope="col">오프라인 횟수</th>
-                <th scope="col">가격</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="price in program.programprice" :key="price.id">
-                <th scope="row">{{ price.title }}</th>
-                <td>{{ price.online_count }}회</td>
-                <td>{{ price.offline_count }}회</td>
-                <td>{{ price.price }}원</td>
-              </tr>
-            </tbody>
-          </table>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    이용권 이름
+                  </th>
+                  <th class="text-center">
+                    온라인 횟수
+                  </th>
+                  <th class="text-center">
+                    오프라인 횟수
+                  </th>
+                  <th class="text-center">
+                    가격
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="price in program.programprice"
+                  :key="price.id"
+                >
+                  <td class="text-center">{{ price.title }}</td>
+                  <td class="text-center">{{ price.online_count }}회</td>
+                  <td class="text-center">{{ price.offline_count }}회</td>
+                  <td class="text-center">{{ price.price }}원</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
         </div>
         <div class="select-box">
           <label for="price">상품 선택</label>
@@ -53,13 +66,18 @@
         <h3>댓글 작성</h3>
         <div class="comment-box">
           <div class="comment-create">
-            <input
-              v-model="submitData.rate"
-              type="number"
-              max="5"
-              min="0"
-              name="rate"
-            />
+            <div>
+              <input
+                v-model="submitData.rate"
+                type="number"
+                max="5"
+                min="0"
+                name="rate"
+                required
+                value=3
+              />
+              <label for="rate">점수</label>
+            </div>
             <textarea name="content" v-model="submitData.content"></textarea>
           </div>
           <button class="btn btn-primary" @click="comment_submit">작성</button>
@@ -69,7 +87,7 @@
             <div>
               <img :src="comment.client.user.image_url" alt="" />
             </div>
-            <div>
+            <div class="comment-content">
               <div class="comment-top">
                 <div class="comment-left">
                   <span>{{comment.client.user.username}}</span>
@@ -84,10 +102,9 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -210,8 +227,13 @@ export default {
 <style scoped>
 .title {
   margin: 4vh 0px;
-  font-size: 48px;
 }
+
+.title h3 {
+  font-size: 48px;
+  text-align: center;
+}
+
 .row {
   display: flex;
   justify-content: center;
@@ -230,7 +252,7 @@ export default {
 
 .program-explain img {
   width: 100%;
-  height: 300px;
+  height: 250px;
   object-fit: cover;
   border-bottom: 1px solid #dddddd;
 }
@@ -249,6 +271,12 @@ export default {
   margin-top: 10px;
 }
 
+.col-6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .price-explains{
   margin: auto;
   width: 75%;
@@ -256,6 +284,8 @@ export default {
 
 .price-explains h3 {
   margin-bottom: 20px;
+  font-size: 32px;
+  text-align: center;
 }
 
 .price-explain {
@@ -268,6 +298,8 @@ export default {
 }
 
 .select-box {
+  display: flex;
+  justify-content: center;
   margin: 24px;
 }
 
@@ -277,14 +309,24 @@ export default {
 }
 
 .select-box select {
-  font-size: 18px;
+  border: 1px solid #cfcfcf;
+  font-size: 16px;
   margin-right: 12px;
-  padding-left: 4px;
+  padding: 0px 8px;
 }
 
 .btn-primary {
-  padding: 4px 8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #ffffff;
+  background-color: #007bbf;
+  transition: ease-in-out 0.2s;
 }
+
+.btn-primary:hover {
+  background-color: #0053bf;
+}
+
 
 .comment-box {
   display: flex;
@@ -302,14 +344,22 @@ export default {
   width: 50px;
   font-size: 14px;
   margin-bottom: 4px;
+  border: solid 1px;
+  border-radius: 4px;
 }
 
 .comment-create textarea {
+  border: 1px solid;
+  border-radius: 4px;
   resize: none;
   height: 60px;
+  padding: 4px 8px;
 }
 
 .comment-box button {
+  border-radius: 4px;
+  color: #ffffff;
+  background-color: #007bbf;
   margin-top: 30px;
   height: 60px;
 }
@@ -323,15 +373,24 @@ export default {
 
 .comment {
   width: 28.5vw;
+  display: flex;
+  align-items: center;
 }
 
 .comment img {
-  height: 15px;
-  width: 15px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.comment-content {
+  width: 28vw;
 }
 
 .comment-top {
   display: flex;
+  margin-bottom: 4px;
 }
 
 .comment-left {
@@ -359,7 +418,7 @@ export default {
 .comment-bottom {
   border: 1px solid #dddddd;
   border-radius: 4px;
-  min-height: 40px;
+  min-height: 50px;
   text-align: start;
   padding: 2px 6px;
 }
