@@ -61,6 +61,7 @@ export default {
                 console.log(err.response)
             })
         },
+        ...mapMutations(['SET_TYPETOKEN'])
     },
     computed : {
         ...mapState(['userToken'])

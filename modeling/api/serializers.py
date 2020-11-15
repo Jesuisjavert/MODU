@@ -114,4 +114,17 @@ class ChatRoomSerializer(serializers.ModelSerializer):
 class ChatLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatLog
+class ProgramRecordSerializer(serializers.ModelSerializer):
+    program_title = serializers.CharField(source='program.title')
+    program_type = serializers.CharField(source='program._type')
+    program_price = serializers.CharField(source='programprice.price')
+    program_price_title = serializers.CharField(source='programprice.title')
+    image_url = serializers.SerializerMethodField(read_only=True)
+    trainer_name = serializers.CharField(source='program.trainer.name')
+    def get_image_url(self,programrecord):
+        
+        image = str(programrecord.program.thumb_img)
+        return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+image
+    class Meta:
+        model = ProgramRecord
         fields = '__all__'

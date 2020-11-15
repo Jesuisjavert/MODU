@@ -14,8 +14,11 @@
                 ></v-img>
             </v-col>
             <v-col cols="auto" class="text-start">
-                <p>{{ this.userData[0].name }}</p>
-                <p>함께한 태그</p>
+                <p class="font-weight-black">{{ this.userData[0].name }}</p>
+                <p>나이: {{ this.userData[0].age }}</p>
+                <p class="font-weight-black">자기소개</p>
+                <p>근돼를 꿈꾸는 멸치입니다</p>
+                <!-- <p>함께한 태그</p>
                 <v-row v-if="!!this.userData[0].tags">
                     <v-col v-for="(tag, i) in userData1.tags" :key="tag.id">
                         <v-chip
@@ -26,18 +29,18 @@
                             {{ userData1.tags[i].name }}
                         </v-chip>
                     </v-col>
-                </v-row>
+                </v-row> -->
                 <!-- <p>그외 정보들 넣을거</p> -->
             </v-col>
             <v-col cols="auto" class="ml-auto">
                 <!-- <v-icon @click="updateProfile" style="cursor: pointer">
                     mdi-cog
                 </v-icon> -->
-                <TrainerInfoModal></TrainerInfoModal>
+                <ClientInfoModal></ClientInfoModal>
             </v-col>
         </v-row>
-        <h3>여기는 자기소개입니다</h3>
-        <pre id="content">{{userData[0].content}}</pre>
+        <!-- <h3>여기는 자기소개입니다</h3>
+        <pre id="content">{{userData[0].content}}</pre> -->
     </div>
 </template>
 
@@ -48,11 +51,11 @@ import { mapState } from 'vuex'
 import ItemColumn from './ItemColumn.vue'
 
 export default {
-    name: "TrainerProfile",
+    name: "ClientProfile",
     components: {
         ItemColumn: () => import('@/components/base/ItemColumn'),
         Btn: () => import('@/components/base/Btn'),
-        TrainerInfoModal: () => import('@/components/base/TrainerInfoModal'),
+        ClientInfoModal: () => import('@/components/base/TrainerInfoModal'),
     },
     data () {
         return {
