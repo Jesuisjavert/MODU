@@ -51,7 +51,7 @@
     computed: {
       classes () {
         return [
-          'grey--text',
+          'green--text text--darken-1',
           `text-${this.heading.align}`,
           `mb-${this.space}`,
         ]

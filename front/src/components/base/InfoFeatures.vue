@@ -4,7 +4,7 @@
       v-for="feature in features"
       :key="feature"
       :text="feature"
-      class="mb-8 grey--text body-1 d-block text-none"
+      class="mb-8 yellow--text text--darken-1 body-1 d-block text-none"
       href="#"
       v-html="`&rsaquo; ${feature}`"
     />
