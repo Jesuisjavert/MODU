@@ -11,9 +11,11 @@
                     ></v-img>
                 </v-col>
                 <v-col cols="7" class="text-start">
-                    <p class="mt-2">프로그램 명 : {{ data.program_title }}</p>
-                    <p>{{ data.trainer_name }}</p>
+                    <p class="pt-2 ma-0">프로그램 명 : {{ data.program_title }}</p>
+                    <span class="font-weight-bold mr-2">{{ data.trainer_name }}</span>
+                    <span>트레이너</span>
                     <p>{{data.program_price_title}}</p>
+                    <!-- <button @click="">정보보기</button> -->
                 </v-col>
             </v-row>
             <br />
