@@ -5,7 +5,8 @@
         :key="i"
         >
             <v-expansion-panel-header disable-icon-rotate>
-                <p class="text-center mb-0">{{ item.title }}</p>
+                <p class="text-center mb-0" v-if="item.title == '프로그램 추가'" @click="goProgramCreate">{{ item.title }}</p>
+                <p class="text-center mb-0" v-else>{{ item.title }}</p>
                 <template v-slot:actions>
                     <v-icon></v-icon>
                 </template>
@@ -38,6 +39,17 @@ export default {
                 {
                     title: '나의 프로그램',
                 },
+                
+                {
+                    title: '프로그램 추가',
+                },
+                {
+                    title: '이번달 수입',
+                },
+                {
+                  title: '식단관리',
+                },
+                
                 {
                     title: '고객관리',
                     content: [
@@ -47,16 +59,12 @@ export default {
                         '배용균',
                     ]
                 },
-                {
-                    title: '프로그램 추가',
-                },
-                {
-                  title: '식단관리',
-                },
-                {
-                    title: '이번달 수입',
-                },
             ],
+        }
+    },
+    methods: {
+        goProgramCreate() {
+            this.$router.push({ name: 'ProgramCreate' })
         }
     },
 }

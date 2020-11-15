@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import webCam from '@/views/sections/WebCam.vue'
+import store from "../store/index.js";
 Vue.use(Router)
 
 export default new Router({
@@ -71,6 +72,19 @@ export default new Router({
           name: 'Schedule',
           component: () => import('@/views/schedule/Index.vue'),
         },
+        {
+          path : '/logout',
+          name : 'Logout',
+          beforeEnter: function(to, from, next) {
+            store.commit('LOGOUT')
+            next('/')
+          }
+        },
+        {
+          path: '/programcreate',
+          name: 'ProgramCreate',
+          component: () => import('@/components/base/ProgramCreate'),
+        }
       ],
     },
   ],

@@ -2,14 +2,25 @@
     <div>
         <div v-for="(data,idx) in onlineLecturelist">
             <div>
-            <img :src="data.image_url" width="20%" alt="" />
-            프로그램 명 : {{ data.title }}
+            <v-row>
+                <v-col cols="5" class="mr-auto">
+                    <v-img
+                        :src="data.image_url"
+                        max-width="100"
+                        max-height="100"
+                    ></v-img>
+                </v-col>
+                <v-col cols="7" class="text-start">
+                    <p>프로그램 명 : {{ data.title }}</p>
+                    <p class="font-weight-black brown--text darken-4--text">{{ data._type }}</p>
+                    <WebCreateBtn  :data-set="`${data.id}`" v-if="onlineScheduleCheck(idx)">start</WebCreateBtn>
+                </v-col>
+            </v-row>
             <!-- <button v-if="onlineScheduleCheck(index)" @click="test(index)">
                 수업 시작
             </button> -->
-            <WebCreateBtn  :data-set="`${data.id}`" v-if="onlineScheduleCheck(idx)">start</WebCreateBtn>
             <br />
-            <div style="boarder : solid"></div>
+            <!-- <div style="boarder : solid"></div> -->
             </div>
         </div>
     </div>
@@ -31,31 +42,37 @@ export default {
             constants,
         }
     },
+    created(){
+        this.get_programs()
+    },
+    computed : {
+        ...mapState(['userToken'])
+    },
     methods : {
         onlineScheduleCheck(index) {
-        let onlinelecture = this.onlineLecturelist[index];
-        let today = new Date();
-        var week = [
-            "일요일",
-            "월요일",
-            "화요일",
-            "수요일",
-            "목요일",
-            "금요일",
-            "토요일",
-        ];
-        var dayOfWeek = week[today.getDay()];
-        let flag = false;
-        onlinelecture.programschedule.forEach((item) => {
-            if (item.day == dayOfWeek) {
-            flag = true;
+            let onlinelecture = this.onlineLecturelist[index];
+            let today = new Date();
+            var week = [
+                "일요일",
+                "월요일",
+                "화요일",
+                "수요일",
+                "목요일",
+                "금요일",
+                "토요일",
+            ];
+            var dayOfWeek = week[today.getDay()];
+            let flag = false;
+            onlinelecture.programschedule.forEach((item) => {
+                if (item.day == dayOfWeek) {
+                flag = true;
+                }
+            });
+            if (flag) {
+                return true;
+            } else {
+                return false;
             }
-        });
-        if (flag) {
-            return true;
-        } else {
-            return false;
-        }
         },
         get_programs() {
         const Token = "Bearer " + this.userToken;
@@ -83,12 +100,6 @@ export default {
             });
         },
     },
-    computed : {
-        ...mapState(['userToken'])
-    },
-    created(){
-        this.get_programs()
-    }
 }
 </script>
 

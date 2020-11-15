@@ -23,6 +23,12 @@ export default new Vuex.Store({
       state.userType = token,
       sessionStorage.setItem('userType',token)
     },
+    LOGOUT(state){
+      sessionStorage.removeItem('auth-token')
+      sessionStorage.removeItem('userType')
+      state.userToken = ''
+      state.userType = ''
+    }
   },
   
   actions : {

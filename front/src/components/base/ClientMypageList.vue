@@ -39,10 +39,10 @@ export default {
                     title: '나의 프로그램',
                 },
                 {
-                    title: '내 찜목록',
+                    title: '내 결제내역',
                 },
                 {
-                  title: '내 결제내역',
+                    title: '내 찜목록',
                 },
                 {
                     title: '이번달 출석현황',

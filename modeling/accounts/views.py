@@ -69,6 +69,22 @@ class UserInfo(APIView):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data)
+    def put(self,request):
+        if request.data['is_first'] == '1':
+            logintrainer = request.user.trainer.first()
+            serializer = TrainerSerializer(logintrainer,data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                trainer = serializer.save(user=request.user)
+                self.put_user(1)
+                origin_tags = trainer.tags.all()
+                for origin_tag in origin_tags:
+                    trainer.tags.remove(origin_tag)
+                tags = request.data['taglist'].split(',')
+                for eachtag in tags:
+                    trainer.tags.add(Tag.objects.get(name=eachtag))
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class Profile(APIView):
     # 유저 profile 받아오기
