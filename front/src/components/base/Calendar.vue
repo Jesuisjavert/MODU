@@ -6,10 +6,14 @@
         <div id="lnb">
           <div id="lnb-calendars" class="lnb-calendars">
             <div class="calendarItemList">
-              <input type='checkbox' @click="checkAll()" v-model='isCheckAll'>스케줄 모두보기
+              <div class="calendarItemList-title">
+                <input type='checkbox' @click="checkAll()" v-model='isCheckAll'>
+                <h3>스케줄 모두보기</h3> 
+              </div>
               <ul class="program-list">
-                <li v-for="calendarListItem in calendarList" :key="calendarListItem.id">
-                <input type='checkbox' checked  v-bind:value="calendarListItem.id" v-model="workList" @change='updateCheckall()'>{{ calendarListItem.name }}
+                <li class="program-list-item" :style="`background-color : ${color[calendarListItem.id]}; color : ${fontColor[calendarListItem.id]};`" v-for="calendarListItem in calendarList" :key="calendarListItem.id">
+                  <input type='checkbox' v-bind:value="calendarListItem.id" v-model="workList" @change='updateCheckall()'>
+                  <span>{{ calendarListItem.name }}</span> 
                 </li>
               </ul>
             </div>
@@ -21,109 +25,50 @@
           <div>
             {{ getTime }}
           </div>
-          <span class="dropdown">
-            <button
-              id="dropdownMenu-calendarType"
-              class="btn btn-default btn-sm dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="true"
-            >
-              <span id="calendarTypeName" style="width:120px;">{{ view }}</span
-              >&nbsp;
-            </button>
-            <ul
-              class="dropdown-menu"
-              role="menu"
-              aria-labelledby="dropdownMenu-calendarType"
-            >
-              <li role="presentation">
-                <a
-                  class="dropdown-menu-title"
-                  role="menuitem"
-                  data-action="toggle-monthly"
-                >
-                  <i class="fas fa-th month-icon"></i>Month
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  class="dropdown-menu-title"
-                  role="menuitem"
-                  data-action="toggle-weekly"
-                >
-                  <i class="fas fa-bars weekly-icon"></i>Weekly
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  class="dropdown-menu-title"
-                  role="menuitem"
-                  data-action="toggle-daily"
-                >
-                  <i class="fas fa-bars daily-icon"></i>Daily
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  class="dropdown-menu-title"
-                  role="menuitem"
-                  data-action="toggle-weeks2"
-                >
-                  <i class="calendar-icon ic_view_week"></i>2 weeks
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  class="dropdown-menu-title"
-                  role="menuitem"
-                  data-action="toggle-weeks3"
-                >
-                  <i class="calendar-icon ic_view_week"></i>3 weeks
-                </a>
-              </li>
-              <li role="presentation" class="dropdown-divider"></li>
-              <li role="presentation">
-                <a role="menuitem" data-action="toggle-workweek">
-                  <input
-                    type="checkbox"
-                    class="tui-full-calendar-checkbox-square"
-                    value="toggle-workweek"
-                    checked
-                  />
-                  <span class="checkbox-title"></span>Show weekends
-                </a>
-              </li>
-            </ul>
-          </span>
-          <span id="menu-navi">
-            <button
-              type="button"
-              class="btn btn-today"
-              data-action="move-today"
-              @click="moveToTday()"
-            >
-              Today
-            </button>
-            <button
-              type="button"
-              class="btn btn-move"
-              data-action="move-prev"
-              @click="moveToNextOrPrevRange(-1)"
-            >
-              <i class="fas fa-angle-left" data-action="move-prev"></i>
-            </button>
-            <button
-              type="button"
-              class="btn btn-move"
-              data-action="move-next"
-              @click="moveToNextOrPrevRange(1)"
-            >
-              <i class="fas fa-angle-right" data-action="move-next"></i>
-            </button>
-          </span>
-          <span id="renderRange" class="render-range"></span>
+          <v-col
+          class="d-flex"
+          cols="6"
+          sm="2"
+          >
+            <v-select
+              class="dropdown"
+              :items="modeSelect"
+              v-model="selected"
+              label="달력 선택"
+              dense
+              outlined
+              v-on:change="changeRoute()"
+            ></v-select>
+          </v-col>
+          <div class="top-item">
+            <span id="menu-navi">
+              <button
+                type="button"
+                class="btn btn-today"
+                data-action="move-today"
+                @click="moveToTday()"
+              >
+                Today
+              </button>
+              <button
+                type="button"
+                class="btn btn-move"
+                data-action="move-prev"
+                @click="moveToNextOrPrevRange(-1)"
+              >
+                <i class="fas fa-angle-left" data-action="move-prev"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-move"
+                data-action="move-next"
+                @click="moveToNextOrPrevRange(1)"
+              >
+                <i class="fas fa-angle-right" data-action="move-next"></i>
+              </button>
+            </span>
+            <span id="renderRange" class="render-range"></span>
+          </div>
         </div>
         <calendar
           style="height: 620px;"
@@ -194,6 +139,9 @@ export default {
   },
   data() {
     return {
+      modeSelect: ['month', 'week','day'],
+      modetoggle : ['toggle-monthly','toggle-weekly','toggle-daily'],
+      selected  : 'month',
       isCheckAll: true,
       workList: [],
       color: ['#1F85DE', '#4BDEBD', '#DE4B6C',  '#159A5D', '#AA1A45', '#DE781F', '#651AAA' ,'#F6F64F'],
@@ -275,6 +223,30 @@ export default {
     };
   },
   methods: {
+    changeRoute(){
+      const index = this.modeSelect.indexOf(this.selected)
+      const togglemenu = this.modetoggle[index]
+      const options = this.$refs.tuiCalendar.invoke("getOptions");
+      let viewName = ''
+      switch(togglemenu){
+        case "toggle-daily":
+          viewName = "day";
+          break;
+        case "toggle-weekly":
+          viewName = "week";
+          break;
+        case "toggle-monthly":
+          options.month.visibleWeeksCount = 0;
+          viewName = "month";
+          break;
+      }
+      this.$refs.tuiCalendar.invoke("setOptions", (options, true));
+      this.$refs.tuiCalendar.invoke("changeView", ("newViewName", viewName));
+      this.setDropdownCalendarType();
+      this.setRenderRangeText();
+      this.setSchedules();
+
+    },
     checkAll: function(){
       this.isCheckAll = !this.isCheckAll;
       this.workList = [];
@@ -303,29 +275,6 @@ export default {
     moveToTday() {
       this.$refs.tuiCalendar.invoke("today");
     },
-    // setCalendarList() {
-    //   var calendarItemList = document.getElementById("calendarItemList");
-    //   var html = [];
-    //   this.calendarList.forEach(function(calendar) {
-    //     html.push(
-    //       '<div class="lnb-calendars-item"><label>' +
-    //         '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' +
-    //         Calendar.id +
-    //         '" checked>' +
-    //         '<span style="border-color: ' +
-    //         Calendar.borderColor +
-    //         "; background-color: " +
-    //         Calendar.borderColor +
-    //         ';"></span>' +
-    //         "<span>" +
-    //         Calendar.name +
-    //         "</span>" +
-    //         "</label></div>"
-    //     );
-    //   });
-    //   calendarItemList.innerHTML = html.join("\n");
-    // },
-    //
     setRenderRangeText() {
       var renderRange = document.getElementById("renderRange");
       var options = this.$refs.tuiCalendar.invoke("getOptions");
@@ -357,7 +306,8 @@ export default {
 
     // dropdown menu 변경
     onClickMenu(e) {
-      var target = $(e.target).closest('a[role="menuitem"]')[0];
+      // var target = $(e.target).closest('a[role="menuitem"]')[0];
+      console.log(target,'target입니다.')
       var action = this.getDataAction(target);
       var options = this.$refs.tuiCalendar.invoke("getOptions");
       var viewName = "";
@@ -426,17 +376,9 @@ export default {
         this.$refs.tuiCalendar.invoke("getDateRangeStart"),
         this.$refs.tuiCalendar.invoke("getDateRangeEnd")
       );
-      this.generateSchedule(
-        this.$refs.tuiCalendar.invoke("getViewName"),
-        this.$refs.tuiCalendar.invoke("getDateRangeStart"),
-        this.$refs.tuiCalendar.invoke("getDateRangeEnd")
-      );
       this.scheduleList.forEach(item => {
         this.$refs.tuiCalendar.invoke("createSchedules", [item]);
-        console.log(item, "여기는 반복문입니다.");
       });
-
-      this.refreshScheduleVisibility();
     },
     getDataAction(target) {
       return target.dataset
@@ -501,14 +443,8 @@ export default {
       calendarTypeName.innerHTML = type;
     },
     setEventListener() {
-      // $('#menu-navi').on('click', onClickNavi);
       $('.dropdown-menu a[role="menuitem"]').on("click", this.onClickMenu);
       $("#lnb-calendars").on("change", this.onChangeCalendars);
-
-      // $('#btn-save-schedule').on('click', onNewSchedule);
-      // $('#dropdownMenu-calendars-list').on('click', onChangeNewScheduleCalendar);
-
-      // window.addEventListener('resize', resizeThrottled);
     },
   }
 };
@@ -519,14 +455,57 @@ export default {
   border: solid 2px rgba(122, 122, 122, 0.2);
 }
 
+.client h2 {
+  margin-bottom: 15px;
+}
+
+.calendarItemList-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendarItemList-title input {
+  margin-right: 8px;
+}
+
+.program-list-item {
+  width: 200px;
+  border-radius: 20px;
+  font-size: 18px;
+  background-color: #aaaaaa;
+  margin: 0px auto 12px;
+  position: relative;
+}
+
+.program-list-item input {
+  position: absolute;
+  top: 7px;
+  left: 18px;
+  margin-right: 4px;
+  background-color: #aaaaaa;
+}
+
+.program-list-item span {
+  
+}
+
 #menu {
   display: flex;
-  margin-bottom: 12px;
-  align-items: center;
+  height: 90px;
 }
 
 ul {
   padding: 4px 0px;
+}
+
+.dropdown {
+  width: 100px;
+}
+
+.top-item {
+  margin-top: 10px;
 }
 
 .btn {
