@@ -13,8 +13,7 @@
                             max-width="150"
                             class="rounded-circle mr-5"
                             @click="onClickImageUpload"
-                        >
-                        </v-img>
+                        ></v-img>
                         <v-img
                             v-else
                             :src="preview_img[0]"
@@ -149,7 +148,6 @@ export default {
             // console.log(payload)
             this.schedule = payload
         })
-
     },
     beforeDestroy(){
         EventBus.$off('schedule')

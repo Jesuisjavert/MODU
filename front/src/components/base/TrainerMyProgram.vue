@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="onlineLecturelist.length > 0">
         <div v-for="(data,idx) in onlineLecturelist">
             <div>
             <v-row>
@@ -23,6 +23,9 @@
             <!-- <div style="boarder : solid"></div> -->
             </div>
         </div>
+    </div>
+    <div v-else>
+        <p>진행중인 프로그램이 없습니다</p>
     </div>
 </template>
 

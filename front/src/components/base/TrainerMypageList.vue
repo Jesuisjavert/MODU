@@ -23,15 +23,20 @@
                 <RevenueGraph></RevenueGraph>
             </v-expansion-panel-content>
             <v-expansion-panel-content v-else-if="item.title == '채팅 참가하기'">
-                <v-col v-for="(room, index) in chatRooms" :key="index">
-                    <v-row>
-                        <v-col cols="auto" class="mr-auto">
-                            <p>{{room.client_name}}</p>
-                        </v-col>
-                        <v-col cols="auto">
-                            <button @click="pushChat(index)">참가하기</button>
-                        </v-col>
-                    </v-row>
+                <v-col v-if="chatRooms.length > 0">
+                    <v-col v-for="(room, index) in chatRooms" :key="index">
+                        <v-row>
+                            <v-col cols="auto" class="mr-auto">
+                                <p>{{room.client_name}}</p>
+                            </v-col>
+                            <v-col cols="auto">
+                                <button @click="pushChat(index)">참가하기</button>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-col>
+                <v-col v-else>
+                    <p>진행중인 채팅이 없습니다</p>
                 </v-col>
             </v-expansion-panel-content>
         </v-expansion-panel>
