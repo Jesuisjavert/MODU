@@ -4,66 +4,20 @@
       <v-col class="col-2 text-center client">
         <h2>회원 목록</h2>
         <div id="lnb">
-          <div class="lnb-new-schedule">
-            <button
-              id="btn-new-schedule"
-              type="button"
-              class="btn btn-default btn-block lnb-new-schedule-btn"
-              data-toggle="modal"
-            >
-              New schedule
-            </button>
-          </div>
           <div id="lnb-calendars" class="lnb-calendars">
-            <div>
-              <div class="lnb-calendars-item">
-                <label>
-                  <input
-                    class="tui-full-calendar-checkbox-square"
-                    type="checkbox"
-                    value="all"
-                    checked
-                  />
-                  <span></span>
-                  <strong>View all</strong>
-                </label>
-              </div>
-            </div>
-            <div id="calendarItemList" class="lnb-calendars-d1">
-              <div
-                class="lnb-calendars-item"
-                v-for="calendarListItem in calendarList"
-                :key="calendarListItem.id"
-              >
-                <label>
-                  <input
-                    type="checkbox"
-                    class="tui-full-calendar-checkbox-round"
-                    value="calendarListItem.id"
-                    checked
-                  />
-                  <span
-                    style="border-color: calendar.borderColor; background-color: calendar.borderColor;"
-                  ></span>
-                  <span> {{ calendarListItem.name }} </span>
-                </label>
-              </div>
+            <div class="calendarItemList">
+              <input type='checkbox' @click="checkAll()" v-model='isCheckAll'>스케줄 모두보기
+              <ul class="program-list">
+                <li v-for="calendarListItem in calendarList" :key="calendarListItem.id">
+                <input type='checkbox' checked  v-bind:value="calendarListItem.id" v-model="workList" @change='updateCheckall()'>{{ calendarListItem.name }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </v-col>
       <v-col class="col-9">
         <div id="menu">
-          <div class="lnb-new-schedule">
-            <button
-              id="btn-new-schedule"
-              type="button"
-              class="btn btn-default"
-              data-toggle="modal"
-            >
-              새 일정
-            </button>
-          </div>
           <div>
             {{ getTime }}
           </div>
@@ -141,26 +95,6 @@
                   <span class="checkbox-title"></span>Show weekends
                 </a>
               </li>
-              <li role="presentation">
-                <a role="menuitem" data-action="toggle-start-day-1">
-                  <input
-                    type="checkbox"
-                    class="tui-full-calendar-checkbox-square"
-                    value="toggle-start-day-1"
-                  />
-                  <span class="checkbox-title"></span>Start Week on Monday
-                </a>
-              </li>
-              <li role="presentation">
-                <a role="menuitem" data-action="toggle-narrow-weekend">
-                  <input
-                    type="checkbox"
-                    class="tui-full-calendar-checkbox-square"
-                    value="toggle-narrow-weekend"
-                  />
-                  <span class="checkbox-title"></span>Narrower than weekdays
-                </a>
-              </li>
             </ul>
           </span>
           <span id="menu-navi">
@@ -228,12 +162,42 @@ export default {
   components: {
     calendar: Calendar
   },
+  created(){
+    this.schedule.forEach((item)=>{
+      item.bgColor = this.color[Number(item.calendarId)]
+      item.borderColor = this.color[Number(item.calendarId)]
+      item.color = this.fontColor[Number(item.calendarId)]
+    })
+  },
   mounted() {
     this.setRenderRangeText(), this.setEventListener();
+    this.calendarList.forEach((item)=>{
+      this.workList.push(item.id)
+    })
   },
-  computed: {},
+  computed: {
+    scheduleList(){
+      console.log(this.schedule)
+      if (this.isCheckAll == true){
+        return this.schedule
+      } else {
+        return this.schedule.filter((item)=>{
+          return this.workList.indexOf(item.calendarId) != -1
+        })
+
+      }
+       return []
+
+    }
+  },
+  watch :{
+  },
   data() {
     return {
+      isCheckAll: true,
+      workList: [],
+      color: ['#1F85DE', '#4BDEBD', '#DE4B6C',  '#159A5D', '#AA1A45', '#DE781F', '#651AAA' ,'#F6F64F'],
+      fontColor: ['#ffffff', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#000000' ],
       calendarList: [
         {
           id: "0",
@@ -244,18 +208,16 @@ export default {
           name: "스피닝"
         }
       ],
-      scheduleList: [
+      schedule: [
         {
-          id: "1",
           calendarId: "1",
           title: "my schedule",
           category: "time",
           dueDateClass: "",
           start: "2020-11-03T22:30:00+09:00",
-          end: "2020-11-04T22:30:00+09:00"
+          end: "2020-11-04T22:30:00+09:00",
         },
         {
-          id: "2",
           calendarId: "0",
           title: "second schedule",
           category: "time",
@@ -313,7 +275,22 @@ export default {
     };
   },
   methods: {
-    // 달력 이동
+    checkAll: function(){
+      this.isCheckAll = !this.isCheckAll;
+      this.workList = [];
+      if(this.isCheckAll){ // Check all
+        for (var key in this.calendarList) {
+          this.workList.push(this.calendarList[key]);
+        }
+      }
+    },
+    updateCheckall: function(){
+      if(this.workList.length == this.calendarList.length){
+         this.isCheckAll = true;
+      }else{
+         this.isCheckAll = false;
+      }
+    },
     moveToNextOrPrevRange(val) {
       if (val === -1) {
         this.$refs.tuiCalendar.invoke("prev");
@@ -326,28 +303,28 @@ export default {
     moveToTday() {
       this.$refs.tuiCalendar.invoke("today");
     },
-    setCalendarList() {
-      var calendarItemList = document.getElementById("calendarItemList");
-      var html = [];
-      this.calendarList.forEach(function(calendar) {
-        html.push(
-          '<div class="lnb-calendars-item"><label>' +
-            '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' +
-            calendar.id +
-            '" checked>' +
-            '<span style="border-color: ' +
-            calendar.borderColor +
-            "; background-color: " +
-            calendar.borderColor +
-            ';"></span>' +
-            "<span>" +
-            calendar.name +
-            "</span>" +
-            "</label></div>"
-        );
-      });
-      calendarItemList.innerHTML = html.join("\n");
-    },
+    // setCalendarList() {
+    //   var calendarItemList = document.getElementById("calendarItemList");
+    //   var html = [];
+    //   this.calendarList.forEach(function(calendar) {
+    //     html.push(
+    //       '<div class="lnb-calendars-item"><label>' +
+    //         '<input type="checkbox" class="tui-full-calendar-checkbox-round" value="' +
+    //         Calendar.id +
+    //         '" checked>' +
+    //         '<span style="border-color: ' +
+    //         Calendar.borderColor +
+    //         "; background-color: " +
+    //         Calendar.borderColor +
+    //         ';"></span>' +
+    //         "<span>" +
+    //         Calendar.name +
+    //         "</span>" +
+    //         "</label></div>"
+    //     );
+    //   });
+    //   calendarItemList.innerHTML = html.join("\n");
+    // },
     //
     setRenderRangeText() {
       var renderRange = document.getElementById("renderRange");
@@ -523,90 +500,16 @@ export default {
       console.log("끝");
       calendarTypeName.innerHTML = type;
     },
-    onChangeCalendars(e) {
-      var calendarId = e.target.value;
-      var checked = e.target.checked;
-      var viewAll = document.querySelector(".lnb-calendars-item input");
-      var calendarElements = Array.prototype.slice.call(
-        document.querySelectorAll("#calendarList input")
-      );
-      var allCheckedCalendars = true;
-
-      if (calendarId === "all") {
-        allCheckedCalendars = checked;
-
-        calendarElements.forEach(function(input) {
-          var span = input.parentNode;
-          input.checked = checked;
-          span.style.backgroundColor = checked
-            ? span.style.borderColor
-            : "transparent";
-        });
-
-        this.CalendarList.forEach(function(calendar) {
-          calendar.checked = checked;
-        });
-      } else {
-        findCalendar(calendarId).checked = checked;
-
-        allCheckedCalendars = calendarElements.every(function(input) {
-          return input.checked;
-        });
-
-        if (allCheckedCalendars) {
-          viewAll.checked = true;
-        } else {
-          viewAll.checked = false;
-        }
-      }
-
-      this.refreshScheduleVisibility();
-    },
-    refreshScheduleVisibility() {
-      var calendarElements = Array.prototype.slice.call(
-        document.querySelectorAll("#calendarList input")
-      );
-
-      this.calendarList.forEach(calendar => {
-        this.$refs.tuiCalendar.invoke(
-          "toggleSchedules",
-          (calendar.id, !calendar.checked, false)
-        );
-      });
-
-      this.$refs.tuiCalendar.invoke("render", true);
-
-      calendarElements.forEach(function(input) {
-        var span = input.nextElementSibling;
-        span.style.backgroundColor = input.checked
-          ? span.style.borderColor
-          : "transparent";
-      });
-    },
     setEventListener() {
       // $('#menu-navi').on('click', onClickNavi);
       $('.dropdown-menu a[role="menuitem"]').on("click", this.onClickMenu);
       $("#lnb-calendars").on("change", this.onChangeCalendars);
 
       // $('#btn-save-schedule').on('click', onNewSchedule);
-      // $('#btn-new-schedule').on('click', createNewSchedule);
-
       // $('#dropdownMenu-calendars-list').on('click', onChangeNewScheduleCalendar);
 
       // window.addEventListener('resize', resizeThrottled);
     },
-    generateSchedule(viewName, renderStart, renderEnd) {
-      console.log("generateSchedule", this.scheduleList);
-      this.calendarList.forEach(function(calendar) {
-        var i = 0,
-          length = 10;
-        if (viewName === "month") {
-          length = 3;
-        } else if (viewName === "day") {
-          length = 4;
-        }
-      });
-    }
   }
 };
 </script>
@@ -654,5 +557,9 @@ ul {
 
 .btn-move i {
   margin: auto;
+}
+
+.program-list {
+  list-style: none;
 }
 </style>
