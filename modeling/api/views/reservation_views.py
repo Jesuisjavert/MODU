@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from ..serializers import ProgramReservationDaySerializer
-from ..models import ProgramReservationDay, ProgramReservationTime, Program, ProgramRecord
+from ..models import ProgramReservationDay, ProgramReservationTime, Program, ProgramRecord,ProgramRecordDetail
 from django.http import Http404
 
 class TrainerReservationView(APIView):
@@ -34,5 +34,5 @@ class TrainerReservationView(APIView):
             ProgramRecordDetail.objects.create(_type='오프라인',content='출석완료',programRecord=target_programrecord)
             if target_programrecord.now_offline_count == target_programrecord.max_offline_count:
                 target_programrecord.is_active = True
-                target_programrecord.save()
+            target_programrecord.save()
             return Response({'data':True,'message':'예약성공'})

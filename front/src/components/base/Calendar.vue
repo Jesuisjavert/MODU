@@ -7,13 +7,31 @@
           <div id="lnb-calendars" class="lnb-calendars">
             <div class="calendarItemList">
               <div class="calendarItemList-title">
-                <input type='checkbox' @click="checkAll()" v-model='isCheckAll'>
-                <h3>스케줄 모두보기</h3> 
+                <input
+                  type="checkbox"
+                  @click="checkAll()"
+                  v-model="isCheckAll"
+                />
+                <h3>스케줄 모두보기</h3>
               </div>
               <ul class="program-list">
-                <li class="program-list-item" :style="`background-color : ${color[calendarListItem.id]}; color : ${fontColor[calendarListItem.id]};`" v-for="calendarListItem in calendarList" :key="calendarListItem.id">
-                  <input type='checkbox' v-bind:value="calendarListItem.id" v-model="workList" @change='updateCheckall()'>
-                  <span>{{ calendarListItem.name }}</span> 
+                <li
+                  class="program-list-item"
+                  :style="
+                    `background-color : ${
+                      color[calendarListItem.id]
+                    }; color : ${fontColor[calendarListItem.id]};`
+                  "
+                  v-for="calendarListItem in calendarList"
+                  :key="calendarListItem.id"
+                >
+                  <input
+                    type="checkbox"
+                    v-bind:value="calendarListItem.id"
+                    v-model="workList"
+                    @change="updateCheckall()"
+                  />
+                  <span>{{ calendarListItem.name }}</span>
                 </li>
               </ul>
             </div>
@@ -25,11 +43,7 @@
           <div>
             {{ getTime }}
           </div>
-          <v-col
-          class="d-flex"
-          cols="6"
-          sm="2"
-          >
+          <v-col class="d-flex" cols="6" sm="2">
             <v-select
               class="dropdown"
               :items="modeSelect"
@@ -97,82 +111,72 @@
 <script>
 import "tui-calendar/dist/tui-calendar.css";
 import { Calendar } from "@toast-ui/vue-calendar";
-
+import axios from "axios";
 // If you use the default popups, use this.
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
+import { mapState } from "vuex";
+import constants from "@/api/constants.js";
 
 export default {
   name: "myCalendar",
   components: {
     calendar: Calendar
   },
-  created(){
-    this.schedule.forEach((item)=>{
-      item.bgColor = this.color[Number(item.calendarId)]
-      item.borderColor = this.color[Number(item.calendarId)]
-      item.color = this.fontColor[Number(item.calendarId)]
-    })
+  created() {
+    this.getSchedule();
   },
   mounted() {
     this.setRenderRangeText(), this.setEventListener();
-    this.calendarList.forEach((item)=>{
-      this.workList.push(item.id)
-    })
+    this.calendarList.forEach(item => {
+      this.workList.push(item.id);
+    });
   },
   computed: {
-    scheduleList(){
-      if (this.isCheckAll == true){
-        return this.schedule
+    ...mapState(["userToken"]),
+    scheduleList() {
+      if (this.isCheckAll == true) {
+        return this.schedule;
       } else {
-        return this.schedule.filter((item)=>{
-          return this.workList.indexOf(item.calendarId) != -1
-        })
-
+        return this.schedule.filter(item => {
+          return this.workList.indexOf(item.calendarId) != -1;
+        });
       }
-       return []
-
+      return [];
     }
   },
-  watch :{
-  },
+  watch: {},
   data() {
     return {
-      modeSelect: ['month', 'week','day'],
-      modetoggle : ['toggle-monthly','toggle-weekly','toggle-daily'],
-      selected  : 'month',
+      constants,
+      modeSelect: ["month", "week", "day"],
+      modetoggle: ["toggle-monthly", "toggle-weekly", "toggle-daily"],
+      selected: "month",
       isCheckAll: true,
       workList: [],
-      color: ['#1F85DE', '#4BDEBD', '#DE4B6C',  '#159A5D', '#AA1A45', '#DE781F', '#651AAA' ,'#F6F64F'],
-      fontColor: ['#ffffff', '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#000000' ],
-      calendarList: [
-        {
-          id: "0",
-          name: "퍼스널 트레이닝"
-        },
-        {
-          id: "1",
-          name: "스피닝"
-        }
+      color: [
+        "#1F85DE",
+        "#4BDEBD",
+        "#DE4B6C",
+        "#159A5D",
+        "#AA1A45",
+        "#DE781F",
+        "#651AAA",
+        "#F6F64F"
       ],
-      schedule: [
-        {
-          calendarId: "1",
-          title: "my schedule",
-          category: "time",
-          dueDateClass: "",
-          start: "2020-11-03T22:30:00+09:00",
-          end: "2020-11-04T22:30:00+09:00",
-        },
-        {
-          calendarId: "0",
-          title: "second schedule",
-          category: "time",
-          dueDateClass: "",
-          start: "2020-11-18T17:30:00+09:00",
-          end: "2020-11-19T17:29:00+09:00"
-        }
+      fontColor: [
+        "#ffffff",
+        "#000000",
+        "#ffffff",
+        "#ffffff",
+        "#ffffff",
+        "#ffffff",
+        "#ffffff",
+        "#000000"
       ],
+      calen: [],
+      calendarList: [],
+      schedule: [],
       view: "month",
       taskView: false,
       scheduleView: ["time"],
@@ -222,12 +226,46 @@ export default {
     };
   },
   methods: {
-    changeRoute(){
-      const index = this.modeSelect.indexOf(this.selected)
-      const togglemenu = this.modetoggle[index]
+    async getSchedule() {
+      const Token = "Bearer " + this.userToken;
+      await axios
+        .get(`${this.constants.API_URL}trainer/schedule/`, {
+          headers: {
+            Authorization: Token
+          }
+        })
+        .then(res => {
+          res.data.forEach(item => {
+            if (this.calen.indexOf(item.clientname) == -1) {
+              this.calen.push(item.clientname);
+              this.calendarList.push({
+                id: this.calendarList.length,
+                name: item.clientname
+              });
+            }
+            let ind = this.calen.indexOf(item.clientname);
+            let new_obj = {};
+            new_obj.calendarId = ind;
+            new_obj.title = item.programname;
+            new_obj.category = "time";
+            new_obj.dueDateClass = "";
+            new_obj.start = `${item.programday}T${item.start_hour}`;
+            new_obj.end = `${item.programday}T${item.end_hour}`;
+            this.schedule.push(new_obj);
+          });
+          this.schedule.forEach(item => {
+            item.bgColor = this.color[Number(item.calendarId)];
+            item.borderColor = this.color[Number(item.calendarId)];
+            item.color = this.fontColor[Number(item.calendarId)];
+          });
+        });
+    },
+    changeRoute() {
+      const index = this.modeSelect.indexOf(this.selected);
+      const togglemenu = this.modetoggle[index];
       const options = this.$refs.tuiCalendar.invoke("getOptions");
-      let viewName = ''
-      switch(togglemenu){
+      let viewName = "";
+      switch (togglemenu) {
         case "toggle-daily":
           viewName = "day";
           break;
@@ -244,22 +282,22 @@ export default {
       this.setDropdownCalendarType();
       this.setRenderRangeText();
       this.setSchedules();
-
     },
-    checkAll: function(){
+    checkAll: function() {
       this.isCheckAll = !this.isCheckAll;
       this.workList = [];
-      if(this.isCheckAll){ // Check all
+      if (this.isCheckAll) {
+        // Check all
         for (var key in this.calendarList) {
           this.workList.push(this.calendarList[key]);
         }
       }
     },
-    updateCheckall: function(){
-      if(this.workList.length == this.calendarList.length){
-         this.isCheckAll = true;
-      }else{
-         this.isCheckAll = false;
+    updateCheckall: function() {
+      if (this.workList.length == this.calendarList.length) {
+        this.isCheckAll = true;
+      } else {
+        this.isCheckAll = false;
       }
     },
     moveToNextOrPrevRange(val) {
@@ -306,6 +344,7 @@ export default {
     // dropdown menu 변경
     onClickMenu(e) {
       // var target = $(e.target).closest('a[role="menuitem"]')[0];
+      console.log(target, "target입니다.");
       var action = this.getDataAction(target);
       var options = this.$refs.tuiCalendar.invoke("getOptions");
       var viewName = "";
@@ -429,7 +468,7 @@ export default {
     setEventListener() {
       $('.dropdown-menu a[role="menuitem"]').on("click", this.onClickMenu);
       $("#lnb-calendars").on("change", this.onChangeCalendars);
-    },
+    }
   }
 };
 </script>
@@ -472,7 +511,6 @@ export default {
 }
 
 .program-list-item span {
-  
 }
 
 #menu {

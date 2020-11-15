@@ -13,6 +13,7 @@ urlpatterns = [
     path('trainer/program/online/', views.TrainerOnlineProgramView.as_view(), name="traineronlineprogram"),
     path('trainer/<int:pk>/program/', views.TrainerPkProgram.as_view()),
     path('trainer/<int:pk>/reservation/', views.TrainerReservationView.as_view(), name="trainerreservation"),
+    path('trainer/schedule/',views.ScheduleList.as_view()),
     path('client/', views.ClientView.as_view(), name="client"),
     path('client/program/',views.ClientProgramView.as_view()),
     path('client/notification/',views.ClientNotification.as_view(),name='clientNotification'),

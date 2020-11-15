@@ -100,7 +100,10 @@ class ProgramReservationDaySerializer(serializers.ModelSerializer):
         model = ProgramReservationDay
         fields = '__all__'
 
-class ProgramReservationTime(serializers.ModelSerializer):
+class ProgramReservationTimeSerializer(serializers.ModelSerializer):
+    clientname = serializers.CharField(source='client.name')
+    programname = serializers.CharField(source='ProgramDay.program.title')
+    programday = serializers.CharField(source='ProgramDay.day')
     class Meta:
         model = ProgramReservationTime
         fields = '__all__'
