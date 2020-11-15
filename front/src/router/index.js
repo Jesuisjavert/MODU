@@ -86,6 +86,17 @@ export default new Router({
           }
         },
         {
+          path : '/program/:pk',
+          name : 'ProgramDetail',
+          component : ()=> import('@/views/program/Index.vue')
+        },
+        {
+          path : '/program/apply',
+          name : 'ProgramApply',
+          component : ()=> import('@/views/program/apply.vue'),
+          props: true
+        },
+        {
           path: '/programcreate',
           name: 'ProgramCreate',
           component: () => import('@/components/base/ProgramCreate'),

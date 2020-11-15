@@ -89,6 +89,15 @@
             </v-timeline-item>
           </v-timeline>
         </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="deep-purple lighten-2"
+            text
+            @click="go_detail()"
+          >
+            상세보기
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-row>
   </v-container>
@@ -100,6 +109,9 @@
     created() {
     },
     methods: {
+      go_detail() {
+        this.$router.push("program/" + this.$attrs.id);
+      },
     },
     filters: {
       currency: function (value) {
