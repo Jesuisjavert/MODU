@@ -84,7 +84,13 @@ export default new Router({
           path: '/programcreate',
           name: 'ProgramCreate',
           component: () => import('@/components/base/ProgramCreate'),
-        }
+        },
+        {
+          path: '/kakaopay/approve',
+          name: 'KakaopayApprove',
+          component: () => import('@/views/kakaopay/Index.vue'),
+        },
+
       ],
     },
   ],

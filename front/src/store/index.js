@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     userToken : sessionStorage.getItem('auth-token'),
     userType : sessionStorage.getItem('userType'),
+    username : sessionStorage.getItem('username'),
+    tid : sessionStorage.getItem('tid'),
   },
   getters: {
     isLogined : (state) => !!state.userToken,
@@ -23,11 +25,19 @@ export default new Vuex.Store({
       state.userType = token,
       sessionStorage.setItem('userType',token)
     },
+    REMOVE_TID(){
+      sessionStorage.removeItem('tid')
+    },
     LOGOUT(state){
       sessionStorage.removeItem('auth-token')
       sessionStorage.removeItem('userType')
       state.userToken = ''
       state.userType = ''
+    },
+    SET_USERNAME(state,token){
+      state.username = token
+      sessionStorage.setItem('username',token)
+
     }
   },
   
