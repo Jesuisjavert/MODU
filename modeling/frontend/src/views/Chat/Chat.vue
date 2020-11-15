@@ -111,7 +111,7 @@ export default {
 
 <style scoped>
 .chat {
-  height: 75vh;
+  height: 80vh !important;
   width: 60vw;
   margin: auto;
 }
@@ -120,9 +120,14 @@ i {
   color: #007BFF;
 }
 
+i::after {
+  content:"";
+  margin-right: 5px;
+}
+
 .chat-box {
   padding: 12px;
-  height: 60vh;
+  height: 50vh !important;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;

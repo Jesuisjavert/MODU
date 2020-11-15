@@ -89,7 +89,7 @@
             </v-timeline-item>
           </v-timeline>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="btns">
           <v-btn
             color="deep-purple lighten-2"
             text
@@ -97,27 +97,67 @@
           >
             상세보기
           </v-btn>
+          <v-btn
+            color="light-blue"
+            text
+            v-if="userType == 'client'"
+            @click="joinChatNumber()"
+          >
+            문의하기
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
   </v-container>
 </template>
 <script>
-  export default {
-    data: () => ({
-    }),
-    created() {
+import axios from "axios";
+import { mapState } from "vuex";
+import constants from "@/api/constants";
+
+export default {
+  data: () => ({
+  }),
+  created() {
+  },
+  methods: {
+    go_detail() {
+      this.$router.push("/program/" + this.$attrs.id);
     },
-    methods: {
-      go_detail() {
-        this.$router.push("/program/" + this.$attrs.id);
-      },
+    joinChatNumber() {
+      const data = {
+        program_id: this.$attrs.id,
+      };
+      const Token = "Bearer " + this.userToken;
+      axios
+        .post(`${constants.API_URL}chat/`, data, {
+          headers: {
+            Authorization: Token,
+          },
+        })
+        .then((res) => {
+          sessionStorage.setItem("chatroomId", res.data.roomId);
+          this.$socket.emit("join", res.data.roomId, this.username);
+          this.$router.push({ name: "Chat" });
+        });
     },
-    filters: {
-      currency: function (value) {
-        var num = new Number(value);
-        return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
-      }
-    },
-  }
+  },
+  filters: {
+    currency: function (value) {
+      var num = new Number(value);
+      return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+    }
+  },
+  computed: {
+    ...mapState(["userToken", "userType", "username"]),
+  },
+}
 </script>
+
+<style scoped>
+.btns {
+  display: flex;
+  justify-content: space-around;
+}
+
+</style>

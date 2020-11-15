@@ -46,25 +46,7 @@
     </v-card-title>
 
     <v-card-text>
-      <!-- <v-row
-        align="center"
-        class="mx-0"
-      >
-        <v-rating
-          :value="this.$attrs.comment.rate"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        ></v-rating>
-
-        <div class="grey--text ml-4">
-          {{this.$attrs.comment.rate}} ({{this.$attrs.comment.count}})
-        </div>
-      </v-row> -->
-
-      <div class="my-4 subtitle-1">
+      <div class="my-4 subtitle-1 tag-list">
         <v-chip
           label
           v-for="tag in this.$attrs.tags" :key="tag.id"
@@ -72,7 +54,7 @@
         >{{tag.name}}</v-chip>
       </div>
 
-      <div>{{this.$attrs.content}}</div>
+      <div class="trainer-content">{{this.$attrs.content}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -189,7 +171,16 @@
 </script>
 
 <style scoped>
-  .text-size {
-    font-size: 0.75rem;
-  }
+.text-size {
+  font-size: 0.75rem;
+}
+
+.tag-list {
+  display: flex;
+  justify-content: center;
+}
+
+.trainer-content {
+  min-height: 40px;
+}
 </style>
