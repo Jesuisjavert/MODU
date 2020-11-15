@@ -1635,6 +1635,62 @@
     }
 },
 {
+    "model": "api.programreservationday",
+    "pk": 3,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-09"
+    }
+},
+{
+    "model": "api.programreservationday",
+    "pk": 4,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-11"
+    }
+},
+{
+    "model": "api.programreservationday",
+    "pk": 5,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-13"
+    }
+},
+{
+    "model": "api.programreservationday",
+    "pk": 6,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-23"
+    }
+},
+{
+    "model": "api.programreservationday",
+    "pk": 7,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-24"
+    }
+},
+{
+    "model": "api.programreservationday",
+    "pk": 8,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-26"
+    }
+},
+{
+    "model": "api.programreservationday",
+    "pk": 9,
+    "fields": {
+        "program": 9,
+        "day": "2020-11-28"
+    }
+},
+{
     "model": "api.programreservationtime",
     "pk": 1,
     "fields": {
@@ -1668,6 +1724,90 @@
         "end_hour": "18:00:00",
         "created_at": "2020-11-15T14:53:04.048Z",
         "updated_at": "2020-11-15T14:53:04.048Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 4,
+    "fields": {
+        "ProgramDay": 3,
+        "client": 3,
+        "start_hour": "13:00:00",
+        "end_hour": "14:00:00",
+        "created_at": "2020-11-15T15:45:16.963Z",
+        "updated_at": "2020-11-15T15:45:16.963Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 5,
+    "fields": {
+        "ProgramDay": 4,
+        "client": 3,
+        "start_hour": "17:00:00",
+        "end_hour": "18:00:00",
+        "created_at": "2020-11-15T15:46:37.895Z",
+        "updated_at": "2020-11-15T15:46:37.895Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 6,
+    "fields": {
+        "ProgramDay": 5,
+        "client": 4,
+        "start_hour": "15:00:00",
+        "end_hour": "16:00:00",
+        "created_at": "2020-11-15T15:46:49.793Z",
+        "updated_at": "2020-11-15T15:46:49.793Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 7,
+    "fields": {
+        "ProgramDay": 6,
+        "client": 4,
+        "start_hour": "13:00:00",
+        "end_hour": "14:00:00",
+        "created_at": "2020-11-15T15:47:10.455Z",
+        "updated_at": "2020-11-15T15:47:10.455Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 8,
+    "fields": {
+        "ProgramDay": 7,
+        "client": 4,
+        "start_hour": "10:00:00",
+        "end_hour": "11:00:00",
+        "created_at": "2020-11-15T15:47:33.880Z",
+        "updated_at": "2020-11-15T15:47:33.880Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 9,
+    "fields": {
+        "ProgramDay": 8,
+        "client": 4,
+        "start_hour": "17:00:00",
+        "end_hour": "18:00:00",
+        "created_at": "2020-11-15T15:47:46.829Z",
+        "updated_at": "2020-11-15T15:47:46.829Z"
+    }
+},
+{
+    "model": "api.programreservationtime",
+    "pk": 10,
+    "fields": {
+        "ProgramDay": 9,
+        "client": 4,
+        "start_hour": "11:00:00",
+        "end_hour": "12:00:00",
+        "created_at": "2020-11-15T15:48:05.885Z",
+        "updated_at": "2020-11-15T15:48:05.885Z"
     }
 },
 {
