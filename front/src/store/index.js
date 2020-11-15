@@ -25,6 +25,10 @@ export default new Vuex.Store({
       state.userType = token,
       sessionStorage.setItem('userType',token)
     },
+    SET_TID(state,token){
+      state.tid = token,
+      sessionStorage.setItem('tid',token)
+    },
     REMOVE_TID(){
       sessionStorage.removeItem('tid')
     },
