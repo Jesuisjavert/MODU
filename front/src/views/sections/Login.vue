@@ -56,10 +56,12 @@ export default {
     methods: {
         kakaoLogin() {
             console.log('hello')
+            console.log(window.Kakao)
             window.Kakao.Auth.login({
                 scope : 'profile, account_email',
                 success: this.GetMe,
             });
+            console.log('끝')
         },
         async GetMe(authObj){
             console.log(authObj);
