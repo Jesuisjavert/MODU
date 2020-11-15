@@ -22,8 +22,6 @@ export default {
     },
     methods: {
         startWeb() {
-            console.log('밑입니다.')
-            console.log(this.$el.dataset.set)
             var newUuid = this.$uuid.v4()
             this.uuid = newUuid
              

@@ -170,7 +170,6 @@ export default {
             that.videoList = newList;
             that.$emit('left-room', stream.streamid);
         };
-        console.log(this.videoList)
         
         // 난수생성
         if ($cookies.isKey('roomID')) {
@@ -189,25 +188,19 @@ export default {
             //     $cookies.set('roomID', this.roomId )
             // })
         }
-        console.log(this.roomId)
         // if ($cookies.isKey('roomID') === false) {
         //     $cookies.set('roomID', newUuid)
         // }
         // join code
         var that = this;
-        console.log(that)
         this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
-            console.log(roomid)
-            console.log(isRoomExist,'----')
             if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
                 that.$emit('opened-room', roomid);
             }
-        console.log('여긴어때')
         })
     },
     methods: {
         invite() {
-            console.log('----')
         },
         leave() {
             $cookies.remove('roomID')

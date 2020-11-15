@@ -186,7 +186,6 @@ export default {
   },
   methods: {
     updateProfile() {
-      console.log('프록필수정')
         const Token = 'Bearer ' + this.userToken 
         axios.get(`${constants.API_URL}rest-auth/user`, {
           headers: {
@@ -196,14 +195,12 @@ export default {
         .then((res) => {
           // console.log(res.data)
             this.userData.push(res.data)
-            console.log(this.userData[0])
         })
         .catch((err) => {
           console.log(err)
         })
     },
     newTagPush() {
-      console.log(this.userData[0].tags.indexOf(this.newTag))
       if (this.userData[0].tags.indexOf(this.newTag) === -1){
         this.userData[0].tags.push(this.newTag)
         this.newTag = ''
@@ -219,7 +216,6 @@ export default {
         this.$refs.imageInput.click()
     },
     uploadimg(event) {
-        console.log(event);
         const file = event.target.files[0];
         this.profile_img = [];
         this.preview_img = [];
@@ -232,7 +228,6 @@ export default {
     },
     profileSubmit() {
         const Token = "Bearer " + this.userToken;
-        console.log(Token);
         let formData = new FormData();
         formData.append("profile_img", this.profile_img[0]);
         axios.post(`${constants.API_URL}rest-auth/user/profile/`, formData, {
@@ -247,7 +242,6 @@ export default {
     submitTrainer(){
         const Token = 'Bearer '+ this.userToken
         let tags = this.userData[0].tags.join();
-        console.log(this.userData)
         this.userData[0].taglist = tags;
         this.userData[0].is_first = '1'
         axios.put(`${constants.API_URL}rest-auth/user/`, this.userData[0], {

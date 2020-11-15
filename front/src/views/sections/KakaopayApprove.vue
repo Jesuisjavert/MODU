@@ -50,7 +50,6 @@ export default {
           })
           .then((res)=>{
             this.REMOVE_TID
-            console.log(res.data)
           })
           .catch((err)=>{
             console.log(err)
