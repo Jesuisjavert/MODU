@@ -133,7 +133,6 @@ export default {
     ],
     dialog: false,
     constants,
-    chip2: true,
     profile_img: [],
     preview_img: [],
   }),
@@ -157,18 +156,6 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    },
-    newTagPush() {
-      console.log(this.userData[0].tags.indexOf(this.newTag))
-      if (this.userData[0].tags.indexOf(this.newTag) === -1){
-        this.userData[0].tags.push(this.newTag)
-        this.newTag = ''
-      } else {
-        alert('이미 존재하는 태그입니다.')
-      }
-    },
-    deleteTag(i){
-      this.userData[0].tags.splice(i, 1)
     },
     // 이미지 없을때 이미지 누름
     onClickImageUpload() {
@@ -205,7 +192,7 @@ export default {
         let tags = this.userData[0].tags.join();
         console.log(this.userData)
         this.userData[0].taglist = tags;
-        this.userData[0].is_first = '1'
+        this.userData[0].is_first = '2'
         axios.put(`${constants.API_URL}rest-auth/user/`, this.userData[0], {
             headers: {
                 Authorization: Token,
