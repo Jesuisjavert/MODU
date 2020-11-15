@@ -14,6 +14,7 @@ urlpatterns = [
     path('trainer/<int:pk>/program/', views.TrainerPkProgram.as_view()),
     path('trainer/<int:pk>/reservation/', views.TrainerReservationView.as_view(), name="trainerreservation"),
     path('client/', views.ClientView.as_view(), name="client"),
+    path('client/program/',views.ClientProgramView.as_view()),
     path('client/notification/',views.ClientNotification.as_view(),name='clientNotification'),
     path('client/notification/<int:pk>/',views.ClientNotificationDetail.as_view(),name='ClientNotificationDetail'),
     path('program/', views.ProgramView.as_view(), name="program"),

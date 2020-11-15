@@ -36,26 +36,36 @@
         />
 
         <v-card-text>
-            <v-alert color="green" type="success" class="mb-1">
-                <v-row>
-                    <v-col cols="auto" class="mr-auto">
-                        <p>{ 프로그램이름 } 의 강의가 시작되었습니다.</p>
-                    </v-col>
-                    <v-col cols="auto">
-                        <WebJoinBtn>입장하기</WebJoinBtn>
-                    </v-col>
-                </v-row>
-            </v-alert>
-            <v-alert color="blue" type="info" class="mb-1">
-                <v-row>
-                    <v-col cols="auto" class="mr-auto">
-                        <p>{ 프로그램이름2 } 의 강의가 시작되었습니다.</p>
-                    </v-col>
-                    <v-col cols="auto">
-                        <WebJoinBtn>입장하기</WebJoinBtn>
-                    </v-col>
-                </v-row>
-            </v-alert>
+            <div v-for="notification in notificationlist" :key="notification.id">
+                <v-alert color="green" type="success" class="mb-1" v-if="notification.is_view">
+                    <v-row>
+                        <v-col cols="auto" class="mr-auto">
+                            <p>망할 {{ notification.program_title }} 의 강의가 시작되었습니다.</p>
+                        </v-col>
+                        <v-col cols="auto">
+                            <v-btn
+                                @click="joinWeb(notification.id)"
+                            >
+                            입장하기
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-alert>
+                <v-alert color="blue" type="info" class="mb-1" v-else>
+                    <v-row>
+                        <v-col cols="auto" class="mr-auto">
+                            <p>{{ notification.program_title }} 의 강의가 시작되었습니다.</p>
+                        </v-col>
+                        <v-col cols="auto">
+                            <v-btn
+                                @click="joinWeb(notification.id)"
+                            >
+                            입장하기
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-alert>
+            </div>
         </v-card-text>
         </v-card>
     </v-menu>
@@ -70,21 +80,51 @@ export default {
     data() {
         return {
             menu: false,
-            constants
+            constants,
+            notificationlist : []
         }
     },
     methods : {
+        clicktest(event){
+            console.log(event)
+        },
+        joinWeb(pk){
+            const Token = 'Bearer ' + this.userToken
+            axios.put(`${constants.API_URL}client/notification/${pk}/`, null,{
+                headers: {
+                    Authorization: Token,
+                },
+            })
+            .then((res)=>{
+                if(res.data.data == false){
+                    alert(res.data.notication)
+                } else {
+
+                    $cookies.set('roomID', res.data.data)
+                    this.$router.push({ name: 'WebCam' })
+                }
+            })
+
+        },
         getNotification () {
-            const Token = 'Bearer ' + this.userToken 
+            const Token = 'Bearer ' + this.userToken
             axios.get(`${constants.API_URL}client/notification/`,{
                 headers: {
                     Authorization: Token,
                 },
             })
             .then((res) => {
-                console.log(res) 
+                if(res.data != false){
+                    res.data.forEach((item)=>{
+                        this.notificationlist.push(item)
+                    })
+
+                }
             })
-        }
+            .catch((err)=>{
+                console.log(err.response)
+            })
+        },
     },
     computed : {
         ...mapState(['userToken'])
