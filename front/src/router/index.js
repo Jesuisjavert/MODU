@@ -79,7 +79,11 @@ export default new Router({
             store.commit('LOGOUT')
             next('/')
           }
-
+        },
+        {
+          path: '/programcreate',
+          name: 'ProgramCreate',
+          component: () => import('@/components/base/ProgramCreate'),
         }
       ],
     },

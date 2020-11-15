@@ -6,9 +6,8 @@
                 <v-col cols="5" class="mr-auto">
                     <v-img 
                         :src="data.image_url" 
-                        max-width="150"
-                        max-height="150"
-                        aria-inh
+                        max-width="100"
+                        max-height="100"
                     ></v-img>
                 </v-col>
                 <v-col cols="7" class="text-start">

@@ -66,6 +66,7 @@ export default {
     },
     created() {
         this.fetchData()
+        console.log(this.userData)
     },
     methods: {
         async fetchData() {

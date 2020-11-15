@@ -5,7 +5,8 @@
         :key="i"
         >
             <v-expansion-panel-header disable-icon-rotate>
-                <p class="text-center mb-0">{{ item.title }}</p>
+                <p class="text-center mb-0" v-if="item.title == '프로그램 추가'" @click="goProgramCreate">{{ item.title }}</p>
+                <p class="text-center mb-0" v-else>{{ item.title }}</p>
                 <template v-slot:actions>
                     <v-icon></v-icon>
                 </template>
@@ -59,6 +60,11 @@ export default {
                     ]
                 },
             ],
+        }
+    },
+    methods: {
+        goProgramCreate() {
+            this.$router.push({ name: 'ProgramCreate' })
         }
     },
 }
