@@ -1,11 +1,19 @@
 <template>
   <div>
-    <div class="title">프로그램 신청</div>
-    <div class="row">
-      <div class="col-4">
-        <img :src=program.image_url height="300px">
-      </div>
-      <div class="col-3">
+    <div class="title text-center">프로그램 신청</div>
+    <!-- <div class="row d-flex"> -->
+    <v-row>
+      <v-col cols="4">
+      <!-- <div class="col-4 justify-start"> -->
+        <!-- <img :src=program.image_url height="300px"> -->
+        <v-img
+          :src="program.image_url"
+          max-height="300px"
+        ></v-img>
+      <!-- </div> -->
+      </v-col>
+      <v-col cols="3" offset="0.5">
+      <!-- <div class="col-3 justify-end"> -->
         <h2>{{program.title}}</h2>
         <hr>
         <p>상품 명 : {{price.title}}</p>
@@ -15,8 +23,10 @@
         <h3>결제 방법</h3>
         <hr>
         <button class="btn btn-primary" @click="pay">카카오페이로 결제하기</button>
-      </div>
-    </div>
+      <!-- </div> -->
+      </v-col>
+    </v-row>
+    <!-- </div> -->
   </div>
 </template>
 
