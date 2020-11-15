@@ -93,6 +93,15 @@ class UserInfo(APIView):
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.data['is_first'] == '2':
+            loginclient = request.user.client.first()
+            serializer = ClientSerializer(loginclient,data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(user=request.user)
+                self.put_user(2)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data)
 
 class Profile(APIView):
     # 유저 profile 받아오기
