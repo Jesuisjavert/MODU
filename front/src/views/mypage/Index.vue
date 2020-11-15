@@ -15,7 +15,7 @@
 
     mixins: [
       LoadSections([
-        'Mypage',
+        'Mypage'
       ]),
     ],
 

@@ -44,12 +44,12 @@
           dark: true,
           title: 'Let your idea spread',
           icon: 'mdi-pencil-box-outline',
-          content: '심도 있는 전문 리뷰를 쓰고, 읽고, 느끼세요!',
+          content: '심도 있는 PT 리뷰를 쓰고, 읽고, 느끼세요!',
         },
         {
           title: 'Responsive Image',
           icon: 'mdi-image-size-select-actual',
-          content: '영화의 포스터, 시놉시스, 디테일한 정보를 찾아보세요',
+          content: '다양한 PT프로그램, 강사 정보를 찾아보세요',
         },
         {
           title: 'Signup',

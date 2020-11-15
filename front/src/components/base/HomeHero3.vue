@@ -1,11 +1,10 @@
 <template>
   <section id="hero">
-    <v-img
-      :min-height="minHeight"
-      :src="require('@/assets/modu37.jpg')"
-      class="white--text"
-      gradient="to right, rgba(45, 45, 45, .8), rgba(5, 11, 31, .8)"
-      aspect-ratio="12"
+    <video-bg
+    :sources="['https://static.videezy.com/system/resources/previews/000/033/930/original/close_up_foot_running1.mp4']" 
+    img="https://static.videezy.com/system/resources/previews/000/033/930/original/close_up_foot_running1.mp4"
+    class="background-video white--text"
+    aspect-ratio="12"
     >
       <v-container class="fill-height px-4 py-12 mt-12 pt-12">
         <v-responsive
@@ -24,7 +23,7 @@
             :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
             class="d-flex flex-wrap"
           >
-            <base-btn>
+            <base-btn @click="gomembership">
               Discover More
             </base-btn>
 
@@ -34,20 +33,27 @@
               :ripple="false"
               class="pa-1"
               height="auto"
+              color="accent"
               text
+              @click="gomembership"
             >
               Get Started Now
             </base-btn>
           </div>
         </v-responsive>
       </v-container>
-    </v-img>
+    </video-bg>
   </section>
 </template>
 
 <script>
   export default {
     name: 'HomeHeadline',
+    methods: {
+      gomembership() {
+        this.$router.push('/membership')
+      }
+    },
     computed: {
       minHeight () {
         const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
@@ -56,3 +62,8 @@
     }
   }
 </script>
+<style scoped>
+    .background-video {
+        opacity: 0.81;
+    }
+</style>

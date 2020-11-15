@@ -45,14 +45,14 @@
           text: '내 트레이너의 일정에 맞춰 관리를 받으세요',
         },
         {
-          icon: 'mdi-food-off',
+          icon: 'mdi-desktop-mac',
           title: 'Review',
-          text: '식단관리 캘린더로 간편하게',
+          text: '화상채팅으로 실시간 온라인 홈트레이닝',
         },
         {
           icon: 'mdi-chat-processing-outline',
           title: 'Smooth Transition',
-          text: '화상채팅으로 실시간 온라인 홈트레이닝',
+          text: '채팅으로 완성되는 Private PT',
         },
       ],
     }),
