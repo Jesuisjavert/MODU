@@ -91,7 +91,14 @@
               <div class="comment-top">
                 <div class="comment-left">
                   <span>{{comment.client.user.username}}</span>
-                  <span>{{comment.rate}}점</span>
+                  <v-rating
+                    :value="comment.rate"
+                    color="amber"
+                    dense
+                    half-increments
+                    readonly
+                    size="14"
+                  ></v-rating>
                 </div>
                 <div class="comment-right">
                   <span class="gara">수정</span>

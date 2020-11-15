@@ -166,7 +166,6 @@
           }
         },
         selection: 1,
-        date: null,
         time: null,
         program_id: null,
         scheudles: [],
