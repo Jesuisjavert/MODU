@@ -55,7 +55,11 @@ class UserInfo(APIView):
                 self.put_user(1)
                 tags = request.data['taglist'].split(',')
                 for eachtag in tags:
-                    trainer.tags.add(Tag.objects.get(name=eachtag))
+                    if trainer.tags.filter(name=eachtag).exists():
+                        trainer.tags.add(Tag.objects.get(name=eachtag))
+                    else:
+                        createTag = Tag.objects.create(name=eachtag)
+                        trainer.tags.add(createTag)      
                 for schedule in request.data['schedule']:
                     if schedule['disabled'] == False:
                         TrainerSchedule.objects.create(day=schedule['day'],start_hour=schedule['start_hour'],end_hour=schedule['end_hour'],trainer=trainer)
@@ -81,7 +85,11 @@ class UserInfo(APIView):
                     trainer.tags.remove(origin_tag)
                 tags = request.data['taglist'].split(',')
                 for eachtag in tags:
-                    trainer.tags.add(Tag.objects.get(name=eachtag))
+                    if trainer.tags.filter(name=eachtag).exists():
+                        trainer.tags.add(Tag.objects.get(name=eachtag))
+                    else:
+                        createTag = Tag.objects.create(name=eachtag)
+                        trainer.tags.add(createTag)    
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
