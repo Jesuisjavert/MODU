@@ -49,16 +49,42 @@
             dense
           >
             <v-timeline-item
-              v-for="message in messages"
-              :key="message.time"
-              :color="message.color"
+              color="deep-purple lighten-1"
               small
             >
               <div>
                 <div class="font-weight-normal">
-                  <strong>{{ message.from }}</strong> @{{ message.time }}
+                  <strong>소개</strong> @{{ this.$attrs._type }}
                 </div>
-                <div>{{ message.message }}</div>
+                <div>{{ this.$attrs.content }}</div>
+              </div>
+            </v-timeline-item>
+            
+            <v-timeline-item
+              color="green"
+              small
+            >
+              <div>
+                <div class="font-weight-normal">
+                  <strong>프로그램 스케쥴</strong> @주 {{this.$attrs.programschedule.length}}회
+                </div>
+                <div v-for="schedule in this.$attrs.programschedule" :key="schedule.id">
+                  <strong>{{ schedule.day }}</strong> {{schedule.start_hour.substr(0,5)}} ~ {{schedule.end_hour.substr(0,5)}}
+                </div>
+              </div>
+            </v-timeline-item>
+
+            <v-timeline-item
+              color="red lighten-1"
+              small
+            >
+              <div>
+                <div class="font-weight-normal">
+                  <strong>가격</strong>
+                </div>
+                <div v-for="price in this.$attrs.programprice" :key="price.id">
+                  <strong>{{ price.title }}</strong> {{price.price | currency}}원
+                </div>
               </div>
             </v-timeline-item>
           </v-timeline>
@@ -70,34 +96,16 @@
 <script>
   export default {
     data: () => ({
-      messages: [],
     }),
     created() {
-      this.get_messages()
     },
     methods: {
-      get_messages() {
-        this.messages = [
-          {
-            from: '소개',
-            message: this.$attrs.content,
-            time: this.$attrs._type,
-            color: 'deep-purple lighten-1',
-          },
-          {
-            from: 'Personal Training',
-            message: '주 2회 오프라인 PT 실시',
-            time: '19:00pm',
-            color: 'green',
-          },
-          {
-            from: '가격',
-            message: '뭐넣지',
-            time: '고구마와 닭가슴살만 먹는 단순한 식단은 가라!',
-            color: 'red lighten-1',
-          },
-        ]
+    },
+    filters: {
+      currency: function (value) {
+        var num = new Number(value);
+        return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
       }
-    }
+    },
   }
 </script>

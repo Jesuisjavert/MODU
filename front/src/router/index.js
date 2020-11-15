@@ -66,6 +66,11 @@ export default new Router({
           name : 'TrainerDetail',
           component : ()=> import('@/views/trainer/Index.vue')
         },
+        {
+          path: '/schedule',
+          name: 'Schedule',
+          component: () => import('@/views/schedule/Index.vue'),
+        },
       ],
     },
   ],

@@ -36,48 +36,58 @@
         cols="8"
       >
         <h3>예약하기</h3>
-
-        <v-col
-          cols="6"
-        >
-          <v-menu
-            v-model="menu2"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
+        <v-row>
+          <v-col
+            cols="6"
           >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
+            <v-menu
+              v-model="menu2"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  label="예약 일정 선택"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
                 v-model="date"
-                label="예약 일정 선택"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="date"
-              @input="menu2 = false"
-            ></v-date-picker>
-          </v-menu>
-        </v-col>
+                @input="menu2 = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col
+            cols="6"
+          >
+            <v-select
+              v-model="program_id"
+              label="프로그램 선택"
+              :items="programs"
+              item-text="title"
+              item-value="id"
+            ></v-select>
+          </v-col>
+        </v-row>
 
         <v-chip-group
           v-model="selection"
           active-class="deep-purple accent-4 white--text"
           column
-          v-if="holiday"
         >
-          <div v-for="scheudle in scheudles" :key="scheudle.id">
-            <v-chip @click="set_time(scheudle)">{{scheudle}}</v-chip>
+          <div v-for="(scheudle, index) in scheudles" :key="index">
+            <!-- {{scheudle}} -->
+            <v-chip @click="set_time(scheudle.value)" v-if="scheudle.status" color="green">{{scheudle.time}}</v-chip>
+            <v-chip v-else>{{scheudle.time}}</v-chip>
           </div>
         </v-chip-group>
-        <div v-else>
-          <h3>휴무일 입니다.</h3>
-        </div>
 
 
         <v-btn
@@ -155,13 +165,12 @@ import constants from "@/api/constants";
     },
     methods: {
       set_time(time) {
-        console.log(time)
+        this.time = time
       },
       get_trainer() {
         const pk = this.$route.params.pk
         axios.get(`${this.constants.API_URL}trainer/${pk}/`)
           .then((res)=>{
-            console.log(res.data)
             this.trainer = res.data
             this.get_schedule()
           })
@@ -184,6 +193,7 @@ import constants from "@/api/constants";
         axios.get(`${this.constants.API_URL}trainer/${pk}/program/`)
           .then((res)=>{
             this.programs = res.data
+            console.log(this.programs)
           })
           .catch((err)=>{
             console.log(err)
@@ -195,6 +205,7 @@ import constants from "@/api/constants";
         form.append('date', this.date)
         form.append('time', this.time)
         form.append('program_id', this.program_id)
+        console.log(this.date, this.time, this.program_id)
         const pk = this.$route.params.pk
         axios.post(`${this.constants.API_URL}trainer/${pk}/reservation/`, form, {
           headers: {
@@ -214,16 +225,27 @@ import constants from "@/api/constants";
 
         let nowHour = new Date() < date ? 0 : new Date().getHours()
 
+        // 처음 디폴트 시간표
+        for (var i=0; i<23; i++){
+          let item = {
+            "value": i +":00 ",
+            "time": (i +":00 " +(i<12 ? "AM" : "PM")),
+            "status": false,
+          }
+          this.scheudles.push(item)
+        }
+
+        // 트레이너 시간표
         for (var i=0, item; item=this.trainer.trainerschedule[i]; i++) {
           if (item.day==dayOfWeek) {
-            this.holiday = true
-            for (var j=8; j<18 ; j++){
-              if (nowHour < j){
-                this.scheudles.push(j +":00 " +(j<12 ? "AM" : "PM"))
-              }
+            let start_hour = (item.start_hour.substr(0,2))
+            let end_hour = (item.end_hour.substr(0,2))
+            for (var j=Number(start_hour); j<Number(end_hour); j++){
+              this.scheudles[j].status = true
             }
           }
         }
+
       },
     },
     computed: {

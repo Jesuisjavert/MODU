@@ -28,7 +28,7 @@
         </div>
         <div class="program-contents program-name">
           <span>프로그램 명</span>
-          <input type="text" v-model="inputdata.title" name="title" />
+          <input type="text" v-model="inputdata.title" placeholder="이름을 등록하세요" name="title">
         </div>
         <div class="program-contents program-tag">
           <span>태그 추가하기</span>
@@ -78,18 +78,50 @@
         </div>
       </div>
       <div class="col-5 program-setting">
-        <h3>프로그램 회수 및 가격 설정</h3>
-        <div
-          class="program-cost"
-          v-for="(data, index) in detaildata"
-          :key="index"
-        >
-          이름 : <input type="text" required v-model="data.title" /> 가격 :
-          <input type="number" required v-model="data.price" /> 횟수 :
-          <input type="number" required v-model="data.online_count" />
-          <button @click="deletedata(index)">
-            <i class="fas fa-minus"></i>
-          </button>
+        <h3>프로그램 시간 및 가격 설정</h3>
+        <div v-if="inputdata._type == '온라인'">
+          <h4 class="day-select">시간 선택</h4>
+          <div class="program-online">
+            <div class="program-days" v-for="(day, index) in schedule" :key="index">
+              <div class="program-day">
+                <div class="day" v-if="!day.disabled">
+                  <div>{{ day.day }}</div>
+                  <input
+                    v-model="day.start_hour"
+                    type="time"
+                    step="3600"
+                    :name="'e' + index"
+                  />
+                  ~
+                  <input
+                    v-model="day.end_hour"
+                    type="time"
+                    step="3600"
+                    :name="'e' + index"
+                  />
+                </div>
+                <div class="day" v-else>
+                  <div class="holiday">{{ day.day }}</div>
+                </div>
+                <div class="">
+                  <label :for="'c' + index">휴무일</label>
+                  <input
+                    v-model="day.disabled"
+                    type="checkbox"
+                    :name="'c' + index"
+                    id=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4>가격 설정</h4>
+        <div class="program-cost" v-for=" (data,index) in detaildata" :key="index">
+          이름 : <input type="text" placeholder="ex) PT 1회 이용권" required v-model="data.title"> 
+          가격 : <input type="number" required v-model="data.price"> 
+          횟수 : <input type="number" required v-model="data.online_count"> 
+          <button @click="deletedata(index)"><i class="fas fa-minus"></i></button>
         </div>
         <div class="cost-explain">
           <span>항목을 필수적으로 입력해야 합니다.</span>
@@ -300,24 +332,25 @@ export default {
   width: 100vw;
 }
 
+.row {
+  margin: 0px;
+}
+
 .hero {
   display: flex;
-  position: relative;
-  height: 300px;
+  position : relative;
+  height: 330px;
   z-index: 1;
   justify-content: center;
   align-items: center;
 }
 
-.row {
-  margin: 0px;
-}
 
 .hero::after {
   content: "";
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/images/programcreate.jpg");
+  background-image: url("../../assets/images/programcreate2.jpg");
   background-size: cover;
   position: absolute;
   z-index: -1;
@@ -462,6 +495,41 @@ export default {
   border: 1px solid #1f85de;
   padding: 10px 0px;
 }
+
+.program-online {
+  display: flex;
+  justify-content: space-around;
+}
+
+.program-online .day-select {
+  display: inline;
+}
+
+.program-days {
+  display: flex;
+}
+
+.program-day {
+  width: 5.5vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.day .holiday {
+  color: #e61717;
+}
+
+.day input {
+  font-size: 13px;
+}
+
 
 .program-cost {
   margin: 12px 0px;

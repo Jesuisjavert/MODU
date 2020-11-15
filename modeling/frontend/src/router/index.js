@@ -14,7 +14,7 @@ import KakaoPayApprove from '../views/KakaoPayApprove.vue'
 import ProgramDetail from '../views/Program/ProgramDetail.vue'
 import ClientProgram from '../views/Client/Program/ClientProgram.vue'
 import ProgramApply from '../views/Program/ProgramApply.vue'
-
+import Chat from '@/views/Chat/Chat.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -83,6 +83,11 @@ const routes = [
     path : '/trainer/onlinelecture',
     name : 'OnlineLecture',
     component : OnlineLecture
+  },
+  {
+    path : '/chat',
+    name : 'Chat',
+    component : Chat
   }
 ]
 

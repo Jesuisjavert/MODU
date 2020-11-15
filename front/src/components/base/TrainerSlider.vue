@@ -12,6 +12,7 @@
   import VueSlickCarousel from 'vue-slick-carousel'
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+  import constants from "@/api/constants";
   
   import TrainerCard from '@/components/base/TrainerCard'
 
@@ -22,6 +23,7 @@
     components: { VueSlickCarousel, TrainerCard },
     data() {
       return {
+        constants,
         settings: {
         "centerMode": true,
         "centerPadding": "30px",
@@ -38,7 +40,7 @@
     },
     methods: {
       get_trainer() {
-        axios.get(`http://127.0.0.1:8000/api/trainer/`)
+        axios.get(`${this.constants.API_URL}trainer/`)
           .then((res)=>{
             this.trainers = res.data
           })
