@@ -84,12 +84,12 @@ export default {
                       this.isFirstLogin()
                     })
                     .catch((err)=>{
-                      console.log(err)
+                    //   console.log(err)
                     })
 
                 },
                 fail : error => {
-                    console.log(error);
+                    // console.log(error);
                 }
             })
         },

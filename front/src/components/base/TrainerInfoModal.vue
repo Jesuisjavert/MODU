@@ -106,7 +106,7 @@
                       text-color="white"
                       @click:close="deleteTag(i)"
                     >
-                      {{ userData[0].tags[i] }}
+                      {{ userData[0].tags[i].name }}
                     </v-chip>
                   </v-col>
                 </v-row>
@@ -197,16 +197,16 @@ export default {
             this.userData.push(res.data)
         })
         .catch((err) => {
-          console.log(err)
+          // console.log(err)
         })
     },
     newTagPush() {
       // console.log(this.userData[0].tags.indexOf(this.newTag))
       // console.log(this.userData[0].tags)
       if (this.userData[0].tags.indexOf(this.newTag) === -1){
-        console.log('냠냠냠')
+        // console.log('냠냠냠')
         this.userData[0].tags.push(this.newTag)
-        print(this.userData[0].tags)
+        // print(this.userData[0].tags)
         this.newTag = ''
       } else {
         alert('이미 존재하는 태그입니다.')

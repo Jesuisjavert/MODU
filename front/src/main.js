@@ -10,8 +10,8 @@ import UUID from 'vue-uuid'
 import VideoBg from 'vue-videobg'
 // import VueApexCharts from 'vue-apexcharts'
 
-import tio from 'socket.io-client';
-const socket = tio('http://localhost:3000');
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
 Vue.prototype.$socket = socket;
 import VueMoment from 'vue-moment'
 

@@ -111,7 +111,7 @@ export default {
                 res.data.forEach((item) => {
                     this.chatRooms.push(item);
                 });
-                console.log(res);
+                // console.log(res);
                 });
             },
     },

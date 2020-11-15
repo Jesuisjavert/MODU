@@ -85,7 +85,7 @@ export default {
                 // console.log(this.userData[0].user.image_url)
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
         },
         updateProfile() {
@@ -98,7 +98,7 @@ export default {
             .then((res) => {
             })
             .catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
         }
     },

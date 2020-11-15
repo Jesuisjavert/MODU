@@ -239,7 +239,8 @@ export default {
       axios
         .post(`${constants.API_URL}program/${id}/schedule/`, pushdata)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
+          this.$router.push({ name: 'Mypage' })
         });
     },
     appenddetail() {
@@ -273,14 +274,14 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (this.inputdata._type == "온라인") {
             this.schedulesubmit(res.data.id);
           }
           this.$router.push({ name: 'Mypage' })
         })
         .catch((err) => {
-          console.log(err.response);
+          // console.log(err.response);
         });
     },
     setFormData(formData, data, parentKey) {

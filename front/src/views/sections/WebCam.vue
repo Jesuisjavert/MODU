@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import RTCMultiConnec from 'rtcmulticonnection';
+import RTCMultiConnection from 'rtcmulticonnection';
 import { uuid } from 'vue-uuid';
 import axios from 'axios'
 import constants from '@/api/constants.js'
@@ -94,9 +94,9 @@ export default {
         // console.log(this.roomId)
     },
      mounted() {
-        console.log('webcam1')
-        this.rtcmConnection = new RTCMultiConnec();
-        console.log('webcam2')
+        // console.log('webcam1')
+        this.rtcmConnection = new RTCMultiConnection();
+        // console.log('webcam2')
         this.rtcmConnection.socketURL = this.socketURL;
         this.rtcmConnection.autoCreateMediaElement = false;
         this.rtcmConnection.enableLogs = this.enableLogs;
@@ -231,7 +231,7 @@ export default {
                     });
                 }
                 function getDisplayMediaError(error) {
-                    console.log('Media error: ' + JSON.stringify(error));
+                    // console.log('Media error: ' + JSON.stringify(error));
                 }
                 if (navigator.mediaDevices.getDisplayMedia) {
                     navigator.mediaDevices.getDisplayMedia({video: true, audio: false}).then(stream => {
@@ -246,7 +246,7 @@ export default {
             }
         },
         printer(item) {
-            console.log(item)
+            // console.log(item)
         },
         changeUserId() {
             

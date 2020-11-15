@@ -57,7 +57,7 @@ export default {
     },
     watch: {
         isKakaoLoginCheck: function (newVal,oldVale) {
-            console.log('여긴 watch', newVal)
+            // console.log('여긴 watch', newVal)
         }
     },
     data () {
