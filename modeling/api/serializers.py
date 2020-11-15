@@ -36,7 +36,6 @@ class ProgramSerialiezer(serializers.ModelSerializer):
     tags = TagSerializer(read_only=True,many=True)
     programschedule = ProgramScheduleSerializer(read_only=True, many=True)
     def get_image_url(self,program):
-        print(program)
         image = str(program.thumb_img)
         return 'http://d3v9ilm5vhs4go.cloudfront.net/media/'+image
     class Meta:

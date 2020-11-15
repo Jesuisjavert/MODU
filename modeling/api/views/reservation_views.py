@@ -11,7 +11,6 @@ class TrainerReservationView(APIView):
         date = request.POST.get('date')
         start_hour = request.POST.get('time')
         client = request.user.client.first()
-        print(date)
         program = Program.objects.get(pk=request.POST.get('program_id'))
         if not program.programreservationday.filter(day=date).exists():
             ProgramReservationDay.objects.create(

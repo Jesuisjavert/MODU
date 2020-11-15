@@ -82,7 +82,7 @@ class OnlineProgramSchedule(APIView):
         for schedule in request.data['schedule']:
             if schedule['disabled'] == False:
                 ProgramSchedule.objects.create(day=schedule['day'],start_hour=schedule['start_hour'],end_hour=schedule['end_hour'],program=onlineprogram)
-                return Response({'data': True})
+        return Response({'data': True})
 
 class TrainerProgramView(APIView):
     def get(self, request):

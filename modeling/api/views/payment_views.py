@@ -5,7 +5,7 @@ from ..serializers import ProgramPaymentSerialiezr
 import requests
 import json
 from ..models import ProgramRecord
-
+front_site = 'http://localhost:8080/'
 class KakaoPay(APIView):
     # 카카오 페이 결제 준비 단계
     def post(self, request):
@@ -26,12 +26,12 @@ class KakaoPay(APIView):
             'vat_amount': 0,
             'tax_free_amount': 0,
             # 결제 성공했을때
-            'approval_url': 'http://localhost:8080/kakaopay/approve/?program={}&price={}'
-                .format(program_id, price_id),
+            'approval_url': '{}kakaopay/approve/?program={}&price={}'
+                .format(front_site,program_id, price_id),
             # 실패했을때
-            'fail_url': 'http://localhost:8080/fail/',
+            'fail_url': f'{front_site}fail/',
             # 결제취소했을때
-            'cancel_url': 'http://localhost:8080/cancel/',
+            'cancel_url': f'{front_site}cancel/',
         }
         response = requests.post(url+"/v1/payment/ready", params=params, headers=headers)
         response = json.loads(response.text)

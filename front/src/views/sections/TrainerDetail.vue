@@ -24,10 +24,12 @@
         <h1>{{trainer.name}} </h1>
         <p>"{{trainer.content}}"</p>
 
-        <p>전문분야</p>
-        <div v-for="tag in trainer.tags" :key="tag.id">
-          <p>{{tag.name}}</p>
-        </div>
+        <p class="grey--text text--lighten-1 mb-1">전문분야</p>
+        <v-chip
+          label
+          v-for="tag in this.trainer.tags" :key="tag.id"
+          class="mr-2"
+        >{{tag.name}}</v-chip>
       </v-col>
     </v-row>
     
@@ -80,7 +82,7 @@
         <v-chip-group
           column
         >
-          <div v-for="(scheudle, index) in scheudles" :key="index">
+          <div v-for="(scheudle, index) in scheudles" :key="index" v-if="index>=8">
             <!-- {{scheudle}} -->
             <v-chip @click="set_time(scheudle.value)" v-if="scheudle.status" color="green">{{scheudle.time}}</v-chip>
             <v-chip v-else :ripple="false" :disabled="false">{{scheudle.time}}</v-chip>
@@ -113,36 +115,54 @@
           ></v-rating>
 
           <div class="grey--text ml-4 d-inline">
-            {{this.trainer.comment.rate}} ({{this.trainer.comment.count}})
+            {{Math.round(this.trainer.comment.rate*100)/100}} ({{this.trainer.comment.count}})
           </div>
         </v-row>
 
+        <template v-for="(comment, i) in comments">
+          <blog-post-comment
+            :key="i"
+            :comment="comment"
+          />
+        </template>
+
 
         <h3 class="mt-10">프로그램</h3>
+        <VueSlickCarousel v-if="programs!=null">
+          <div v-for="program in programs" :key="program.id"><ProgramCard v-bind="program"/></div>
+        </VueSlickCarousel>
       </v-col>
     </ItemColumn>
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
-import constants from "@/api/constants";
+  import axios from "axios";
+  import { mapState } from "vuex";
+  import constants from "@/api/constants";
+  import VueSlickCarousel from 'vue-slick-carousel'
+  import ProgramCard from '@/components/base/ProgramCard'
 
   export default {
     name: 'TrainerDetail',
     components: {
+      VueSlickCarousel,
+      ProgramCard,
       ItemRow: () => import('@/components/base/ItemRow'),
-      ItemColumn: () => import('@/components/base/ItemColumn')
+      ItemColumn: () => import('@/components/base/ItemColumn'),
+      BlogPostComment: () => import('@/components/base/Comment'),
     },
     data(){
       return {
         constants,
-        comment: null,
+        comments: null,
         trainer: {
           
           user: {
             "image_url": null
+          },
+          comment: {
+            "rate": 0
           }
         },
         selection: 1,
@@ -180,7 +200,8 @@ import constants from "@/api/constants";
         const pk = this.$route.params.pk
         axios.get(`${this.constants.API_URL}trainer/${pk}/comment/`)
           .then((res)=>{
-            this.comment = res.data
+            this.comments = res.data
+            console.log(res.data)
           })
           .catch((err)=>{
             console.log(err)

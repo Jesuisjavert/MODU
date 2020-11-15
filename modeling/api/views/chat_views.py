@@ -69,15 +69,12 @@ class ChatLogs(APIView):
             else:
                 return Response({'data':'잘못 들어오셨네요.'})
             try:
-                print(_type)
                 if _type == '트레이너':
                     targetchatroom = ChatRoom.objects.get(roomid__contains=roomId,trainer=user.trainer.first())
                 elif _type == '클라이언트':
-                    print('여기냐?')
                     targetchatroom = ChatRoom.objects.get(roomid__contains=roomId,client=user.client.first())
                 chattinglog = ChatLog.objects.filter(chatroom=targetchatroom)
                 serializer = ChatLogSerializer(chattinglog,many=True)
-                print(serializer)
                 return Response(serializer.data)
             except:
                 return Response({'data':'채팅창에 접근권한이 없습니다.'})

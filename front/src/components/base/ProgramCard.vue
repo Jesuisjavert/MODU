@@ -33,15 +33,13 @@
                 :src="this.$attrs.trainer.user.image_url"
               >
             </v-avatar>
-            <p class="ml-3">
-              {{this.$attrs.trainer.name}}
-            </p>
+            
           </v-card-title>
         </v-img>
 
         <v-card-text>
           <div class="font-weight-bold ml-8 mb-2">
-            Today
+            {{this.$attrs.trainer.name}}
           </div>
 
           <v-timeline
@@ -66,11 +64,13 @@
             >
               <div>
                 <div class="font-weight-normal">
-                  <strong>프로그램 스케쥴</strong> @주 {{this.$attrs.programschedule.length}}회
+                  <strong>프로그램 스케쥴</strong>
+                  <span v-if="this.$attrs._type=='온라인'"> @주 {{this.$attrs.programschedule.length}}회</span>
                 </div>
                 <div v-for="schedule in this.$attrs.programschedule" :key="schedule.id">
                   <strong>{{ schedule.day }}</strong> {{schedule.start_hour.substr(0,5)}} ~ {{schedule.end_hour.substr(0,5)}}
                 </div>
+                <div v-if="this.$attrs._type=='오프라인'">오프라인 프로그램입니다.</div>
               </div>
             </v-timeline-item>
 

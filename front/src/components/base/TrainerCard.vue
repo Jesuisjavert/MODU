@@ -37,7 +37,7 @@
             ></v-rating>
 
             <div class="grey--text ml-4 ">
-              <span>{{this.$attrs.comment.rate}}</span>
+              <span>{{(Math.round(this.$attrs.comment.rate*100)/100)}}</span>
               <span class="text-size">({{this.$attrs.comment.count}})</span>
             </div>
           </v-row>
@@ -119,7 +119,9 @@
         </div>
       </v-chip-group>
       <div v-else>
-        <p>휴무일 입니다.</p>
+        <v-col align="center" justify="center">
+          휴무일 입니다.
+        </v-col>
       </div>
     </v-card-text>
 

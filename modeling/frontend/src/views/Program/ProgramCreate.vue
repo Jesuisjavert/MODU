@@ -231,6 +231,7 @@ export default {
       const pushdata = {
         schedule: this.schedule,
       };
+      console.log(pushdata)
       axios
         .post(`${constants.API_URL}program/${id}/schedule/`, pushdata)
         .then((res) => {
