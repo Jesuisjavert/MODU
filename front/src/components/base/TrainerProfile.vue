@@ -15,7 +15,7 @@
             </v-col>
             <v-col cols="auto" class="text-start">
                 <p>{{ this.userData[0].name }}</p>
-                <p>함께한 태그</p>
+                <p>{{ this.userData[0].address }}</p>
                 <v-row v-if="!!this.userData[0].tags">
                     <v-col v-for="(tag, i) in userData1.tags" :key="tag.id">
                         <v-chip

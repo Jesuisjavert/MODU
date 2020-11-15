@@ -38,6 +38,17 @@ export default {
                 {
                     title: '나의 프로그램',
                 },
+                
+                {
+                    title: '프로그램 추가',
+                },
+                {
+                    title: '이번달 수입',
+                },
+                {
+                  title: '식단관리',
+                },
+                
                 {
                     title: '고객관리',
                     content: [
@@ -46,15 +57,6 @@ export default {
                         '강병국',
                         '배용균',
                     ]
-                },
-                {
-                    title: '프로그램 추가',
-                },
-                {
-                  title: '식단관리',
-                },
-                {
-                    title: '이번달 수입',
                 },
             ],
         }

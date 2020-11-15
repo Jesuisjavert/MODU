@@ -74,7 +74,7 @@ import { mapGetters, mapState } from 'vuex'
         'About us',
         'Contact',
         'Mypage',
-        // 'Logout'
+        'Logout'
       ]
     }),
     methods: {
