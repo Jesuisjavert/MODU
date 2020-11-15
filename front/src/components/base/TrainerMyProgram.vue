@@ -86,9 +86,7 @@ export default {
             },
             })
             .then((res) => {
-            console.log(res,'여기는 반응입니다.')
             const a = res.data.filter((item) => {
-                console.log(item,'item입니다.')
                 if (item._type == "온라인") {
                 return item;
                 }
@@ -96,7 +94,6 @@ export default {
             a.forEach((item)=>{
                 this.onlineLecturelist.push(item)
             })
-            console.log(this.onlineLecturelist,'-0---')
             })
             .catch((err) => {
             console.log(err);

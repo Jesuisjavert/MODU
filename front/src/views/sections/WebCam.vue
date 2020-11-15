@@ -1,17 +1,9 @@
 <template>
   <div class="container">
-      <div>
-          <h1>여기에 프로그램이름</h1>
-          <h3>강사이름 할람하고 말람말고</h3>
+      <div><br>
+          <base-section-heading title="화상회의" />
       </div>
-      <div class="row">
-          <div class="col-md-12 my-3">
-              <!-- 여기 나중에 버튼 컴포넌트 호출 -->
-              <v-btn @click="invite">초대하기</v-btn>
-              <v-btn @click="leave">종료</v-btn>
-              <v-btn @click="shareScreen">화면공유</v-btn>
-          </div>
-      </div>
+      
       <div class="video-list" >
             <div v-for="item in videoList"
                 v-bind:video="item"
@@ -20,6 +12,14 @@
                 <video controls autoplay playsinline ref="videos" v-if="localVideo.id === item.id" height="500" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
                 <video controls autoplay playsinline ref="videos" v-else :height="cameraHeight" :muted="item.muted" :id="item.id" @click="printer(item)"></video>
                 <p>{{ item.id }}</p>
+            </div>
+        </div>
+        <div class="row d-flex justify-center">
+            <div class="my-3">
+                <!-- 여기 나중에 버튼 컴포넌트 호출 -->
+                <v-btn @click="invite">초대하기</v-btn>
+                <v-btn @click="leave">종료</v-btn>
+                <v-btn @click="shareScreen">화면공유</v-btn>
             </div>
         </div>
         <!-- <v-button @click="changeUserId">닉네임변경</v-button> -->
@@ -172,7 +172,6 @@ export default {
             that.videoList = newList;
             that.$emit('left-room', stream.streamid);
         };
-        console.log(this.videoList)
         
         // 난수생성
         if ($cookies.isKey('roomID')) {
@@ -191,25 +190,19 @@ export default {
             //     $cookies.set('roomID', this.roomId )
             // })
         }
-        console.log(this.roomId)
         // if ($cookies.isKey('roomID') === false) {
         //     $cookies.set('roomID', newUuid)
         // }
         // join code
         var that = this;
-        console.log(that)
         this.rtcmConnection.openOrJoin(this.roomId, function (isRoomExist, roomid) {
-            console.log(roomid)
-            console.log(isRoomExist,'----')
             if (isRoomExist === false && that.rtcmConnection.isInitiator === true) {
                 that.$emit('opened-room', roomid);
             }
-        console.log('여긴어때')
         })
     },
     methods: {
         invite() {
-            console.log('----')
         },
         leave() {
             $cookies.remove('roomID')

@@ -122,7 +122,6 @@ export default {
   },
   computed: {
     scheduleList(){
-      console.log(this.schedule)
       if (this.isCheckAll == true){
         return this.schedule
       } else {
@@ -307,13 +306,10 @@ export default {
     // dropdown menu 변경
     onClickMenu(e) {
       // var target = $(e.target).closest('a[role="menuitem"]')[0];
-      console.log(target,'target입니다.')
       var action = this.getDataAction(target);
       var options = this.$refs.tuiCalendar.invoke("getOptions");
       var viewName = "";
 
-      console.log(target);
-      console.log(action);
       switch (action) {
         case "toggle-daily":
           viewName = "day";
@@ -357,25 +353,14 @@ export default {
         default:
           break;
       }
-      console.log("들어왔습니다.");
       this.$refs.tuiCalendar.invoke("setOptions", (options, true));
-      console.log("여기가 문제냐?");
-      console.log(viewName, "여기는 Vue에요");
       this.$refs.tuiCalendar.invoke("changeView", ("newViewName", viewName));
-      console.log("위에가 끝났습니다.");
-      console.log(this.calendarList);
       this.setDropdownCalendarType();
       this.setRenderRangeText();
       this.setSchedules();
     },
     setSchedules() {
       this.$refs.tuiCalendar.invoke("clear");
-      console.log(
-        "문제",
-        this.$refs.tuiCalendar.invoke("getViewName"),
-        this.$refs.tuiCalendar.invoke("getDateRangeStart"),
-        this.$refs.tuiCalendar.invoke("getDateRangeEnd")
-      );
       this.scheduleList.forEach(item => {
         this.$refs.tuiCalendar.invoke("createSchedules", [item]);
       });
@@ -439,7 +424,6 @@ export default {
       } else {
         type = "Monthly";
       }
-      console.log("끝");
       calendarTypeName.innerHTML = type;
     },
     setEventListener() {

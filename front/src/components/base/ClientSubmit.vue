@@ -82,7 +82,6 @@ export default {
             this.$refs.imageInput.click()
         },
         uploadimg(event) {
-            console.log(event);
             const file = event.target.files[0];
             this.profile_img = [];
             this.preview_img = [];
@@ -95,7 +94,6 @@ export default {
         },
         profileSubmit() {
             const Token = "Bearer " + this.userToken;
-            console.log(Token);
             let formData = new FormData();
             formData.append("profile_img", this.profile_img[0]);
             axios.post(`${constants.API_URL}rest-auth/user/profile/`, formData, {
@@ -104,7 +102,6 @@ export default {
             },
             })
             .then((res) => {
-            console.log(res);
             });
         },
         submitClient(){
@@ -115,7 +112,6 @@ export default {
                 },
             })
             .then((res) => {
-                console.log(res.data)
                 this.SET_TYPETOKEN('client')
                 this.$router.push({ name: 'Home' })
             })

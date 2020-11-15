@@ -201,7 +201,6 @@
         axios.get(`${this.constants.API_URL}trainer/${pk}/comment/`)
           .then((res)=>{
             this.comments = res.data
-            console.log(res.data)
           })
           .catch((err)=>{
             console.log(err)
@@ -212,7 +211,6 @@
         axios.get(`${this.constants.API_URL}trainer/${pk}/program/`)
           .then((res)=>{
             this.programs = res.data
-            console.log(this.programs)
           })
           .catch((err)=>{
             console.log(err)
@@ -224,15 +222,13 @@
         form.append('date', this.date)
         form.append('time', this.time)
         form.append('program_id', this.program_id)
-        console.log(this.date, this.time, this.program_id)
         const pk = this.$route.params.pk
         axios.post(`${this.constants.API_URL}trainer/${pk}/reservation/`, form, {
           headers: {
             Authorization: Token,
           },
         })
-        .then((res)=>{
-          console.log(res.data)
+        .then(()=>{
         })
       },
       get_schedule() {

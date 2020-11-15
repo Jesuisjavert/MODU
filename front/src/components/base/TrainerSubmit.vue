@@ -162,7 +162,6 @@ export default {
             this.$refs.imageInput.click()
         },
         uploadimg(event) {
-            console.log(event);
             const file = event.target.files[0];
             this.profile_img = [];
             this.preview_img = [];
@@ -175,7 +174,6 @@ export default {
         },
         profileSubmit() {
             const Token = "Bearer " + this.userToken;
-            console.log(Token);
             let formData = new FormData();
             formData.append("profile_img", this.profile_img[0]);
             axios.post(`${constants.API_URL}rest-auth/user/profile/`, formData, {
@@ -183,8 +181,8 @@ export default {
                 Authorization: Token,
             },
             })
-            .then((res) => {
-            console.log(res);
+            .then(() => {
+                this.$router.push({ name: 'Home' })
             });
         },
         submitTrainer(){
@@ -209,7 +207,6 @@ export default {
             });
         },
         autocomplete(event) {
-            console.log(event)
             this.autocompletelist = [];
             const inputValue = event.trim();
             if (inputValue.length > 0) {
@@ -222,7 +219,6 @@ export default {
         },
         // appendTag(tag) {
         newTagPush() {
-            console.log(this.submitData.tags.indexOf(this.newTag));
             if (this.submitData.tags.indexOf(this.newTag) === -1) {
                 this.submitData.tags.push(this.newTag);
                 this.newTag = ''

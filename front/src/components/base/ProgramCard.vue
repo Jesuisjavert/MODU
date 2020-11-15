@@ -110,7 +110,7 @@
     },
     methods: {
       go_detail() {
-        this.$router.push("program/" + this.$attrs.id);
+        this.$router.push("/program/" + this.$attrs.id);
       },
     },
     filters: {

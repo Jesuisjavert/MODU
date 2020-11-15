@@ -37,7 +37,7 @@
           callout: '02',
         },
         {
-          title: 'Kakao Pay를 통해 PT를 결제하세요',
+          title: 'Kakao Pay를 통해 PT를 결제',
           text: '카카오Pay를 통해 간단히 결제하시고, 모두의 헬스가 제공하는 모든 기능을 즐겨보세요.',
           callout: '03',
         },

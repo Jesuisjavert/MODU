@@ -55,16 +55,12 @@ export default {
     },
     methods: {
         kakaoLogin() {
-            console.log('hello')
-            console.log(window.Kakao)
             window.Kakao.Auth.login({
                 scope : 'profile, account_email',
                 success: this.GetMe,
             });
-            console.log('끝')
         },
         async GetMe(authObj){
-            console.log(authObj);
             this.data = window.Kakao.API
             window.Kakao.API.request({
                 url:'/v2/user/me',
@@ -104,12 +100,10 @@ export default {
                 },
                 })
                 .then((res)=>{
-                    console.log(res)
                     if (res.data.is_first === 0 ){
 
                     this.$router.push({name:'SubmitProfile'})
                     } else{
-                        console.log(res.data)
                         if (res.data.user.is_first == 1 ){
                             this.SET_TYPETOKEN('trainer')
                         } else{

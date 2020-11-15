@@ -194,8 +194,6 @@ export default {
         });
     },
     program_apply() {
-      console.log(this.selectPrice);
-      console.log(this.program);
       this.$router.push({
         name: "ProgramApply",
         query: { program: this.program.id, price: this.selectPrice },

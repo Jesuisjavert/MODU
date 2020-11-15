@@ -69,7 +69,6 @@ export default {
     },
     created() {
         this.fetchData()
-        console.log(this.userData)
     },
     methods: {
         async fetchData() {
@@ -80,20 +79,15 @@ export default {
                 },
             })
             .then((res) => {
-                // console.log(res)
                 this.userData.push(res.data)
                 this.userData[0].content.replaceAll("\n", "<br>");
-                // console.log(this.userData)
                 this.userData1 = this.userData[0]
-                // console.log(this.userData1, 'asdfasdf')
-                // console.log(this.userData[0].user.image_url)
             })
             .catch((err) => {
                 console.log(err)
             })
         },
         updateProfile() {
-            console.log('프록필수정')
             const Token = 'Bearer ' + this.userToken
             axios.put(`${constants.API_URL}trainer/`, {
                 headers: {
@@ -101,7 +95,6 @@ export default {
                 },
             })
             .then((res) => {
-                console.log(res)
             })
             .catch((err) => {
                 console.log(err)

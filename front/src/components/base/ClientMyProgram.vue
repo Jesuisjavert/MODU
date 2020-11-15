@@ -57,11 +57,9 @@ export default {
                 },
             })
             .then((res) => {
-                console.log(res, '여기는 반응입니다.')
                 res.data.forEach((item)=>{
                     this.onlineLecturelist.push(item)
                 })
-                console.log(this.onlineLecturelist)
                 // const a = res.data.filter((item) => {
                 //     console.log(item,'item입니다.')
                 //     if (item._type == "온라인") {
