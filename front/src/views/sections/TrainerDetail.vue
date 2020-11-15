@@ -78,14 +78,12 @@
         </v-row>
 
         <v-chip-group
-          v-model="selection"
-          active-class="deep-purple accent-4 white--text"
           column
         >
           <div v-for="(scheudle, index) in scheudles" :key="index">
             <!-- {{scheudle}} -->
             <v-chip @click="set_time(scheudle.value)" v-if="scheudle.status" color="green">{{scheudle.time}}</v-chip>
-            <v-chip v-else>{{scheudle.time}}</v-chip>
+            <v-chip v-else :ripple="false" :disabled="false">{{scheudle.time}}</v-chip>
           </div>
         </v-chip-group>
 

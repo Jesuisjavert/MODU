@@ -16,11 +16,37 @@
       height="250"
       :src="this.$attrs.user.image_url"
     ></v-img>
+    
+    <v-card-title>
+      <v-row>
+        <v-col cols="auto" class="mr-auto">
+          {{this.$attrs.name}}
+        </v-col>
+        <v-col>
+          <v-row
+            align="center"
+            class="mx-0"
+          >
+            <v-rating
+              :value="this.$attrs.comment.rate"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="14"
+            ></v-rating>
 
-    <v-card-title>{{this.$attrs.name}}</v-card-title>
+            <div class="grey--text ml-4 ">
+              <span>{{this.$attrs.comment.rate}}</span>
+              <span class="text-size">({{this.$attrs.comment.count}})</span>
+            </div>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-card-title>
 
     <v-card-text>
-      <v-row
+      <!-- <v-row
         align="center"
         class="mx-0"
       >
@@ -36,18 +62,20 @@
         <div class="grey--text ml-4">
           {{this.$attrs.comment.rate}} ({{this.$attrs.comment.count}})
         </div>
-      </v-row>
+      </v-row> -->
 
-      <div class="my-4 subtitle-1" v-for="tag in this.$attrs.tags" :key="tag.id">
-        <p>- {{tag.name}} </p>
+      <div class="my-4 subtitle-1">
+        <v-chip
+          label
+          v-for="tag in this.$attrs.tags" :key="tag.id"
+          class="mr-2"
+        >{{tag.name}}</v-chip>
       </div>
 
       <div>{{this.$attrs.content}}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
-
-    <v-card-title>Tonight's availability</v-card-title>
 
     <v-row>
       <v-col
@@ -157,3 +185,9 @@
     },
   }
 </script>
+
+<style scoped>
+  .text-size {
+    font-size: 0.75rem;
+  }
+</style>

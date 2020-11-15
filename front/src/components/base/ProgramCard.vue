@@ -4,7 +4,7 @@
       <v-card width="400">
         <v-img
           height="200px"
-          :src="require('@/assets/trainer7.jpg')"
+          :src="this.$attrs.image_url"
         >
           <v-app-bar
             flat
