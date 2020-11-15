@@ -46,6 +46,7 @@ export default {
           },
         })
         .then((res) => {
+          console.log(res,'----')
           res.data.forEach((item) => {
             this.messages.push(item);
           });

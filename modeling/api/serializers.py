@@ -113,6 +113,7 @@ class ChatRoomSerializer(serializers.ModelSerializer):
 class ChatLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatLog
+        fields = '__all__'
 class ProgramRecordSerializer(serializers.ModelSerializer):
     program_title = serializers.CharField(source='program.title')
     program_type = serializers.CharField(source='program._type')
