@@ -55,7 +55,7 @@ class UserInfo(APIView):
                 self.put_user(1)
                 tags = request.data['taglist'].split(',')
                 for eachtag in tags:
-                    if trainer.tags.filter(name=eachtag).exists():
+                    if Tag.objects.filter(name=eachtag).exists():
                         trainer.tags.add(Tag.objects.get(name=eachtag))
                     else:
                         createTag = Tag.objects.create(name=eachtag)
@@ -85,7 +85,8 @@ class UserInfo(APIView):
                     trainer.tags.remove(origin_tag)
                 tags = request.data['taglist'].split(',')
                 for eachtag in tags:
-                    if trainer.tags.filter(name=eachtag).exists():
+                    print(eachtag,'----')
+                    if Tag.objects.filter(name=eachtag).exists():
                         trainer.tags.add(Tag.objects.get(name=eachtag))
                     else:
                         createTag = Tag.objects.create(name=eachtag)

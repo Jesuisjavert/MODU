@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div v-for="(data,idx) in onlineLecturelist">
+        <div v-for="(data,idx) in onlineLecturelist" :key="idx">
             <div>
             <v-row>
                 <v-col cols="5" class="mr-auto">
                     <v-img 
                         :src="data.image_url" 
-                        max-width="100"
-                        max-height="100"
+                        max-width="150"
+                        max-height="150"
                     ></v-img>
                 </v-col>
                 <v-col cols="7" class="text-start">
@@ -15,7 +15,8 @@
                     <span class="font-weight-bold mr-2">{{ data.trainer_name }}</span>
                     <span>트레이너</span>
                     <p>{{data.program_price_title}}</p>
-                    <!-- <button @click="">정보보기</button> -->
+                    <!-- <button @click="goDetail(idx)">정보보기</button> -->
+                    <Btn @click="goDetail(idx)">정보보기</Btn>
                 </v-col>
             </v-row>
             <br />
@@ -33,6 +34,7 @@ import { mapState } from 'vuex'
 export default {
     name: "ClientMyProgram",
     components: {
+        Btn: () => import('@/components/base/Btn'),
     },
     created() {
         this.get_programs()
@@ -73,6 +75,9 @@ export default {
                 console.log(err)
             })
         },
+        goDetail(idx) {
+            this.$router.push("program/" + this.onlineLecturelist[idx].program)
+        }
     }
 }
 </script>

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import RTCMultiConnection from 'rtcmulticonnection';
+import RTCMultiConnec from 'rtcmulticonnection';
 import { uuid } from 'vue-uuid';
 import axios from 'axios'
 import constants from '@/api/constants.js'
@@ -94,7 +94,9 @@ export default {
         // console.log(this.roomId)
     },
      mounted() {
-        this.rtcmConnection = new RTCMultiConnection();
+        console.log('webcam1')
+        this.rtcmConnection = new RTCMultiConnec();
+        console.log('webcam2')
         this.rtcmConnection.socketURL = this.socketURL;
         this.rtcmConnection.autoCreateMediaElement = false;
         this.rtcmConnection.enableLogs = this.enableLogs;
