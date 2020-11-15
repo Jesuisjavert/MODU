@@ -494,7 +494,7 @@ export default {
 }
 
 .program-list-item {
-  width: 200px;
+  width: 150px;
   border-radius: 20px;
   font-size: 18px;
   background-color: #aaaaaa;
