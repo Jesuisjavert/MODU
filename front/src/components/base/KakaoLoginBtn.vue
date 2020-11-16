@@ -81,6 +81,7 @@ export default {
                     axios.post(`${this.constants.API_URL}rest-auth/kakao/login/`,form)
                     .then((res)=>{
                       this.SET_TOKEN(res.data.access_token)
+                      this.SET_USERNAME(res.data.user.username);
                       this.isFirstLogin()
                     })
                     .catch((err)=>{
@@ -129,7 +130,7 @@ export default {
                 this.isFirstLogin()
             })
         },
-        ...mapMutations(['SET_TOKEN','SET_TYPETOKEN'])
+        ...mapMutations(['SET_TOKEN','SET_TYPETOKEN',"SET_USERNAME"])
     },
     computed : {
         ...mapState(['userToken'])

@@ -100,6 +100,7 @@ export default {
   created() {
     this.getChatLog();
     this.$socket.on("chat", (data) => {
+      console.log('이러기냐?')
       this.messages.push({
         username: data.username,
         message: data.message,
