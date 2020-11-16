@@ -85,7 +85,6 @@ class UserInfo(APIView):
                     trainer.tags.remove(origin_tag)
                 tags = request.data['taglist'].split(',')
                 for eachtag in tags:
-                    print(eachtag,'----')
                     if Tag.objects.filter(name=eachtag).exists():
                         trainer.tags.add(Tag.objects.get(name=eachtag))
                     else:
