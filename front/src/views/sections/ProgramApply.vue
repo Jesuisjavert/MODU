@@ -55,7 +55,7 @@ export default {
           this.program = res.data
           this.get_price()
         })
-        .catch((err)=>{
+        .catch(()=>{
           // console.log(err)
         })
     },
@@ -80,7 +80,7 @@ export default {
             let payUrl = res.data.next_redirect_pc_url
             location.href = payUrl
         })
-        .catch((err)=>{
+        .catch(()=>{
             // console.log(err)
             alert("에러가 발생했습니다. 다시 시도해주세요")
             this.$router.push('/')

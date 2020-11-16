@@ -238,7 +238,7 @@ export default {
       };
       axios
         .post(`${constants.API_URL}program/${id}/schedule/`, pushdata)
-        .then((res) => {
+        .then(() => {
           // console.log(res);
           this.$router.push({ name: 'Mypage' })
         });
@@ -280,7 +280,7 @@ export default {
           }
           this.$router.push({ name: 'Mypage' })
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log(err.response);
         });
     },

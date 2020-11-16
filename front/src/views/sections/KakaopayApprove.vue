@@ -48,10 +48,10 @@ export default {
               Authorization: Token,
             },
           })
-          .then((res)=>{
+          .then(()=>{
             this.REMOVE_TID
           })
-          .catch((err)=>{
+          .catch(()=>{
             // console.log(err)
           })
       },

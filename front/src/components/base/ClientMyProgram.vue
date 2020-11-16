@@ -71,8 +71,8 @@ export default {
             // })
             // console.log(this.onlineLecturelist,'-0---')
             // })
-            .catch((err) => {
-                console.log(err)
+            .catch(() => {
+                // console.log(err)
             })
         },
         goDetail(idx) {

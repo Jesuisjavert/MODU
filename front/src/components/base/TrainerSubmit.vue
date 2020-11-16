@@ -202,7 +202,7 @@ export default {
                 this.$router.push({ name: 'Home' })
             }
             })
-            .catch((err) => {
+            .catch(() => {
             // console.log(err.response);
             });
         },

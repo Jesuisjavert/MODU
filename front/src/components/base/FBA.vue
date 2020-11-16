@@ -120,7 +120,7 @@ export default {
 
                 }
             })
-            .catch((err)=>{
+            .catch(()=>{
                 // console.log(err.response)
             })
         },

@@ -147,7 +147,7 @@ export default {
         .then((res) => {
           this.program = res.data;
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log(err);
         });
     },
@@ -158,7 +158,7 @@ export default {
         .then((res) => {
           this.clients = res.data;
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log(err);
         });
     },
@@ -169,7 +169,7 @@ export default {
         .then((res) => {
           this.comments = res.data;
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log(err);
         });
     },
@@ -186,10 +186,10 @@ export default {
             },
           }
         )
-        .then((res) => {
+        .then(() => {
           // console.log(res);
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log(err);
         });
     },

@@ -95,7 +95,7 @@ export default {
                 this.onlineLecturelist.push(item)
             })
             })
-            .catch((err) => {
+            .catch(() => {
             // console.log(err);
             });
         },
