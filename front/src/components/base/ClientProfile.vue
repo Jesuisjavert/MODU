@@ -83,7 +83,7 @@ export default {
                 this.userData[0].content.replaceAll("\n", "<br>");
                 this.userData1 = this.userData[0]
             })
-            .catch((err) => {
+            .catch(() => {
                 // console.log(err)
             })
         },
@@ -94,9 +94,10 @@ export default {
                     Authorization: Token,
                 },
             })
-            .then((res) => {
+            .then(() => {
+                this.$router.go(0)
             })
-            .catch((err) => {
+            .catch(() => {
                 // console.log(err)
             })
         }

@@ -11,7 +11,7 @@ import VideoBg from 'vue-videobg'
 // import VueApexCharts from 'vue-apexcharts'
 
 import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
+const socket = io('https://k3c202.p.ssafy.io:3000');
 Vue.prototype.$socket = socket;
 import VueMoment from 'vue-moment'
 

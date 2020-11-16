@@ -191,7 +191,7 @@
             this.trainer = res.data
             this.get_schedule()
           })
-          .catch((err)=>{
+          .catch(()=>{
             // console.log(err)
           })
       },
@@ -201,7 +201,7 @@
           .then((res)=>{
             this.comments = res.data
           })
-          .catch((err)=>{
+          .catch(()=>{
             // console.log(err)
           })
       },
@@ -211,7 +211,7 @@
           .then((res)=>{
             this.programs = res.data
           })
-          .catch((err)=>{
+          .catch(()=>{
             // console.log(err)
           })
       },

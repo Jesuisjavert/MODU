@@ -88,7 +88,7 @@ export default {
 
                 },
                 fail : error => {
-                    // console.log(error);
+                    alert(error);
                 }
             })
         },

@@ -47,7 +47,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res,'----')
+
           res.data.forEach((item) => {
             this.messages.push(item);
           });
@@ -72,8 +72,9 @@ export default {
         message: this.inputmessage,
         time: time,
       };
-      await axios.post(`${constants.API_URL}chat/log/`, data).then((res) => {
-        console.log(res);
+      await axios.post(`${constants.API_URL}chat/log/`, data).then(() => {
+        let acz = 0
+        acz + 1
       });
       this.$socket.emit("chat", roomId, username, this.inputmessage, time);
       this.messages.push({
@@ -100,7 +101,6 @@ export default {
   created() {
     this.getChatLog();
     this.$socket.on("chat", (data) => {
-      console.log('이러기냐?')
       this.messages.push({
         username: data.username,
         message: data.message,

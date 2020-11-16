@@ -44,7 +44,7 @@
           .then((res)=>{
             this.trainers = res.data
           })
-          .catch((err)=>{
+          .catch(()=>{
             // console.log(err)
           })
       }

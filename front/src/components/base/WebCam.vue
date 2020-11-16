@@ -388,7 +388,7 @@
               that.$emit('share-stopped', stream.streamid);
             });
           }
-          function getDisplayMediaError(error) {
+          function getDisplayMediaError() {
             // console.log('Media error: ' + JSON.stringify(error));
           }
           if (navigator.mediaDevices.getDisplayMedia) {

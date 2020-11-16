@@ -84,7 +84,7 @@ export default {
                 // console.log(this.userData1, 'asdfasdf')
                 // console.log(this.userData[0].user.image_url)
             })
-            .catch((err) => {
+            .catch(() => {
                 // console.log(err)
             })
         },
@@ -95,9 +95,9 @@ export default {
                     Authorization: Token,
                 },
             })
-            .then((res) => {
+            .then(() => {
             })
-            .catch((err) => {
+            .catch(() => {
                 // console.log(err)
             })
         }

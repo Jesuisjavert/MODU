@@ -42,7 +42,7 @@
           .then((res)=>{
             this.programs = res.data
           })
-          .catch((err)=>{
+          .catch(()=>{
             // console.log(err)
           })
       }

@@ -56,7 +56,7 @@ export default {
         ...mapGetters(['isLogined'])
     },
     watch: {
-        isKakaoLoginCheck: function (newVal,oldVale) {
+        isKakaoLoginCheck: function () {
             // console.log('여긴 watch', newVal)
         }
     },
