@@ -5,7 +5,7 @@ from ..serializers import ProgramPaymentSerialiezr
 import requests
 import json
 from ..models import ProgramRecord
-front_site = 'http://localhost:8080/'
+front_site = 'https://k3c202.p.ssafy.io/'
 class KakaoPay(APIView):
     # 카카오 페이 결제 준비 단계
     def post(self, request):

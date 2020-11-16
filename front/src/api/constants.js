@@ -1,6 +1,6 @@
 export default {
     // API_URL : 'http://127.0.0.1:8000/api/',
-    API_URL : 'https://k3c202.p.ssafy.io:8000/api/',
+    API_URL : 'https://k3c202.p.ssafy.io/api/',
     tags : ['다이어트',
         '바른체형',
         '기능개선',
