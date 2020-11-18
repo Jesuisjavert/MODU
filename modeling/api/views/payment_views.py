@@ -11,6 +11,7 @@ class KakaoPay(APIView):
     def post(self, request):
         program_id = request.POST.get('program_id')
         price_id = request.POST.get('price_id')
+        print(program_id,price_id,'----')
         url = "https://kapi.kakao.com"
         headers = {
             'Authorization': "KakaoAK " + "19ec65168ecd5968e1f8e5eca0a3ea3c",
@@ -35,6 +36,7 @@ class KakaoPay(APIView):
         }
         response = requests.post(url+"/v1/payment/ready", params=params, headers=headers)
         response = json.loads(response.text)
+        print(response.text)
         return Response(response)
 
 class KakaoPayApprove(APIView):
