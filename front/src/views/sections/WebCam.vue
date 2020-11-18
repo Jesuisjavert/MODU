@@ -5,12 +5,14 @@
       <base-section-heading title="화상회의" />
     </div>
 
-    <div class="video-list">
-      <div
+    <!-- <div class="video-list"> -->
+    <v-row class="video-list">
+      <v-col
+        cols="5"
         v-for="item in videoList"
         v-bind:video="item"
         v-bind:key="item.id"
-        class="video-item"
+        class="video-item mx-7 px-5"
       >
         <video
           controls
@@ -18,7 +20,7 @@
           playsinline
           ref="videos"
           v-if="localVideo.id === item.id"
-          height="500"
+          height="400"
           :muted="item.muted"
           :id="item.id"
           @click="printer(item)"
@@ -34,8 +36,9 @@
           :id="item.id"
           @click="printer(item)"
         ></video>
-      </div>
-    </div>
+      </v-col>
+    <!-- </div> -->
+    </v-row>
     <div class="row d-flex justify-center">
       <div class="my-3">
         <!-- 여기 나중에 버튼 컴포넌트 호출 -->
@@ -79,7 +82,7 @@ export default {
     },
     cameraHeight: {
       type: [Number, String],
-      default: 500
+      default: 400
     },
     autoplay: {
       type: Boolean,

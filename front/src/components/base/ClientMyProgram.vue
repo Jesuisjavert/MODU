@@ -71,7 +71,7 @@ export default {
             // })
             // console.log(this.onlineLecturelist,'-0---')
             // })
-            .catch(() => {
+            .catch((err) => {
                 // console.log(err)
             })
         },
