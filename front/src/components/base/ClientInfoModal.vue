@@ -150,8 +150,8 @@ export default {
         .then((res) => {
             this.userData.push(res.data)
         })
-        .catch(() => {
-          // console.log(err)
+        .catch((err) => {
+        //   console.log(err)
         })
     },
     // 이미지 없을때 이미지 누름
@@ -199,7 +199,7 @@ export default {
         }
         this.dialog = false
         })
-        .catch(() => {
+        .catch((err) => {
           // console.log(err.response);
         });
     },
