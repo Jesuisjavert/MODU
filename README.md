@@ -3,9 +3,11 @@
 </p>
 
 
-> M Off line - Online Platform Service
+> MODU's Health
+>
+> 모두의 헬스 (SSAFY 3rd 자율프로젝트)
 
-### 🏠 [Homepage](modu.jesuisjavert.com  )
+### 🏠 [Homepage](github.com/jesuisjavert/MODU  )
 
 ### ✨ [Demo](modu.jesuisjavert.com)
 
