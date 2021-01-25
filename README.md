@@ -25,10 +25,20 @@ python manage.py runserver
 
 ## Author
 
-👤 **  Kang Donghoon   **
+Team Leader : 🐯 **Kang Donghoon **
+
+Backend : 🐶 **Lee Changwan**
+
+Backend: 🐺 **Bae Yongkyun**
+
+Frontend : 🐱 **Kang Byungkuk **
+
+Frontend : 🦁 **Roh Hyunsuk**
 
 * Website:  jesuisjavert.github.io   
 * Github: [@jesuisjavert   \](https://github.com/jesuisjavert   \)
+
+
 
 ## Show your support
 
