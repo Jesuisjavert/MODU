@@ -11,6 +11,8 @@
 
 ### ✨ [Demo](modu.jesuisjavert.com)
 
+
+
 ## Description
 
 ```sh
@@ -20,21 +22,21 @@
 
 
 
-## Install
+## Frontend Install
 
 ```sh
 npm install
 ```
 
-
-
-## Usage
+## Backend Install
 
 ```sh
+At Modeling Folder
+python -m venv venv
+source venv/Scripts/activate
+python install -r requirements.txt
 python manage.py runserver
 ```
-
-
 
 ## Author
 
