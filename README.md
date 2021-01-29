@@ -11,28 +11,66 @@
 
 ### ✨ [Demo](modu.jesuisjavert.com)
 
-## Description
+## :page_with_curl: Description
 
 ```sh
 모두의 헬스는 Health Trainer 와 Client 간의 온-오프라인 Personal Training 상품을
 판매하고, 이용할 수 있게 도와주는 O2O 플랫폼 서비스 입니다.
 ```
 
-## Frontend Install
 
-```sh
-npm install
+
+## :runner: Steps to run
+
+### Backend
+
+```bash
+$ cd modeling
+$ python -m venv venv
+$ source venv/Scripts/activate
+$ python install -r requirements.txt
+$ python manage.py runserver
 ```
 
-## Backend Install
+### Frontend
 
-```sh
-At Modeling Folder
-python -m venv venv
-source venv/Scripts/activate
-python install -r requirements.txt
-python manage.py runserver
+```bash
+$ cd frontend
+$ npm install
+$ npm run serve
 ```
+
+<br>
+
+## :wrench: Tech Stack
+
+### Backend
+
+- Django  
+
+### Frontend
+
+- Vue
+
+### DB
+
+- Sqlite
+
+### SCM
+
+- Git  `2.17.1`
+
+<br>
+
+<br>
+
+## :pencil2: ERD
+
+![](C:\Users\DonghoonKang\Desktop\images\erd.png)
+
+
+
+<br>
 
 ## Author
 
@@ -48,19 +86,17 @@ Frontend : 🦁 **Roh Hyunsuk**
 
 <hr>
 
-## Award
+## :trophy: Awards
 
-<img src="">
+- 공통 프로젝트 우수팀 선정
+- 공통 프로젝트 UCC 우수팀 선정
 
-Website:  https://jesuisjavert.github.io
+<img src="" style="zoom: 20%;" />
 
-Github: [@jesuisjavert](https://github.com/jesuisjavert)
 
-<hr>
 
-## Show your support
 
-Give a ⭐️ if this project helped you!
 
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+## 📝 License
+
+Copyright © 2020  MODU's Health  <br>
