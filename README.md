@@ -3,13 +3,13 @@
 </p>
 
 
-> MODU's Health
->
-> 모두의 헬스 (SSAFY 3rd 자율프로젝트)
+> MODU's Health / 모두의 헬스 (SSAFY 3rd 자율프로젝트)
 
 ### 🏠 [Homepage](github.com/jesuisjavert/MODU  )
 
 ### ✨ [Demo](modu.jesuisjavert.com)
+
+<br>
 
 ## :page_with_curl: Description
 
@@ -92,8 +92,6 @@ Frontend : 🦁 **Roh Hyunsuk**
 - 공통 프로젝트 UCC 우수팀 선정
 
 <img src="" style="zoom: 20%;" />
-
-
 
 
 
