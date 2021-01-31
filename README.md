@@ -1,6 +1,9 @@
-<h1 align="center">Welcome to MODU 👋</h1>
+<h1 align="center">Welcome to MODU <img src="hi.gif" style="zoom:25%;"></h1>
 <p>
 </p>
+
+<img src="./logo_row.png" alt="MODU" style="zoom:76%;" />
+
 
 
 > MODU's Health / 모두의 헬스 (SSAFY 3rd 자율프로젝트)
