@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to MODU <img src="hi.gif" style="zoom:25%;"></h1>
+<h1 align="center">Welcome to MODU 👋</h1>
 <p>
 </p>
 
