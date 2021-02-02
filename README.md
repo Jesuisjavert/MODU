@@ -2,7 +2,7 @@
 <p>
 </p>
 
-<img src="./logo_row.png" alt="MODU" style="zoom:76%;" />
+<img src="./logo_row.png" alt="MODU" style="zoom:76%;" align="center"/>
 
 
 
