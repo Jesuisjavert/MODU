@@ -1,13 +1,20 @@
-<h1 align="center">Welcome to MODU 👋</h1>
+<h1 align="center">Welcome to MODU <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="48px"></h1>
 <p>
 </p>
+
+<center> 
+
 <img src="./logo_row.png" alt="MODU" style="zoom:76%;" align="center"/>
 
 
 
+<center/>
+
 > MODU's Health / 모두의 헬스 (SSAFY 3rd 자율프로젝트)
 
-### 🏠 [Homepage](github.com/jesuisjavert/MODU) :clapper:[Demo 시연영상](https://www.youtube.com/watch?v=JnYyQUX-lPw&feature=youtu.be) :open_book:[프로젝트 명세서]() :page_with_curl:[Presentation]()
+### 🏠 [Homepage](https://github.com/jesuisjavert/MODU) :clapper:[Demo 시연영상](https://www.youtube.com/watch?v=JnYyQUX-lPw&feature=youtu.be) 
+
+### :page_with_curl:[프로젝트 명세서](https://drive.google.com/file/d/1fWqLAJYHXRDeOOPT6kzg8ESiNVkAZr1h/view?usp=sharing) :microphone:[Presentation](https://drive.google.com/file/d/1LEiyBAhnahO3JV_hn3iLqF7BJafw2TFf/view?usp=sharing)
 
 <br>
 
@@ -23,25 +30,96 @@
 ## :pushpin: Project Goal
 
 ```sh
-코로나 사태 이후, 우리의 삶은 ‘뉴 노말(New normal)’ 시대로의 전환을 맞이하게 되었
-다. 전염병의 확산을 막기 위한 ‘비대면/언택트(Untact)’의 시대. 오프라인 대면 만남을
-최소한으로 줄이려는 노력과, 그만큼 줄어든 활동량에 따라, 개인의 건강과 운동을 집
-에서 해결할 수 있는 ‘홈트레이닝’에 대한 수요가 급격하게 늘어나게 되었다.
-이 결과, 2020년 업종별 폐업률 1위가 피트니스 시장이 될 정도로, 피트니스 시장의 많은 자영업자들이 심각한 경제적 타격을 입은 것으로 보인다. 즉, 기존의 오프라인 PT프로그램 및 헬스장 운영 수익구조로는 월세 및 시설관리비용을 감당할 수가 없는 것이다.
-기존의 오프라인 피트니스 시장을 온라인 플랫폼에 안착시키고, 기존의 전문 기술력을 가진 헬스 트레이너들을 온라인 홈트레이닝 시장과 연결시켜 새로운 가치를 창출해내는 것은 유의미한 시도가 될 것이다.
+코로나 사태 이후, 우리의 삶은 ‘뉴 노말(New normal)’시대로의 전환을 맞이했습니다.
+전염병의 확산을 막기 위한 ‘비대면/언택트(Untact)’의 시대에, 오프라인 대면 만남을 최소한으로 줄이려는 노력과, 그만큼 줄어든 활동량에 따라, 개인의 건강과 운동을 집에서 해결할 수 있는 ‘홈트레이닝’에 대한 수요가 급격하게 늘어나게 되었습니다.
+이 결과, 2020년 업종별 폐업률 1위가 오프라인 피트니스 시장이 될 정도로, 피트니스 시장의 많은 자영업자들이 심각한 경제적 타격을 입은 것으로 보입니다.
+이를 해결하기 위해, 온라인 홈트레이닝족과 오프라인 헬스트레이너를 연결하는 플랫폼 서비스를 만들어 국민건강증진과 트레이너 자영업자들의 경영난을 해소하기 위해 이 프로젝트를 기획했습니다.
+ 기존의 오프라인 피트니스 시장을 온라인 플랫폼에 안착시키고, 기존의 전문 기술력을 가진 헬스 트레이너들을 온라인 홈트레이닝 시장과 연결시켜 새로운 가치를 창출해내는 것은 유의미한 시도가 될 것입니다.
 ```
 
 
 
+## :mag: Project Requirements
+
+![Requirements](./README.assets/requirements.png)
+
 ## :mag: Overview
 
-<br>
+### User Login Page
 
-### Main page
-
-![](C:\Users\DonghoonKang\Desktop\github page\images\main.png)
+![1](./README.assets/1.png)
 
 <br>
+
+### Trainer - Client Chatting
+
+![2](./README.assets/2.png)
+
+<br>
+
+### Best Trainer - Best Program Carousel
+
+![3](./README.assets/3.png)
+
+<br>
+
+### Multiple User WebRTC(Realtime Camera) Online Personal Training
+
+![4](./README.assets/4.png)
+
+<br>
+
+### Schedule managment
+
+![5](./README.assets/5.png)
+
+<br>
+
+### PT Program & Client management
+
+![6](./README.assets/6.png)
+
+<br>
+
+### PT Program CRUD
+
+![7](./README.assets/7.png)
+
+<br>
+
+### Client Payment System
+
+![8](./README.assets/8.png)
+
+<br>
+
+### Realtime Notification & Review & Reservation System
+
+![9](./README.assets/9.png)
+
+<br>
+
+
+
+## :wrench: Tech Stack
+
+### Tech Stack
+
+![TechStack](./README.assets/stack.png)
+
+
+
+### System Architecture
+
+![TechStack](./README.assets/arch.png)
+
+<br>
+
+
+
+## :pencil2: ERD
+
+![ERD](./README.assets/erd.png)
 
 <br>
 
@@ -67,37 +145,7 @@ $ npm run serve
 
 <br>
 
-## :wrench: Tech Stack
-
-### Backend
-
-- Django  
-
-### Frontend
-
-- Vue
-
-### DB
-
-- Sqlite
-
-### SCM
-
-- Git  `2.17.1`
-
-<br>
-
-<br>
-
-## :pencil2: ERD
-
-![](C:\Users\DonghoonKang\Desktop\images\erd.png)
-
-
-
-<br>
-
-## Author
+## 🤼‍♂️Author
 
 Team Leader : 🐯 **Kang Donghoon **
 
@@ -114,7 +162,7 @@ Frontend : 🦁 **Roh Hyunsuk**
 ## :trophy: Awards
 
 - 공통 프로젝트 우수팀 선정
-- <img src="" style="zoom: 20%;" />
+- ![Awards](./README.assets/MODU.jpg)
 
 
 
