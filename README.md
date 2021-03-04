@@ -3,7 +3,7 @@
 </p>
 
 <center>
-    <img src="./logo_row.png" alt="MODU" style="zoom:76%;"/>
+    <img src="./logo_row.png" alt="MODU" style="zoom:76%;" align="center"/>
 </center>
 
  
@@ -42,7 +42,7 @@
 ## :mag: Project Requirements
 
 <center>
-    <img src="./README.assets/requirements.png" alt="MODU"/>
+    <img src="./README.assets/requirements.png" alt="MODU"  align="center"/>
 </center>
 
 ## :mag: Overview
