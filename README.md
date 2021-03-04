@@ -6,7 +6,7 @@
     <img src="./logo_row.png" alt="MODU" style="zoom:76%;" align="center"/>
 </center>
 
- 
+
 
 > MODU's Health / 모두의 헬스 (SSAFY 3rd 자율프로젝트)
 
@@ -188,6 +188,8 @@ Frontend : 🦁 **Roh Hyunsuk**
 ## :trophy: Awards
 
 - 공통 프로젝트 우수팀 선정
+
+  
 
 <center>
     <img src="./README.assets/modu.jpg" alt="MODU"/>
