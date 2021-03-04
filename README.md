@@ -173,13 +173,13 @@ $ npm run serve
 
 ## 🤼‍♂️Author
 
-Team Leader : 🐯 **Kang Donghoon **
+Team Leader : 🐯**Kang Donghoon**
 
 Backend : 🐶 **Lee Changwan**
 
 Backend: 🐺 **Bae Yongkyun**
 
-Frontend : 🐱 **Kang Byungkuk **
+Frontend : 🐱 **Kang Byungkook**
 
 Frontend : 🦁 **Roh Hyunsuk**
 
@@ -189,11 +189,8 @@ Frontend : 🦁 **Roh Hyunsuk**
 
 - 공통 프로젝트 우수팀 선정
 
-  
+![Award](./README.assets/MODU.jpg)
 
-<center>
-    <img src="./README.assets/modu.jpg" alt="MODU"/>
-</center>
 
 
 
