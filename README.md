@@ -187,9 +187,13 @@ Frontend : 🦁 **Roh Hyunsuk**
 
 ## :trophy: Awards
 
-- 공통 프로젝트 우수팀 선정
+- SSAFY 자율 프로젝트 우수팀 선정
 
 ![Award](./README.assets/MODU.jpg)
+
+- SSAFY  Best Member 선정 & 50000 마일리지 수여
+
+  ![bestmember](./README.assets/bestmember.png)
 
 
 
