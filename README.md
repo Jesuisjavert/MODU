@@ -139,14 +139,11 @@
 
 <br>
 
-
-
 ## :pencil2: ERD
 
 <center>
     <img src="./README.assets/erd.png" alt="MODU"/>
 </center>
-
 <br>
 
 ## :runner: Steps to run
