@@ -10,7 +10,7 @@
 
 > MODU's Health / 모두의 헬스 (SSAFY 3rd 자율프로젝트)
 
-### 🏠 [Homepage](https://github.com/jesuisjavert/MODU) :clapper:[Demo 시연영상](https://www.youtube.com/watch?v=JnYyQUX-lPw&feature=youtu.be) :page_with_curl:[프로젝트 명세서](https://drive.google.com/file/d/1fWqLAJYHXRDeOOPT6kzg8ESiNVkAZr1h/view?usp=sharing) :microphone:[Presentation](https://drive.google.com/file/d/1LEiyBAhnahO3JV_hn3iLqF7BJafw2TFf/view?usp=sharing)
+### 🏠 [Github](https://github.com/jesuisjavert/MODU) :clapper:[Demo 시연영상](https://www.youtube.com/watch?v=JnYyQUX-lPw&feature=youtu.be) :page_with_curl:[프로젝트 명세서](https://drive.google.com/file/d/1fWqLAJYHXRDeOOPT6kzg8ESiNVkAZr1h/view?usp=sharing) :microphone:[Presentation](https://drive.google.com/file/d/1LEiyBAhnahO3JV_hn3iLqF7BJafw2TFf/view?usp=sharing)
 
 <br>
 
@@ -39,7 +39,7 @@
 
 
 
-## :mag: Project Requirements
+## :mag: 서비스 기능
 
 <center>
     <img src="./README.assets/requirements.png" alt="MODU"  align="center"/>
@@ -47,7 +47,7 @@
 
 ## :mag: Overview
 
-### User Login Page
+### 1. 유저 로그인 페이지 (User Login Page) (소셜로그인)
 
 <center>
     <img src="./README.assets/1.png" alt="MODU"/>
@@ -55,7 +55,7 @@
 
 <br>
 
-### Trainer - Client Chatting
+### 2. 트레이너-고객 실시간채팅 Trainer - Client Chatting 
 
 <center>
     <img src="./README.assets/2.png" alt="MODU"/>
@@ -63,23 +63,21 @@
 
 <br>
 
-### Best Trainer - Best Program Carousel
+### 3. 트레이너-프로그램 추천 시스템 (Best Trainer/Program Carousel)
 
 <center>
     <img src="./README.assets/3.png" alt="MODU"/>
 </center>
-
 <br>
 
-### Multiple User WebRTC(Realtime Camera) Online Personal Training
+### 4. 다중 화상통화 기능활용 온라인 홈트레이닝 세션 (Multiple User WebRTC(Realtime Camera) Online Personal Training)
 
 <center>
     <img src="./README.assets/4.png" alt="MODU"/>
 </center>
-
 <br>
 
-### Schedule managment
+### 5. 달력 기능과 연동한 스케쥴 관리(Schedule managment)
 
 <center>
     <img src="./README.assets/5.png" alt="MODU"/>
@@ -87,7 +85,7 @@
 
 <br>
 
-### PT Program & Client management
+### 6. 트레이너의 PT관리 CRUD(PT Program & Client management)
 
 <center>
     <img src="./README.assets/6.png" alt="MODU"/>
@@ -95,7 +93,7 @@
 
 <br>
 
-### PT Program CRUD
+### 7. PT프로그램 디테일 CRUD(PT Program CRUD)
 
 <center>
     <img src="./README.assets/7.png" alt="MODU"/>
@@ -103,13 +101,15 @@
 
 <br>
 
-### Client Payment System
+### 8. 결제시스템 (카카오 페이 결제) Client Payment System
 
 <center>
     <img src="./README.assets/8.png" alt="MODU"/>
 </center>
 
 <br>
+
+### 9. 실시간 알림 & 프로그램 리뷰 & 예약 시스템
 
 ### Realtime Notification & Review & Reservation System
 
@@ -184,7 +184,7 @@ Frontend : 🦁 **Roh Hyunsuk**
 
 ## :trophy: Awards
 
-- SSAFY 자율 프로젝트 우수팀 선정
+- SSAFY 자율 프로젝트 우수팀 선정 및 부상 100만원 수상
 
 ![Award](./README.assets/MODU.jpg)
 
