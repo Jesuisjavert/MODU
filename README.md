@@ -52,21 +52,15 @@
 <center>
     <img src="./README.assets/1.png" alt="MODU"/>
 </center>
-<br>
-
 Kakao API를 이용 소셜 로그인 (OAuth)
 
 <br>
-
-
 
 ### 2. 트레이너-고객 실시간채팅 Trainer - Client Chatting 
 
 <center>
     <img src="./README.assets/2.png" alt="MODU"/>
 </center>
-<br>
-
 Node.js (Express Framework) 서버 Socket.io 통신으로 1:1 채팅 기능 구현
 
 <br>
