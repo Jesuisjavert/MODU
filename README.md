@@ -52,14 +52,22 @@
 <center>
     <img src="./README.assets/1.png" alt="MODU"/>
 </center>
+<br>
+
+Kakao API를 이용 소셜 로그인 (OAuth)
 
 <br>
+
+
 
 ### 2. 트레이너-고객 실시간채팅 Trainer - Client Chatting 
 
 <center>
     <img src="./README.assets/2.png" alt="MODU"/>
 </center>
+<br>
+
+Node.js (Express Framework) 서버 Socket.io 통신으로 1:1 채팅 기능 구현
 
 <br>
 
@@ -68,6 +76,8 @@
 <center>
     <img src="./README.assets/3.png" alt="MODU"/>
 </center>
+PT 프로그램 CRUD 기능 및 Carousel 화면 구성
+
 <br>
 
 ### 4. 다중 화상통화 기능활용 온라인 홈트레이닝 세션 (Multiple User WebRTC(Realtime Camera) Online Personal Training)
@@ -75,6 +85,8 @@
 <center>
     <img src="./README.assets/4.png" alt="MODU"/>
 </center>
+webRTC API 활용 실시간 다자간 영상채팅 기능
+
 <br>
 
 ### 5. 달력 기능과 연동한 스케쥴 관리(Schedule managment)
@@ -82,6 +94,7 @@
 <center>
     <img src="./README.assets/5.png" alt="MODU"/>
 </center>
+달력 페이지와 트레이너의 PT 프로그램 일정 및 시간 연동 CRUD & My Profile Page
 
 <br>
 
@@ -90,6 +103,7 @@
 <center>
     <img src="./README.assets/6.png" alt="MODU"/>
 </center>
+관리 중인 PT 프로그램과 회원 관리  My Page
 
 <br>
 
@@ -98,6 +112,7 @@
 <center>
     <img src="./README.assets/7.png" alt="MODU"/>
 </center>
+PT Program 등록 CRUD (일정별 시간 관리)
 
 <br>
 
@@ -106,6 +121,7 @@
 <center>
     <img src="./README.assets/8.png" alt="MODU"/>
 </center>
+KakaoPay API 활용 PT 프로그램 결제 시스템, 결제 이후 캘린더로 일정 동기화
 
 <br>
 
@@ -116,6 +132,7 @@
 <center>
     <img src="./README.assets/9.png" alt="MODU"/>
 </center>
+트레이너와 회원간의 실시간 알림 기능 - Program별 리뷰 및 후기 댓글 기능
 
 <br>
 
